@@ -8,7 +8,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-
+use Illuminate\Support\Facades\File;
 
 class Categories extends Component
 {
@@ -61,13 +61,17 @@ class Categories extends Component
             // 'arrangement' => 'nullable'
         ]);
 
-        $result = $data['image_url']->storeOnCloudinary();
+        // $result = $data['image_url']->storeOnCloudinary();
+
+        if($data['image_url']){
+            $image = $data['image_url']->store('/','categories');
+        }
 
         Category::create([
             'name' => $data['name'],
             'description' => $data['description'],
-            'image_url' => $result->getSecurePath(),
-            'image_id' => $result->getPublicId(),
+            'image_url' => asset('storage/categories/' . $image),
+            'image_id' => $image,
             'arrangement' => $this->arrangement != null ? $this->arrangement : 1
         ]);
 
@@ -87,6 +91,8 @@ class Categories extends Component
     public function update()
     {
 
+        // dd(explode('/' ,$this->image_url_preview)[5]);
+
         $category = Category::find($this->ids);
 
         $data = $this->validate([
@@ -100,18 +106,26 @@ class Categories extends Component
                 'name' => $data['name'],
                 'description' => $data['description'],
                 'arrangement' => $this->arrangement != null ? $this->arrangement : 1
-
             ]);
         } else {
-            $result = $data['image_url']->storeOnCloudinary();
+            if (File::exists(public_path('storage/categories/'.explode('/' ,$this->image_url_preview)[5]))) {
+                File::delete(public_path('storage/categories/'.explode('/' ,$this->image_url_preview)[5]));
+            }
+
+            if($data['image_url']){
+                $image = $data['image_url']->store('/','categories');
+            }
+
+            $this->image_url_preview='';
+
+
 
             $category->update([
                 'name' => $data['name'],
                 'description' => $data['description'],
-                'image_url' => $result->getSecurePath(),
-                'image_id' => $result->getPublicId(),
+                'image_url' => asset('storage/categories/'.$image),
+                'image_id' => $image,
                 'arrangement' => $this->arrangement != null ? $this->arrangement : 1
-
             ]);
         }
 
@@ -120,30 +134,21 @@ class Categories extends Component
         $this->dispatchBrowserEvent('hide-update-modal', ['message' => 'تم التعديل بنجاح']);
     } //end update fucntion
 
-    public function setDeleteId($id)
-    {
-        $this->ids = $id;
-    } //end set fucntion
 
     public function destroy()
     {
-        Category::whereIn('id', $this->selectedRows)->delete();
+        Category::whereIn('id', $this->selectedRows)->each(function($q){
+            if (File::exists(public_path('storage/categories/'.$q->image_id))) {
+                File::delete(public_path('storage/categories/'.$q->image_id));
+            }
+
+            $q->delete();
+        });
+        $this->reset(['checked']);
 
         return $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم الحذف بنجاح']);
     }
 
-    public function delete()
-    {
-
-        $category = Category::find($this->ids);
-
-
-        Cloudinary::destroy($category->image_id);
-
-        $category->delete();
-
-        $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم الحذف بنجاح']);
-    }
 
     public function updatedChecked($value)
     {
