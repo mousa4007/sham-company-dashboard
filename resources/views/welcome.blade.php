@@ -16,7 +16,7 @@
 
 <body class="block">
     <div class="block__cell">
-        <a href="/home" class="btn--activate" id="btnActivation">
+        <a href="/home" class="btn-custom btn--activate" id="btnActivation">
             <span class="btn__icon"></span>
              <span class="btn__text" data-wait="جار التحميل" data-after="تم التحميل">تسجيل الدخول</span>
         </a>

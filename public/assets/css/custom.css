@@ -126,7 +126,7 @@ html {
 
 }
 
-.btn .btn__icon:before {
+.btn-custom .btn__icon:before {
     content: '';
     left: 0px;
     top: 0px;
@@ -148,7 +148,7 @@ html {
 
 }
 
-.btn .btn__icon:after {
+.btn-custom .btn__icon:after {
     content: '';
     top: 0px;
     left: 0px;
@@ -192,6 +192,27 @@ html {
 .btn--waiting .btn__icon {
     background-color: transparent;
 }
+
+.btn-custom {
+    text-decoration: none;
+    line-height: 46px;
+    padding: 0 30px 0 55px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    background-color: #319bef;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 23px;
+    font-size: 16px;
+    transition:  all 0.5s linear;
+    -o-transition:  all 0.5s linear;
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s ease;
+  overflow: hidden;
+}
+
+
 
 /*.btn--waiting .btn__icon:before{
   width:20px;
