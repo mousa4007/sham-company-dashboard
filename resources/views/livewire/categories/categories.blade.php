@@ -5,7 +5,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/home">الرئيسية</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">الأقسام</li>
+                    <li class="breadcrumb-item active" aria-current="page">qwlelrkqwjjr</li>
                 </ol>
             </nav>
         </div>
@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="buttons m-3">
                     <a href="#" class="btn btn-primary btn-sm m-0 mx-1" wire:click.prevent='resetData'
-                        data-bs-toggle="modal" data-bs-target="#createCategoryModal">إضافة</a>
+                        data-bs-toggle="modal" data-bs-target="#createCategoryModal">rqwerlwjkh</a>
                     <a href="#" class="btn btn-danger btn-sm m-0 mx-1" data-bs-toggle="modal"
                         data-bs-target="#deleteCategoryModal">حذف</a>
                     <a href="#" class="btn btn-success btn-sm m-0 mx-1" wire:click='activate'>تفعيل</a>
