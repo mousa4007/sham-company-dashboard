@@ -61,7 +61,7 @@
                                     <th>الوصف</th>
                                     <th>الصورة</th>
                                     <th>الحالة</th>
-                                    <th>عمليات</th>
+                                    <th>asldkfjasldjflasjlfiqwpfjfjoq fqw09efy-349</th>
                                 </tr>
                             </thead>
                             <tbody>
