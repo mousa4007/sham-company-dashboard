@@ -3,11 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
-use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\File;
 
 class Categories extends Component
@@ -58,7 +56,6 @@ class Categories extends Component
             'name' => 'required|string',
             'image_url' => 'required',
             'description' => 'required',
-            // 'arrangement' => 'nullable'
         ]);
 
         // $result = $data['image_url']->storeOnCloudinary();
@@ -116,7 +113,7 @@ class Categories extends Component
                 $image = $data['image_url']->store('/','categories');
             }
 
-            $this->image_url_preview='';
+    
 
 
 
@@ -144,6 +141,7 @@ class Categories extends Component
 
             $q->delete();
         });
+        $this->image_url_preview='';
         $this->reset(['checked']);
 
         return $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم الحذف بنجاح']);

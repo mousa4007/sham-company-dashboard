@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\DiscountException;
 use App\Models\Product;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -70,12 +71,14 @@ class Products extends Component
     {
         $data = $this->validate();
 
-        $result = $data['image_url']->storeOnCloudinary();
+           if($data['image_url']){
+            $image = $data['image_url']->store('/','products');
+        }
 
         $product = Product::create([
             'name' => $data['name'],
-            'image_url' => $result->getSecurePath(),
-            'image_id' => $result->getPublicId(),
+            'image_url' => asset('storage/products/'.$image),
+            'image_id' => $image,
             // 'price' => $data['price'],
             'category_id' => $data['category_id'],
             'arrangement' => $this->arrangement != '' ? $this->arrangement : 1,
@@ -131,13 +134,17 @@ class Products extends Component
             ]);
         } else {
 
-            $result = $data['image_url']->storeOnCloudinary();
+            if (File::exists(public_path('storage/products/'.explode('/' ,$this->image_url_preview)[5]))) {
+                File::delete(public_path('storage/products/'.explode('/' ,$this->image_url_preview)[5]));
+            }
 
+            if($data['image_url']){
+                $image = $data['image_url']->store('/','products');
+            }
             $product->update([
                 'name' => $data['name'],
-                'image_url' => $result->getSecurePath(),
-                'image_id' => $result->getPublicId(),
-                // 'price' => $data['price'],
+                'image_url' => asset('storage/products/'.$image),
+                'image_id' => $image,
                 'category_id' => $data['category_id'],
                 'description' => $data['description'],
                 'currency' => $data['currency'],
@@ -149,26 +156,20 @@ class Products extends Component
         $this->dispatchBrowserEvent('hide-update-modal', ['message' => 'تم التعديل بنجاح']);
     } //end update fucntion
 
-    public function confirmProductRemoval($id)
-    {
-        $this->ids = $id;
-    } //end confirmProductRemoval fucntion
 
-    public function delete()
-    {
-
-        $product = Product::find($this->ids);
-
-        Cloudinary::destroy($product->image_id);
-
-        $product->delete();
-
-        $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم الحذف بنجاح']);
-    } //end delete function
 
     public function destroy()
     {
-        Product::whereIn('id', $this->selectedRows)->delete();
+        Product::whereIn('id', $this->selectedRows)->each(function($q){
+            if (File::exists(public_path('storage/products/'.$q->image_id))) {
+                File::delete(public_path('storage/products/'.$q->image_id));
+            }
+
+            $q->delete();
+        });
+        $this->image_url_preview = '';
+
+        $this->reset(['checked']);
 
         return $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم الحذف بنجاح']);
     }
