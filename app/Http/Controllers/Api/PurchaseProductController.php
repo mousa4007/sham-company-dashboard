@@ -42,6 +42,8 @@ class PurchaseProductController extends Controller
         //get authenticated user
         $user = $request->user();
 
+        return $user->balance;
+
         //find the product from id
         $product = Product::find($request->product_id);
 
