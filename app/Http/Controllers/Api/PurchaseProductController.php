@@ -89,7 +89,7 @@ class PurchaseProductController extends Controller
             }
 
             $user->update([
-                'balance' => $user->balance - $product->price * $quantity
+                'balance' => $user->balance - $product->sell_price * $quantity
             ]);
 
             dd($user->balance);
