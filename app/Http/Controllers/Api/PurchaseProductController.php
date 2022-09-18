@@ -70,10 +70,13 @@ class PurchaseProductController extends Controller
             $orders = $product->stockedProduct->where('selled',false)->take($quantity);
 
 
- return $orders;
+//  return $orders;
             // dd($orders);
 
             foreach ($orders as $order) {
+                $order->update(['selled'=>true]);
+
+                dd($order);
                 Order::create([
                     'app_user_id' => $user->id,
                     'product_id' => $order->product_id,
