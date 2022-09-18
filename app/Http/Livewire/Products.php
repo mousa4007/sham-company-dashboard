@@ -182,7 +182,7 @@ class Products extends Component
         }
     }
 
-    public function getProductsProperty()
+    public function getStockedProductsProperty()
     {
         if ($this->from) {
             return Product::where('is_direct', false)
@@ -195,6 +195,42 @@ class Products extends Component
         } else {
             return Product::where('is_direct', false)
                 ->where(function ($q) {
+                    $q->where('name', 'like', '%' . $this->searchTerm . '%')
+                        ->orWhere('sell_price', 'like', '%' . $this->searchTerm . '%');
+                })->latest()->paginate($this->paginateNumber);
+        }
+    }
+
+    public function getDirectProductsProperty()
+    {
+        if ($this->from) {
+            return Product::where('is_direct', false)
+                ->whereDate('created_at', '>=', $this->from)
+                ->whereDate('created_at', '<=', $this->to)
+                ->where(function ($q) {
+                    $q->where('name', 'like', '%' . $this->searchTerm . '%')
+                        ->orWhere('sell_price', 'like', '%' . $this->searchTerm . '%');
+                })->latest()->paginate($this->paginateNumber);
+        } else {
+            return Product::where('is_direct', false)
+                ->where(function ($q) {
+                    $q->where('name', 'like', '%' . $this->searchTerm . '%')
+                        ->orWhere('sell_price', 'like', '%' . $this->searchTerm . '%');
+                })->latest()->paginate($this->paginateNumber);
+        }
+    }
+
+    public function getProductsProperty()
+    {
+        if ($this->from) {
+            return Product::whereDate('created_at', '>=', $this->from)
+                ->whereDate('created_at', '<=', $this->to)
+                ->where(function ($q) {
+                    $q->where('name', 'like', '%' . $this->searchTerm . '%')
+                        ->orWhere('sell_price', 'like', '%' . $this->searchTerm . '%');
+                })->latest()->paginate($this->paginateNumber);
+        } else {
+            return Product::where(function ($q) {
                     $q->where('name', 'like', '%' . $this->searchTerm . '%')
                         ->orWhere('sell_price', 'like', '%' . $this->searchTerm . '%');
                 })->latest()->paginate($this->paginateNumber);
