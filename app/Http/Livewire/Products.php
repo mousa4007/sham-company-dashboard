@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Category;
 use App\Models\DiscountException;
 use App\Models\Product;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Livewire\WithFileUploads;

@@ -58,7 +58,6 @@ class Categories extends Component
             'description' => 'required',
         ]);
 
-        // $result = $data['image_url']->storeOnCloudinary();
 
         if($data['image_url']){
             $image = $data['image_url']->store('/','categories');
@@ -112,9 +111,6 @@ class Categories extends Component
             if($data['image_url']){
                 $image = $data['image_url']->store('/','categories');
             }
-
-    
-
 
 
             $category->update([
