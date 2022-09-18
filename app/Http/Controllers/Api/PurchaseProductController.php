@@ -85,7 +85,7 @@ class PurchaseProductController extends Controller
                     'product' => $order->product_item,
                     'product_id' => $order->product_id,
                 ]);
-                $order->delete();
+                // $order->delete();
             }
 
             $user->update([
