@@ -42,13 +42,13 @@ class PurchaseProductController extends Controller
         //get authenticated user
         $user = $request->user();
 
-        // return $user->balance;
-
         //find the product from id
         $product = Product::find($request->product_id);
 
         //get product items count
-        $productCount = $product->stockedProduct->count();
+        $productCount = $product->where('selled',false)->count();
+
+        dd($productCount);
 
 
         //request quantity
@@ -92,7 +92,6 @@ class PurchaseProductController extends Controller
                 'balance' => $user->balance - $product->sell_price * $quantity
             ]);
 
-            dd($user->balance);
 
             // return $orders;
 
