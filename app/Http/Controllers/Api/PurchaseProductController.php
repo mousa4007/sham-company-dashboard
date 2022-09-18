@@ -48,8 +48,6 @@ class PurchaseProductController extends Controller
         //get product items count
         $productCount = $product->stockedProduct->where('selled',false)->count();
 
-
-
         //request quantity
         $quantity = $request->quantity;
 

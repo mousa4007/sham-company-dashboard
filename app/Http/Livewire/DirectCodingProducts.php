@@ -57,7 +57,7 @@ class DirectCodingProducts extends Component
             [
                 'products' => $this->direct_coding_product,
 
-                'products' => Category::latest()->get()
+                'categories' => Category::latest()->get()
             ]
         );
     } //end render

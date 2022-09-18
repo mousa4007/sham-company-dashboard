@@ -100,7 +100,7 @@
                                             <button type="button"class="btn btn-sm btn-info" data-bs-toggle="modal"
                                                 data-bs-target="#showStockedProductModal"
                                                 wire:click='setData({{ $item }})'>
-                                                تعديل
+                                                <i class="bi-pencil-square"></i>
                                             </button>
                                         </td>
                                     </tr>
