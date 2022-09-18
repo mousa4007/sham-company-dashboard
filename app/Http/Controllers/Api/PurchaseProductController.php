@@ -46,9 +46,8 @@ class PurchaseProductController extends Controller
         $product = Product::find($request->product_id);
 
         //get product items count
-        $productCount = $product->where('selled',false)->count();
+        $productCount = $product->stockedProduct->where('selled',false)->count();
 
-        dd($productCount);
 
 
         //request quantity
