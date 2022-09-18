@@ -42,7 +42,7 @@ class PurchaseProductController extends Controller
         //get authenticated user
         $user = $request->user();
 
-        return $user->balance;
+        // return $user->balance;
 
         //find the product from id
         $product = Product::find($request->product_id);
@@ -64,7 +64,7 @@ class PurchaseProductController extends Controller
             return 'must_be_greater_than_0';
         } elseif ($quantity > $productCount) {
             return 'low_qunatity';
-        } elseif ($user->balance < $product->price * $quantity) {
+        } elseif ($user->balance < $product->sell_price * $quantity) {
             return 'credit_low';
         } else {
             $orders = $product->stockedProduct->take($quantity);
