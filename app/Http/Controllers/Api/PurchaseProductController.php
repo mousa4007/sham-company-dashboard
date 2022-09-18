@@ -67,8 +67,10 @@ class PurchaseProductController extends Controller
         } elseif ($user->balance < $product->sell_price * $quantity) {
             return 'credit_low';
         } else {
-            $orders = $product->stockedProduct->take($quantity);
+            $orders = $product->stockedProduct->where('selled',false)->take($quantity);
 
+
+ return $orders;
             // dd($orders);
 
             foreach ($orders as $order) {
