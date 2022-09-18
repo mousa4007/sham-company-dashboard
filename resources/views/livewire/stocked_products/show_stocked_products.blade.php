@@ -33,6 +33,7 @@
                                     <th> المنتج المخزون</th>
                                     <th> المنتج</th>
                                     <th>الحالة</th>
+                                    <th>مباع</th>
                                 </thead>
 
 
@@ -47,6 +48,7 @@
                                             <td>{{ $product['product_item'] }}</td>
                                             <td>{{ $productList->find($product['product_id'])->name }}</td>
                                             <td>{{ $product['status'] == 'active' ? 'مفعل' : 'معطل' }}</td>
+                                            <td>{{ $product['selled'] == true ? 'مباع' : 'غير مباع' }}</td>
                                         </tr>
                                     @empty
                                         @include('components.not-found')

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products');
             $table->string('product_item');
             $table->string('status')->default('active');
+            $table->boolean('selled')->default(false);
             $table->timestamps();
         });
     }

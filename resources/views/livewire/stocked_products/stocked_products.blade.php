@@ -75,11 +75,12 @@
                             <thead>
                                 <tr>
                                     <th><input wire:model='checked' type="checkbox" class="form-check-input"></th>
-                                    <th>رقم الدفعة</th>
+                                    <th> الدفعة</th>
                                     <th>العدد</th>
                                     <th>المنتح</th>
                                     <th>تاريخ الإضافة</th>
                                     <th>الحالة</th>
+
                                     <th>عمليات</th>
                                 </tr>
                             </thead>
@@ -90,7 +91,7 @@
                                         <td><input wire:model='selectedRows' value="{{ $key }}" type="checkbox"
                                                 class="form-check-input">
                                         </td>
-                                        <td> الدفعة &nbsp; &nbsp;</td>
+                                        <td> دفعة {{ \Carbon\Carbon::parse($key)->format('d-m-Y') }}</td>
                                         <td>{{ count($item) }}</td>
                                         <td>{{ $productList->find($item->first()->product_id)->name }}</td>
                                         <td>{{ $key }}</td>

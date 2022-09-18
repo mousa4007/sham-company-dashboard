@@ -113,8 +113,8 @@ class PurchaseProductController extends Controller
                     ]);
                 }
             }
-            
-            return $order;
+
+            return 'success';
         }
     }
 
