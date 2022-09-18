@@ -92,6 +92,8 @@ class PurchaseProductController extends Controller
                 'balance' => $user->balance - $product->price * $quantity
             ]);
 
+            dd($user->balance);
+
             // return $orders;
 
             $exception = Discount::find($user->discount)->exceptions;
