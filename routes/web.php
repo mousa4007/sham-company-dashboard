@@ -23,6 +23,7 @@ use App\Http\Livewire\UpdateProductsDiscount;
 use App\Http\Livewire\UsersDiscounts;
 use App\Models\Agent;
 use App\Models\AppUser;
+use App\Models\Product;
 use App\Models\StockedProduct;
 use App\Models\User;
 use Carbon\Carbon;
@@ -66,9 +67,9 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__ . '/auth.php';
 
 
-Route::get('line', function (Request $request) {
+Route::get('prod', function () {
 
-    $pro = StockedProduct::all();
+    $prod = Product::all();
 
-    return $pro->where('product_item', '485734958')->first()->created_at;
+    return $prod;
 });

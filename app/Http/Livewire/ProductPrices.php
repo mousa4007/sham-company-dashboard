@@ -37,16 +37,14 @@ class ProductPrices extends Component
     public function getProductsProperty()
     {
         if ($this->from) {
-            return Product::where('is_direct', false)
-                ->whereDate('created_at', '>=', $this->from)
+            return Product::whereDate('created_at', '>=', $this->from)
                 ->whereDate('created_at', '<=', $this->to)
                 ->where(function ($q) {
                     $q->where('name', 'like', '%' . $this->searchTerm . '%')
                         ->orWhere('sell_price', 'like', '%' . $this->searchTerm . '%');
                 })->latest()->paginate($this->paginateNumber);
         } else {
-            return Product::where('is_direct', false)
-                ->where(function ($q) {
+            return Product::where(function ($q) {
                     $q->where('name', 'like', '%' . $this->searchTerm . '%')
                         ->orWhere('sell_price', 'like', '%' . $this->searchTerm . '%');
                 })->latest()->paginate($this->paginateNumber);
