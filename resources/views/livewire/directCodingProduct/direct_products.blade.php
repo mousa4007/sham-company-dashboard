@@ -51,8 +51,9 @@
 
                     </div>
                 </div>
-                {{-- @include('livewire.products.delete_product') --}}
+                @include('livewire.directCodingProduct.delete_direct_product')
                 @include('livewire.directCodingProduct.update_direct_product')
+
 
                 <div class="card-content">
                     <!-- table striped -->

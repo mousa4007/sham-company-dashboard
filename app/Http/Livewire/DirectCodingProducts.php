@@ -235,8 +235,12 @@ class DirectCodingProducts extends Component
 
             $q->delete();
         });
+
         $this->image_url_preview='';
         $this->reset(['checked']);
+
+        return $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم الحذف بنجاح']);
+
     }
 
     public function disable()

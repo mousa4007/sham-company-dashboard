@@ -71,7 +71,7 @@ class Categories extends Component
             'arrangement' => $this->arrangement != null ? $this->arrangement : 1
         ]);
 
-        $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم إضافة العميل بنجاح']);
+        $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم إضافة القسم بنجاح']);
     } //end store fucntion
 
     public function edit(Category $category)
