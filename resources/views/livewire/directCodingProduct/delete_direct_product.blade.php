@@ -20,7 +20,7 @@
                     <h4> هل أنت متأكد من حذف المنتج</h4>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                        <button type="button" class="btn btn-danger" wire:click.prevent='delete'>حذف</button>
+                        <button type="button" class="btn btn-danger" wire:click.prevent='destroy'>حذف</button>
                     </div>
                 </div>
             </div>
