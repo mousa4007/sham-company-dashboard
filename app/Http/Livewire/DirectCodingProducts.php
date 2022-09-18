@@ -228,7 +228,7 @@ class DirectCodingProducts extends Component
 
     public function destroy()
     {
-        DirectCodingProducts::whereIn('id', $this->selectedRows)->each(function($q){
+        Product::whereIn('id', $this->selectedRows)->each(function($q){
             if (File::exists(public_path('storage/products/'.$q->image_id))) {
                 File::delete(public_path('storage/products/'.$q->image_id));
             }
