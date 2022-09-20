@@ -69,6 +69,7 @@
                                             <option value="2">تركي</option>
                                         </select>
                                     </fieldset>
+                         
                                     @error('currency')
                                         <span class="text-danger d-block mt-2">{{ $message }}</span>
                                     @enderror
@@ -87,12 +88,11 @@
                                         <span class="text-danger d-block mt-2">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                {{-- direct product --}}
                                 <div class="col-md-4 mb-0">
                                     <div class="form-group has-icon-left">
                                         <label for="first-name-icon" class="d-block me-0 mb-2">كود البلد</label>
                                         <div class="position-relative">
-                                            <input wire:model.defer='country_number' type="text"
+                                            <input wire:model='country_number' type="text"
                                                 class="form-control @error('country_number') is-invalid @enderror"
                                                 placeholder="كود البلد" id="first-name-icon" required>
                                             <div class="form-control-icon">
@@ -108,7 +108,7 @@
                                     <div class="form-group has-icon-left">
                                         <label for="first-name-icon" class="d-block me-0 mb-2">رمز المنتج</label>
                                         <div class="position-relative">
-                                            <input wire:model.defer='service_code' type="text"
+                                            <input wire:model='service_code' type="text"
                                                 class="form-control @error('service_code') is-invalid @enderror"
                                                 placeholder="رمز المنتج" id="first-name-icon" required>
                                             <div class="form-control-icon">
@@ -124,7 +124,9 @@
                                     <label for="first-name-icon" class="d-block me-0 mb-2">الموقع</label>
                                     <fieldset class="form-group">
                                         <select wire:model='web_api' class="form-select" id="basicSelect">
-                                            <option value="sms-activate">sms-activate</option>
+                                            <option value="sms-activate">أكتيفيت sms-activate </option>
+                                            <option value="vak-sms">ڤاك vak-sms </option>
+                                            <option value="2ndLine">سكند لاين 2ndLine </option>
                                         </select>
                                     </fieldset>
                                     @error('web_api')
@@ -136,7 +138,7 @@
                                     <div class="form-group has-icon-left">
                                         <label for="first-name-icon" class="mb-2">الترتيب</label>
                                         <div class="position-relative">
-                                            <input wire:model.defer='arrangement' type="number"
+                                            <input wire:model='arrangement' type="number"
                                                 class="form-control @error('arrangement') is-invalid @enderror"
                                                 placeholder="الترتيب" id="first-name-icon" required>
                                             <div class="form-control-icon">

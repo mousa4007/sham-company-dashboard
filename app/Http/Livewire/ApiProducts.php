@@ -157,7 +157,7 @@ class ApiProducts extends Component
             'category_id' => 'required|integer',
             'image_url' => 'nullable',
             'description' => 'required',
-            'currency' => 'required'
+            'currency' => 'required',
         ]);
 
         $product = Product::find($this->ids);
@@ -165,11 +165,14 @@ class ApiProducts extends Component
         if ($data['image_url'] == null) {
             $product->update([
                 'name' => $data['name'],
-
                 'category_id' => $data['category_id'],
                 'description' => $data['description'],
                 'currency' => $data['currency'],
                 'arrangement' => $this->arrangement != '' ? $this->arrangement : 1,
+                'is_direct' => true,
+                'web_api' => $this->web_api,
+                'country_number' => $this->country_number,
+                'service_code' => $this->service_code
             ]);
         } else {
 
@@ -189,7 +192,11 @@ class ApiProducts extends Component
                 'description' => $data['description'],
                 'currency' => $data['currency'],
                 'arrangement' => !is_null($this->arrangement) ? $this->arrangement : 1,
-
+                'image_url' => asset('storage/products/'.$image),
+                'is_direct' => true,
+                'web_api' => $this->web_api,
+                'country_number' => $this->country_number,
+                'service_code' => $this->service_code
             ]);
         }
 
