@@ -73,9 +73,11 @@ class TransferProducts extends Component
     public function store()
     {
 
+
+
         $data = $this->validate();
 
-        // dd($data);
+        // dd($data['hintMessage']);
 
         if($data['image_url']){
             $image = $data['image_url']->store('/','products');

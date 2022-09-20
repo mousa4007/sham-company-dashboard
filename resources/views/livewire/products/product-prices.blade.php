@@ -88,9 +88,7 @@
                                                     <span style="color: white">✔</span>
                                                 </button>
                                             </div>
-
                                         </td>
-
                                     </tr>
                                 @endforeach
                             </tbody>

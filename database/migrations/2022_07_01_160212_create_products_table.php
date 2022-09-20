@@ -26,7 +26,7 @@ return new class extends Migration
             $table->boolean('is_direct')->nullable();
             $table->boolean('is_transfer')->nullable();
             $table->boolean('only_number')->nullable();
-            $table->boolean('hint_message')->nullable();
+            $table->string('hint_message')->nullable();
             $table->string('status')->default('active');
             $table->string('available')->default('available');
             $table->string('country_number')->nullable();
