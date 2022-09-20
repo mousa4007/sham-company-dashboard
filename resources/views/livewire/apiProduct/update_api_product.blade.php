@@ -12,7 +12,7 @@
                     <form class="form form-vertical">
                         <div class="form-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group has-icon-left">
                                         <label for="first-name-icon" class="mb-2">الاسم</label>
                                         <div class="position-relative">
@@ -28,8 +28,8 @@
                                         @enderror
                                     </div>
                                 </div>
-
-                                <div class="col-md-6">
+{{--
+                                <div class="col-md-12">
                                     <div class="form-group has-icon-left">
                                         <label for="first-name-icon" class="mb-2">السعر</label>
                                         <div class="position-relative">
@@ -44,7 +44,9 @@
                                             <span class="text-danger d-block mt-2">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>
+
+                                </div> --}}
+
                                 <div class="col-md-12">
                                     <div class="form-group ">
                                         <label for="first-name-icon" class="mb-2">تفاصيل المنتج</label>

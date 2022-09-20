@@ -10,7 +10,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-class DirectCodingProducts extends Component
+class ApiProducts extends Component
 {
     use WithPagination;
     use WithFileUploads;
@@ -53,7 +53,7 @@ class DirectCodingProducts extends Component
     public function render()
     {
         return view(
-            'livewire.directCodingProduct.direct_products',
+            'livewire.apiProduct.api_products',
             [
                 'products' => $this->direct_coding_product,
 
@@ -154,7 +154,6 @@ class DirectCodingProducts extends Component
     {
         $data = $this->validate([
             'name' => 'required|string',
-            'price' => 'required',
             'category_id' => 'required|integer',
             'image_url' => 'nullable',
             'description' => 'required',
@@ -166,7 +165,7 @@ class DirectCodingProducts extends Component
         if ($data['image_url'] == null) {
             $product->update([
                 'name' => $data['name'],
-                'price' => $data['price'],
+
                 'category_id' => $data['category_id'],
                 'description' => $data['description'],
                 'currency' => $data['currency'],
@@ -186,7 +185,6 @@ class DirectCodingProducts extends Component
                 'name' => $data['name'],
                 'image_url' => asset('storage/products/'.$image),
                 'image_id' => $image,
-                'price' => $data['price'],
                 'category_id' => $data['category_id'],
                 'description' => $data['description'],
                 'currency' => $data['currency'],

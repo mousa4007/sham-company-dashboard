@@ -126,7 +126,7 @@
                                 <span>المنتجات</span>
                             </a>
                             <ul
-                                class="submenu {{ request()->is('products') || request()->is('stockedProducts') || request()->is('DirectCodingProducts') || request()->is('transferProducts') ? 'active' : '' }}">
+                                class="submenu {{ request()->is('products') || request()->is('stockedProducts') || request()->is('api-products') || request()->is('transferProducts') ? 'active' : '' }}">
                                 <li class="submenu-item  ">
                                     <a href="/products"
                                         class="sidebar-link {{ request()->is('products') ? 'text-success' : '' }}">
@@ -144,10 +144,10 @@
                                     </a>
                                 </li>
                                 <li class="submenu-item  ">
-                                    <a href="/DirectCodingProducts"
-                                        class="sidebar-link {{ request()->is('DirectCodingProducts') ? 'text-success' : '' }}">
+                                    <a href="/api-products"
+                                        class="sidebar-link {{ request()->is('api-products') ? 'text-success' : '' }}">
                                         <i
-                                            class="bi bi-lightning-fill {{ request()->is('DirectCodingProducts') ? 'text-success' : '' }}"></i>
+                                            class="bi bi-lightning-fill {{ request()->is('api-products') ? 'text-success' : '' }}"></i>
                                         <span>منتجات الـapi</span>
                                     </a>
                                 </li>

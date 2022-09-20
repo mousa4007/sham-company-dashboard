@@ -46,13 +46,13 @@
                         </div>
                     </div>
                     <div class="d-flex">
-                        @include('livewire.directCodingProduct.update_api_key')
-                        @include('livewire.directCodingProduct.create_direct_product')
+                        @include('livewire.apiProduct.update_api_key')
+                        @include('livewire.apiProduct.create_api_product')
 
                     </div>
                 </div>
-                @include('livewire.directCodingProduct.delete_direct_product')
-                @include('livewire.directCodingProduct.update_direct_product')
+                @include('livewire.apiProduct.delete_api_product')
+                @include('livewire.apiProduct.update_api_product')
 
 
                 <div class="card-content">

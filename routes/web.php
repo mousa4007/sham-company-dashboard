@@ -5,7 +5,7 @@ use App\Http\Livewire\Agents;
 use App\Http\Livewire\AppUsers;
 use App\Http\Livewire\Categories;
 use App\Http\Livewire\ChargeBalance;
-use App\Http\Livewire\DirectCodingProducts;
+use App\Http\Livewire\ApiProducts;
 use App\Http\Livewire\Discounts;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Notifications;
@@ -56,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/usersDiscounts', UsersDiscounts::class);
     Route::get('/productsDiscounts', ProductsDiscounts::class);
     Route::get('/updateProductsDiscounts', UpdateProductsDiscount::class);
-    Route::get('/DirectCodingProducts', DirectCodingProducts::class);
+    Route::get('/api-products', ApiProducts::class);
     Route::get('/sales', Sales::class);
     Route::get('/returns', Returns::class);
 

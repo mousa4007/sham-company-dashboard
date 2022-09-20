@@ -52,7 +52,7 @@ class TransferProducts extends Component
             [
                 'products' => $this->products,
 
-                'products' => Category::latest()->get()
+                'categories' => Category::latest()->get()
             ]
         );
     }
