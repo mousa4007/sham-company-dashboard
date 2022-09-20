@@ -75,6 +75,8 @@ class TransferProducts extends Component
 
         $data = $this->validate();
 
+        // dd($data);
+
         if($data['image_url']){
             $image = $data['image_url']->store('/','products');
         }
@@ -169,13 +171,16 @@ class TransferProducts extends Component
 
     public function destroy()
     {
-        TransferProduct::whereIn('id', $this->selectedRows)->each(function($q){
+
+
+        Product::whereIn('id', $this->selectedRows)->each(function($q){
             if (File::exists(public_path('storage/products/'.$q->image_id))) {
                 File::delete(public_path('storage/products/'.$q->image_id));
             }
 
             $q->delete();
         });
+
         $this->image_url_preview='';
         $this->reset(['checked']);
 
