@@ -96,7 +96,7 @@
                             </tbody>
                         </table>
                         <div class="my-3">
-                            {{-- {{ $products->links() }} --}}
+                            {{ $products->links() }}
                         </div>
                     </div>
                 </div>
