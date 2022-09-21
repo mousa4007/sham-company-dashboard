@@ -154,9 +154,9 @@ class PurchaseProductController extends Controller
             ]);
             return response()->json(true);
         } else if ($request->user()->balance <= $request->amount) {
-            return response()->json('not_enough_balance');
+            return 'not_enough_balance';
         } else {
-            return response()->json('error_occured');
+            return 'error_occured';
         }
     }
 }
