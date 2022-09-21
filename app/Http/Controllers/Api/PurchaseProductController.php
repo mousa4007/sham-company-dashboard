@@ -136,7 +136,7 @@ class PurchaseProductController extends Controller
 
         return $user->balance;
     }
-
+ 
     public function createTransferProduct(Request $request)
     {
         $request->validate([
