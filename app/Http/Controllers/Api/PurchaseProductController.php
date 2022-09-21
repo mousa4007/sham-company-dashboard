@@ -47,7 +47,7 @@ class PurchaseProductController extends Controller
         $product = Product::find($request->product_id);
 
         //get product items count
-        $productCount = $product->stockedProduct->where('selled',false)->count();
+        $productCount = $product->stockedProduct->where('selled', false)->count();
 
         //request quantity
         $quantity = $request->quantity;
@@ -65,11 +65,11 @@ class PurchaseProductController extends Controller
         } elseif ($user->balance < $product->sell_price * $quantity) {
             return 'credit_low';
         } else {
-            $orders = $product->stockedProduct->where('selled',false)->take($quantity);
+            $orders = $product->stockedProduct->where('selled', false)->take($quantity);
 
             foreach ($orders as $order) {
 
-                $order->update(['selled'=>true]);
+                $order->update(['selled' => true]);
 
                 // dd($order);
 
@@ -136,23 +136,27 @@ class PurchaseProductController extends Controller
 
         return $user->balance;
     }
- 
+
     public function createTransferProduct(Request $request)
     {
         $request->validate([
             'amount' => 'required',
             'address' => 'required',
-            // 'app_user_id' => 'required',
             'product_id' => 'required',
         ]);
 
-        TransferProduct::create([
-            'amount' => $request->amount,
-            'address' => $request->address,
-            'product_id' => $request->product_id,
-            'app_user_id' => $request->user()->id,
-        ]);
-
-        return response()->json(true);
+        if ($request->user()->balance >= $request->amount) {
+            TransferProduct::create([
+                'amount' => $request->amount,
+                'address' => $request->address,
+                'product_id' => $request->product_id,
+                'app_user_id' => $request->user()->id,
+            ]);
+            return response()->json(true);
+        } else if ($request->user()->balance <= $request->amount) {
+            return response()->json('not_enough_balance');
+        } else {
+            return response()->json('error_occured');
+        }
     }
 }
