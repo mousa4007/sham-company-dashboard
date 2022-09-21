@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class ReturnsController extends Controller
 {
-
     public function createReturns(Request $request)
     {
         $request->validate([

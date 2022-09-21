@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Profit;
 use App\Models\Sale;
+use App\Models\TransferProduct;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -134,5 +135,24 @@ class PurchaseProductController extends Controller
         ]);
 
         return $user->balance;
+    }
+
+    public function createTransferProduct(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required',
+            'address' => 'required',
+            // 'app_user_id' => 'required',
+            'product_id' => 'required',
+        ]);
+
+        TransferProduct::create([
+            'amount' => $request->amount,
+            'address' => $request->address,
+            'product_id' => $request->product_id,
+            'app_user_id' => $request->user()->id,
+        ]);
+
+        return response()->json(true);
     }
 }

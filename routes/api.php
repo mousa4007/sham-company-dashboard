@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('messages', [MessageController::class, 'messages']);
     Route::get('notifications', [NotificationController::class, 'notifications']);
     Route::post('addAppUserFcmTokenKey', [NotificationController::class, 'addAppUserFcmTokenKey']);
+    Route::post('create-transfer-product', [PurchaseProductController::class, 'createTransferProduct']);
 });
 
 
