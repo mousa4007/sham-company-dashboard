@@ -25,6 +25,6 @@ class Order extends Model
 
     public function getUpdatedAtAttribute($value)
     {
-        return Carbon::parse($value)->diffForHumans();
+        return Carbon::parse($value)->format('m-d-Y');
     }
 }
