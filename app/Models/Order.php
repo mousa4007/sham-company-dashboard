@@ -20,7 +20,8 @@ class Order extends Model
     public function getCreatedAtAttribute($value)
     {
         // return Carbon::parse($value)->diffForHumans();
-        return Carbon::parse($value)->diffInHours();
+        return Carbon::parse($value)->format('m-d-Y');
+
     }
 
     public function getUpdatedAtAttribute($value)
