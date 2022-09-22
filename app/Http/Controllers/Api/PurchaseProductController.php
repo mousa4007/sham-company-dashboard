@@ -67,7 +67,14 @@ class PurchaseProductController extends Controller
         } else {
             $orders = $product->stockedProduct->where('selled', false)->take($quantity);
 
+
+
+
             foreach ($orders as $order) {
+
+            //     dd(
+            //         Product::find($order->product_id)->name
+            //    );
 
                 $order->update(['selled' => true]);
 
@@ -76,6 +83,7 @@ class PurchaseProductController extends Controller
                 Order::create([
                     'app_user_id' => $user->id,
                     'product_id' => $order->product_id,
+                    'product_name' => Product::find($order->product_id)->name,
                     'product' => $order->product_item,
                 ]);
 
