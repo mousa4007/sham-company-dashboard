@@ -114,7 +114,7 @@ class AppUsers extends Component
         $this->email = $appUser->email;
         $this->phone = $appUser->phone;
         $this->address = $appUser->address;
-        $this->password = $appUser->password;
+        // $this->password = $appUser->password;
         $this->discount = $appUser->discount;
         $this->permission = $appUser->hasRole('super-user') ? 1 : 2;
         $this->orders = count($appUser->orders);
