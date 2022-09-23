@@ -40,45 +40,41 @@ class AgentController extends Controller
     public function store(Request $request)
     {
         if ($request->user()->hasRole('super-user')) {
-
-                if ($request->user()->balance > $request->balance) {
-
-                    $request->validate([
-                        'name' => 'required',
-                        'email' => 'required|email|unique:agents,email',
-                        'password' => 'required|min:6',
-                        'phone' => 'required',
-                        'address' => 'required',
-                    ]);
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email|unique:agents,email',
+                'password' => 'required|min:6',
+                'phone' => 'required',
+                'address' => 'required',
+            ]);
 
 
-                    $agent = Agent::create([
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'phone' => $request->phone,
-                        'address' => $request->address,
-                        'password' => Hash::make($request->password),
-                        'app_user_id' => $request->user()->id,
-                    ]);
 
-                    $appUser = AppUser::create([
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'phone' => $request->phone,
-                        'address' => $request->address,
-                        'password' => Hash::make($request->password),
-                        'agent_id' => $agent->id
-                    ]);
+            $agent = Agent::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'password' => Hash::make($request->password),
+                'app_user_id' => $request->user()->id,
+            ]);
 
-                    $appUser->syncRoles(['agent']);
+            $appUser = AppUser::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'password' => Hash::make($request->password),
+                'agent_id' => $agent->id
+            ]);
 
-                    // $request->user()->update([
-                    //     'balance' => $request->user()->balance - $request->balance
-                    // ]);
+            $appUser->syncRoles(['agent']);
 
-                    return response()->json(['success' => true, 'agent' => $agent]);
+            // $request->user()->update([
+            //     'balance' => $request->user()->balance - $request->balance
+            // ]);
 
-            }
+            return response()->json(['success' => true, 'agent' => $agent]);
         } else {
             return 'no_permission';
         }
