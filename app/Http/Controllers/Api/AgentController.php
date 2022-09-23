@@ -74,7 +74,7 @@ class AgentController extends Controller
             //     'balance' => $request->user()->balance - $request->balance
             // ]);
 
-            return response()->json(['success' => true, 'agent' => $agent]);
+            return 'success';
         } else {
             return 'no_permission';
         }
