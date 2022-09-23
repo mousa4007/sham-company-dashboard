@@ -128,7 +128,7 @@ class AppUsers extends Component
         $data = $this->validate([
             'name' => 'required|string|min:4',
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'min:6|nullable',
             'permission' => 'required',
             'phone' => 'required',
             'address' => 'required',
@@ -141,8 +141,13 @@ class AppUsers extends Component
             'phone' => $data['phone'],
             'address' => $data['address'],
             'discount' => $data['discount'],
-            'password' => Hash::make($data['password']),
         ]);
+
+        if($data['password'] != null){
+            $appUser->update([
+                'password' =>  Hash::make($data['password']),
+            ]);
+        }
 
         if ($data['permission'] == 1) {
             $appUser->syncRoles(['super-user']);
