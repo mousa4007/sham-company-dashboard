@@ -40,7 +40,7 @@ class AgentController extends Controller
     public function store(Request $request)
     {
         if ($request->user()->hasRole('super-user')) {
-            if ($request->user()->balance >= 10) {
+
                 if ($request->user()->balance > $request->balance) {
 
                     $request->validate([
@@ -50,7 +50,6 @@ class AgentController extends Controller
                         'phone' => 'required',
                         'address' => 'required',
                     ]);
-
 
 
                     $agent = Agent::create([
@@ -78,11 +77,7 @@ class AgentController extends Controller
                     // ]);
 
                     return response()->json(['success' => true, 'agent' => $agent]);
-                } else {
-                    return 'not_enough_balance';
-                }
-            } else {
-                return 'not_enough_balance';
+
             }
         } else {
             return 'no_permission';
