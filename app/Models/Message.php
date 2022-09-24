@@ -19,6 +19,6 @@ class Message extends Model
 
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d-m-Y h:m');
+        return Carbon::parse($value)->format('d-m-Y');
     }
 }
