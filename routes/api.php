@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CashStatementController;
 use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\NotificationController;
@@ -29,10 +30,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'user']);
     Route::get('categories', [ApiController::class, 'categories']);
@@ -53,6 +54,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('notifications', [NotificationController::class, 'notifications']);
     Route::post('addAppUserFcmTokenKey', [NotificationController::class, 'addAppUserFcmTokenKey']);
     Route::post('create-transfer-product', [PurchaseProductController::class, 'createTransferProduct']);
+    Route::get('cash-statement-in-day',[CashStatementController::class,'cashStatementInDay']);
+    Route::get('cash-statement-in-week',[CashStatementController::class,'cashStatementInWeek']);
+    Route::get('cash-statement-in-month',[CashStatementController::class,'cashStatementInMonth']);
 });
 
 

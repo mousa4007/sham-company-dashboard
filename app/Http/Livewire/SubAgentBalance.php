@@ -279,6 +279,14 @@ class SubAgentBalance extends Component
                 ]);
             }
 
+            AgentChargingBalance::create([
+                'app_user_id' => $appUser->id,
+                'name' => $appUser->name,
+                'message' => 'تم إلغاء شحن حسابك بمبلغ ' . $balance . '$',
+                'balance' => $balance,
+                'type' => 'cancel'
+            ]);
+
             $q->delete();
 
             $this->reset('checked');

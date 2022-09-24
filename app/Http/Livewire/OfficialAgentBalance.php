@@ -212,7 +212,6 @@ class OfficialAgentBalance extends Component
 
             $balance = $q->balance;
 
-
             $appUser = AppUser::find($q->app_user_id);
 
             if ($q->type == 'charge') {
@@ -226,6 +225,14 @@ class OfficialAgentBalance extends Component
                     'incomingBalance' => $appUser->incomingBalance - $balance,
                 ]);
             }
+
+            SuperUserChargingBalance::create([
+                'app_user_id' => $appUser->id,
+                'name' => $appUser->name,
+                'message' => 'تم إلغاء شحن حسابك بمبلغ ' . $balance . '$',
+                'balance' => $balance,
+                'type' => 'cancel'
+            ]);
 
             $q->delete();
 
