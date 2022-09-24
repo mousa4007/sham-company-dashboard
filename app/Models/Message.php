@@ -17,6 +17,11 @@ class Message extends Model
         return $this->belongsTo(AppUser::class, 'app_user_id');
     }
 
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->diffInHours();
+    }
+
     // public function getCreatedAtAttribute($value)
     // {
     //     return Carbon::parse($value)->format('d-m-Y');
