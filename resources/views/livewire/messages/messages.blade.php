@@ -60,6 +60,7 @@
                                     <th>العنوان</th>
                                     <th>الرسالة</th>
                                     <th>تاريخ النشر</th>
+                                    <th>المشاهدة</th>
                                     <th> النوع</th>
                                     <th> معلومات</th>
                                 </tr>
@@ -73,6 +74,7 @@
                                     <td>{{ $message->title }}</td>
                                     <td>{{ $message->body }}</td>
                                     <td>{{ $message->created_at }}</td>
+                                    <td>{{ $message->watched == true ? 'نعم' : 'لا' }}</td>
                                     <td>{{ $message->type == 'general' ? 'عامة' : 'خاصة' }}</td>
 
 
