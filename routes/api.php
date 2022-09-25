@@ -51,6 +51,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::post('returns', [ReturnsController::class, 'createReturns']);
     Route::apiResource('agent', AgentController::class);
     Route::get('messages', [MessageController::class, 'messages']);
+    Route::get('updateWatched', [MessageController::class, 'updateWatched']);
     Route::get('notifications', [NotificationController::class, 'notifications']);
     Route::post('addAppUserFcmTokenKey', [NotificationController::class, 'addAppUserFcmTokenKey']);
     Route::post('create-transfer-product', [PurchaseProductController::class, 'createTransferProduct']);

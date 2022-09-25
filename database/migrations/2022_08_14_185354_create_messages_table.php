@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('body');
             $table->string('type');
             $table->integer('app_user_id')->nullable();
+            $table->boolean('watched')->default(false);
             $table->timestamps();
         });
     }

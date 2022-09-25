@@ -9,7 +9,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> إضافة إشعار</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> إضافة رسالة</h5>
                     @include('components.spinner')
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -49,11 +49,11 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="first-name-icon" class="mb-2">نص الإشعار</label>
+                                        <label for="first-name-icon" class="mb-2">نص الرسالة</label>
                                         <div class="position-relative">
                                             <textarea wire:model='body' type="text"
                                                 class="form-control @error('description') is-invalid @enderror"
-                                                placeholder="نص الإشعار" id="first-name-icon" required></textarea>
+                                                placeholder="نص الرسالة" id="first-name-icon" required></textarea>
 
 
                                         </div>
