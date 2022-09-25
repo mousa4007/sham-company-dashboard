@@ -48,8 +48,6 @@ class AgentController extends Controller
                 'address' => 'required',
             ]);
 
-
-
             $agent = Agent::create([
                 'name' => $request->name,
                 'email' => $request->email,

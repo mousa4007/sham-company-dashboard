@@ -20,10 +20,11 @@ class ChargeBalanceController extends Controller
             'agent_id' => 'required'
         ]);
 
-        if ($balance > 10 && $balance >= $request->balance) {
-            if ($request->balance > 10) {
+        if ($balance >= 10 && $balance >= $request->balance) {
+            if ($request->balance >= 10) {
 
-                $agent = AppUser::find($request->agent_id);
+                $agent = AppUser::where('agent_id',$request->agent_id)->first();
+
 
                 $request->user()->update([
                     'balance' =>   $request->user()->balance - $request->balance,
