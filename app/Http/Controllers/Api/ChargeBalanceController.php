@@ -3,59 +3,64 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\AgentChargingBalance;
+use App\Models\AppUser;
+use App\Models\Notification;
+use App\Models\SuperUserChargingBalance;
 use Illuminate\Http\Request;
 
 class ChargeBalanceController extends Controller
 {
-    public function chargeBalance(Request $request)
+    public function chargeAgentBalance(Request $request)
     {
+        $balance = $request->user()->balance;
 
-        if($request->user()->balance >= 10){
-            dd($request->user()->balance);
+        $request->validate([
+            'balance' => 'required',
+            'agent_id' => 'required'
+        ]);
+
+        if ($balance > 10 && $balance >= $request->balance) {
+            if ($request->balance > 10) {
+
+                $agent = AppUser::find($request->agent_id);
+
+                $request->user()->update([
+                    'balance' =>   $request->user()->balance - $request->balance,
+                    'outgoingBalance' => $request->user()->outgoingBalance + $request->balance,
+                ]);
+
+                $agent->update([
+                    'balance' =>  +$agent->balance + $request->balance,
+                    'incomingBalance' => $agent->incomingBalance + $request->balance,
+                ]);
+
+                Notification::create([
+                    'message' => 'تم شحن حسابك بمبلغ ' . $request->balance,
+                    'app_user_id' => $request->agent_id
+                ]);
+
+                AgentChargingBalance::create([
+                    'app_user_id' => $agent->id,
+                    'name' => $agent->name,
+                    'message' => 'تم شحن حسابك بمبلغ ' . $request->balance,
+                    'balance' => $request->balance,
+                    'type' => 'charge'
+                ]);
+
+                SuperUserChargingBalance::create([
+                    'app_user_id' => $agent->id,
+                    'name' => $agent->name,
+                    'message' => 'تم سحب مبلغ من حسابك ' . $request->balance,
+                    'balance' => $request->balance,
+                    'type' => 'withdraw'
+                ]);
+                return 'success';
+            } else {
+                return 'must_be_greater_than_10';
+            }
+        } else {
+            return 'balance_not_enough';
         }
-
-        // if ($this->app_user_id) {
-
-        //     $appUser = AppUser::find($this->app_user_id);
-
-        //     $this->super_user = Agent::find($appUser->agent_id)->user;
-
-        //     $this->max_balance = $this->super_user->balance;
-        // }
-
-        // $this->validate([
-        //     'app_user_id' => 'required',
-        //     'outgoingBalance' => "required|numeric|max:$this->max_balance",
-        // ]);
-
-        // $appUser->update([
-        //     'balance' => $appUser->balance + $this->outgoingBalance,
-        //     'outgoingBalance' => $appUser->outgoingBalance + $this->outgoingBalance,
-        // ]);
-
-        // $this->super_user->update([
-        //     'balance' => $this->super_user->balance - $this->outgoingBalance,
-        // ]);
-
-        // $agent = Agent::find($appUser->agent_id);
-
-        // $agent->update([
-        //     'balance' => $agent->balance + $this->outgoingBalance
-        // ]);
-
-        // Notification::create([
-        //     'message' => $this->charge_message,
-        //     'app_user_id' => $this->app_user_id
-        // ]);
-
-        // AgentChargingBalance::create([
-        //     'app_user_id' => $this->app_user_id,
-        //     'name' => $appUser->name,
-        //     'message' => $this->charge_message,
-        //     'balance' => $this->outgoingBalance,
-        //     'type' => 'charge'
-        // ]);
-
-        // $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم شحن الرصيد بنجاح']);
     }
 }

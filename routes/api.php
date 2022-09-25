@@ -59,7 +59,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('cash-statement-in-day',[CashStatementController::class,'cashStatementInDay']);
     Route::get('cash-statement-in-week',[CashStatementController::class,'cashStatementInWeek']);
     Route::get('cash-statement-in-month',[CashStatementController::class,'cashStatementInMonth']);
-    Route::post('charge-agent-balance',[ChargeBalanceController::class,'cashStatementInMonth']);
+    Route::post('charge-agent-balance',[ChargeBalanceController::class,'chargeAgentBalance']);
 });
 
 
