@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CashStatementController;
+use App\Http\Controllers\Api\ChargeBalanceController;
 use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\NotificationController;
@@ -58,6 +59,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('cash-statement-in-day',[CashStatementController::class,'cashStatementInDay']);
     Route::get('cash-statement-in-week',[CashStatementController::class,'cashStatementInWeek']);
     Route::get('cash-statement-in-month',[CashStatementController::class,'cashStatementInMonth']);
+    Route::post('charge-agent-balance',[ChargeBalanceController::class,'cashStatementInMonth']);
 });
 
 
