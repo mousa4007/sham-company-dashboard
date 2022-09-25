@@ -239,11 +239,11 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ request()->is('notifications') ? 'active' : '' }}">
-                            <a href="/notifications" class='sidebar-link '>
-                                <i class="bi-bell-fill"></i>
-                                <span>الإشعارات</span>
-                            </a>
+                        <li class="sidebar-item {{ request()->is('messages') ? 'active' : '' }}">
+                            <a href="/messages" class='sidebar-link '>
+                                <i class="bi-envelope-fill"></i>
+                                <span>الرسائل</span>
+                        </a>
                         </li>
                     </ul>
                 </div>
@@ -325,7 +325,7 @@
             $('#createProductModal').modal('hide');
             $('#createStockedProductModal').modal('hide');
             $('#createPricesModal').modal('hide');
-            $('#createNotificationModal').modal('hide');
+            $('#createMessageModal').modal('hide');
             $('#createAgentModal').modal('hide');
             $('#createBalanceModal').modal('hide');
             $('#withdrawBalanceModal').modal('hide');
@@ -373,7 +373,7 @@
             $('#deleteProductModal').modal('hide');
             $('#deleteStockedProductModal').modal('hide');
             $('#deleteReturnsModal').modal('hide');
-            $('#deleteNotificationModal').modal('hide');
+            $('#deleteMessageModal').modal('hide');
             $('#deleteAgentModal').modal('hide');
             $('#deleteStockedProductShowModal').modal('hide');
             $('#deleteTransferProudctModal').modal('hide');

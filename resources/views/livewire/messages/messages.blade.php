@@ -5,7 +5,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/home">الرئيسية</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">الإشعارات</li>
+                    <li class="breadcrumb-item active" aria-current="page">الرسائل</li>
                 </ol>
             </nav>
         </div>
@@ -16,9 +16,9 @@
             <div class="card">
                 <div class="buttons m-3">
                     <a href="#" class="btn btn-primary btn-sm m-0 mx-1" wire:click.prevent='resetData'
-                        data-bs-toggle="modal" data-bs-target="#createNotificationModal">إضافة</a>
+                        data-bs-toggle="modal" data-bs-target="#createMessageModal">إضافة</a>
                     <a href="#" class="btn btn-danger btn-sm m-0 mx-1" data-bs-toggle="modal"
-                        data-bs-target="#deleteNotificationModal">حذف</a>
+                        data-bs-target="#deleteMessageModal">حذف</a>
                     {{-- <a href="#" class="btn btn-success btn-sm m-0 mx-1" wire:click='activate'>تفعيل</a>
                     <a href="#" class="btn btn-secondary btn-sm m-0 mx-1" wire:click='disable'>تعطيل</a> --}}
                     <span class="mx-3">|</span>
@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="d-flex align-items-baseline">
-                        <h3 class="card-title me-5"> الاشعارات</h3>
+                        <h3 class="card-title me-5"> الرسائل</h3>
                         <div class="mb-1">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
@@ -43,11 +43,10 @@
                             </div>
                         </div>
                     </div>
-                    @include('livewire.notifications.create_notification')
+                    @include('livewire.messages.create_message')
                 </div>
-                @include('livewire.notifications.delete_notification')
-                @include('livewire.notifications.notification_info')
-                {{-- @include('livewire.categories.update_category') --}}
+                @include('livewire.messages.delete_message')
+                @include('livewire.messages.message_info')
 
                 <div class="card-content">
                     <!-- table striped -->
@@ -66,21 +65,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($notifications as $notification)
+                                @forelse ($messages as $message)
                                 <tr>
-                                    <td><input wire:model='selectedRows' value="{{ $notification->id }}" type="checkbox"
+                                    <td><input wire:model='selectedRows' value="{{ $message->id }}" type="checkbox"
                                             class="form-check-input form-check-secondary"></td>
-                                    <td>{{ $notification->id }}</td>
-                                    <td>{{ $notification->title }}</td>
-                                    <td>{{ $notification->body }}</td>
-                                    <td>{{ $notification->created_at }}</td>
-                                    <td>{{ $notification->type == 'general' ? 'عامة' : 'خاصة' }}</td>
+                                    <td>{{ $message->id }}</td>
+                                    <td>{{ $message->title }}</td>
+                                    <td>{{ $message->body }}</td>
+                                    <td>{{ $message->created_at }}</td>
+                                    <td>{{ $message->type == 'general' ? 'عامة' : 'خاصة' }}</td>
 
 
                                     <td>
                                         <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
-                                            data-bs-target="#notificationInfo"
-                                            wire:click='info({{ $notification->id }})'>
+                                            data-bs-target="#messageInfo"
+                                            wire:click='info({{ $message->id }})'>
                                             <i class="bi-info-circle-fill"></i>
                                         </button>
                                     </td>
@@ -91,7 +90,7 @@
                             </tbody>
                         </table>
                         <div class="my-3">
-                            {{ $notifications->links() }}
+                            {{ $messages->links() }}
                         </div>
                     </div>
                 </div>

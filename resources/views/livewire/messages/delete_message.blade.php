@@ -2,7 +2,7 @@
     <!-- Button trigger modal -->
 
     <!-- Modal -->
-    <div wire:ignore.self class="modal fade" id="deleteNotificationModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div wire:ignore.self class="modal fade" id="deleteMessageModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

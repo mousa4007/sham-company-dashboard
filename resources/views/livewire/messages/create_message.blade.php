@@ -4,7 +4,7 @@
         إضافة قسم جديد
     </button> --}}
 
-    <div wire:ignore.self class="modal fade" id="createNotificationModal" tabindex="-1"
+    <div wire:ignore.self class="modal fade" id="createMessageModal" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

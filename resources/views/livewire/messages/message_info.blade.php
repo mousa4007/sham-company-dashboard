@@ -2,7 +2,7 @@
     <!-- Button trigger modal -->
 
     <!-- Modal -->
-    <div wire:ignore.self class="modal fade" id="notificationInfo" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div wire:ignore.self class="modal fade" id="messageInfo" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -21,11 +21,11 @@
                                 <div class="border d-flex justify-content-between px-5 py-2 mb-3">
                                     <div class=" fw-bold">المستخدم :</div>
                                     <div class="text-primary fw-bold">
-                                        @if ($notification)
-                                        @if($notification->type == 'general')
+                                        @if ($message)
+                                        @if($message->type == 'general')
                                         الكل
                                         @else
-                                        {{ App\Models\AppUser::find($notification->app_user_id)->name }}
+                                        {{ App\Models\AppUser::find($message->app_user_id)->name }}
                                         @endif
                                         @endif
                                     </div>
@@ -33,24 +33,24 @@
                                 <div class="border d-flex justify-content-between px-5 py-2 mb-3">
                                     <div class=" fw-bold">العنوان :</div>
                                     <div class="text-primary fw-bold">
-                                        @if ($notification)
-                                        {{ $notification->title }}
+                                        @if ($message)
+                                        {{ $message->title }}
                                         @endif
                                     </div>
                                 </div>
                                 <div class="border d-flex justify-content-between px-5 py-2 mb-3">
                                     <div class=" fw-bold">الرسالة :</div>
                                     <div class="text-primary fw-bold">
-                                        @if ($notification)
-                                        {{ $notification->body }}
+                                        @if ($message)
+                                        {{ $message->body }}
                                         @endif
                                     </div>
                                 </div>
                                 <div class="border d-flex justify-content-between px-5 py-2 mb-3">
                                     <div class=" fw-bold">تاريخ الارسال :</div>
                                     <div class="text-primary fw-bold">
-                                        @if ($notification)
-                                        {{ $notification->created_at }}
+                                        @if ($message)
+                                        {{ $message->created_at }}
                                         @endif
                                     </div>
                                 </div>

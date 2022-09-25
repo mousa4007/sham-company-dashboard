@@ -8,7 +8,7 @@ use App\Http\Livewire\ChargeBalance;
 use App\Http\Livewire\ApiProducts;
 use App\Http\Livewire\Discounts;
 use App\Http\Livewire\Home;
-use App\Http\Livewire\Notifications;
+use App\Http\Livewire\Messages;
 use App\Http\Livewire\OfficialAgentBalance;
 use App\Http\Livewire\ProcessTransferProduct;
 use App\Http\Livewire\StockedProducts;
@@ -60,7 +60,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sales', Sales::class);
     Route::get('/returns', Returns::class);
 
-    Route::get('/notifications', Notifications::class);
+    Route::get('/messages', Messages::class);
     Route::get('/logout', [LogoutController::class, 'logout']);
 });
 

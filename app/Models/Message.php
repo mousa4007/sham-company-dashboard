@@ -10,13 +10,12 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['app_user_id', 'message'];
+    protected $guarded = [];
 
     public function user()
     {
         return $this->belongsTo(AppUser::class, 'app_user_id');
     }
-
 
 
     public function getCreatedAtAttribute($value)
