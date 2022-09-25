@@ -13,7 +13,7 @@ class AgentChargingBalance extends Model
     protected $guarded = [];
 
 
-    public function getCreatedAtAttribute($value)
+    public function getCreatedAtAttribute($value) 
     {
         return Carbon::parse($value)->format('d-m-Y');
     }
