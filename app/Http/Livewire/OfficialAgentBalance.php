@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Agent;
 use App\Models\AppUser;
-use App\Models\Message;
+use App\Models\Notification;
 use App\Models\SuperUserChargingBalance;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -148,7 +147,7 @@ class OfficialAgentBalance extends Component
             'outgoingBalance' => $appUser->outgoingBalance + $this->outgoingBalance,
         ]);
 
-        Message::create([
+        Notification::create([
             'message' => $this->charge_message,
             'app_user_id' => $this->app_user_id
         ]);
@@ -183,7 +182,7 @@ class OfficialAgentBalance extends Component
             'incomingBalance' => $appUser->incomingBalance + $this->incomingBalance,
         ]);
 
-        Message::create([
+        Notification::create([
             'message' => $this->witdhraw_message,
             'app_user_id' => $this->app_user_id
         ]);

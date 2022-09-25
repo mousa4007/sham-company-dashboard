@@ -6,6 +6,7 @@ use App\Models\Agent;
 use App\Models\AgentChargingBalance;
 use App\Models\AppUser;
 use App\Models\Message;
+use App\Models\Notification;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -168,7 +169,7 @@ class SubAgentBalance extends Component
             'balance' => $agent->balance + $this->outgoingBalance
         ]);
 
-        Message::create([
+        Notification::create([
             'message' => $this->charge_message,
             'app_user_id' => $this->app_user_id
         ]);
@@ -210,7 +211,7 @@ class SubAgentBalance extends Component
             'balance' => $agent->balance - $this->incomingBalance
         ]);
 
-        Message::create([
+        Notification::create([
             'message' => $this->witdhraw_message,
             'app_user_id' => $this->app_user_id
         ]);
