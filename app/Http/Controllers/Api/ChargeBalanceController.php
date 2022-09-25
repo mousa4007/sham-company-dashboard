@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agent;
 use App\Models\AgentChargingBalance;
 use App\Models\AppUser;
 use App\Models\Notification;
@@ -20,10 +21,15 @@ class ChargeBalanceController extends Controller
             'agent_id' => 'required'
         ]);
 
+        $agent = AppUser::where('agent_id',$request->agent_id)->first();
+
+        $agent_table = Agent::find($request->agent_id);
+
         if ($balance >= 10 && $balance >= $request->balance) {
             if ($request->balance >= 10) {
 
-                $agent = AppUser::where('agent_id',$request->agent_id)->first();
+
+
 
 
                 $request->user()->update([
@@ -32,8 +38,12 @@ class ChargeBalanceController extends Controller
                 ]);
 
                 $agent->update([
-                    'balance' =>  +$agent->balance + $request->balance,
+                    'balance' =>  $agent->balance + $request->balance,
                     'incomingBalance' => $agent->incomingBalance + $request->balance,
+                ]);
+
+                $agent_table->update([
+                    'balance' =>  +$agent_table->balance + $request->balance,
                 ]);
 
                 Notification::create([
