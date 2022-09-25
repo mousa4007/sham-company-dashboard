@@ -57,32 +57,32 @@
                     <hr class="mx-5 mt-8">
                     <ul class="menu">
                         <li class="sidebar-item {{ request()->is('home') ? 'active' : '' }}">
-                            <a href="/index.php/home" class='sidebar-link '>
+                            <a href="/home" class='sidebar-link '>
                                 <i class="bi bi-house-fill"></i>
                                 <span>الرئيسية</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item has-sub">
-                            <a href="/index/users" class='sidebar-link '>
+                            <a href="/users" class='sidebar-link '>
                                 <i class="bi bi-people-fill"></i>
                                 <span>الوكلاء</span>
                             </a>
                             <ul
-                                class="submenu {{ request()->is('/index/agents') || request()->is('/index/users') ? 'active' : '' }}">
+                                class="submenu {{ request()->is('agents') || request()->is('users') ? 'active' : '' }}">
                                 <li class="submenu-item  ">
                                     <a href="/users"
-                                        class="sidebar-link {{ request()->is('/index/users') ? 'text-success' : '' }}">
+                                        class="sidebar-link {{ request()->is('users') ? 'text-success' : '' }}">
                                         <i
-                                            class="bi bi-person-check-fill {{ request()->is('/index/users') ? 'text-success' : '' }}"></i>
+                                            class="bi bi-person-check-fill {{ request()->is('users') ? 'text-success' : '' }}"></i>
                                         <span>الوكلاء الرسمييين</span>
                                     </a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="/index/agents"
-                                        class="sidebar-link {{ request()->is('/index/agents') ? 'text-success' : '' }}">
+                                    <a href="/agents"
+                                        class="sidebar-link {{ request()->is('agents') ? 'text-success' : '' }}">
                                         <i
-                                            class="bi bi-person-fill {{ request()->is('/index/agents') ? 'text-success' : '' }}"></i>
+                                            class="bi bi-person-fill {{ request()->is('agents') ? 'text-success' : '' }}"></i>
                                         <span>الوكلاء الفرعيين</span>
                                     </a>
                                 </li>
@@ -94,20 +94,20 @@
                                 <span>أرصدة الوكلاء</span>
                             </a>
                             <ul
-                                class="submenu {{ request()->is('/index/officialAgentBalance') || request()->is('/index/subAgentBalance') ? 'active' : '' }}">
+                                class="submenu {{ request()->is('officialAgentBalance') || request()->is('subAgentBalance') ? 'active' : '' }}">
                                 <li class="submenu-item  ">
-                                    <a href="/index.php/officialAgentBalance"
-                                        class="sidebar-link {{ request()->is('/indexofficialAgentBalance') ? 'text-success' : '' }}">
+                                    <a href="officialAgentBalance"
+                                        class="sidebar-link {{ request()->is('officialAgentBalance') ? 'text-success' : '' }}">
                                         <i
-                                            class="bi-currency-dollar {{ request()->is('/index/officialAgentBalance') ? 'text-success' : '' }}"></i>
+                                            class="bi-currency-dollar {{ request()->is('officialAgentBalance') ? 'text-success' : '' }}"></i>
                                         <span>أرصدة الوكلاء الرسميين</span>
                                     </a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="/index.php/subAgentBalance"
-                                        class="sidebar-link {{ request()->is('/index/subAgentBalance') ? 'text-success' : '' }}">
+                                    <a href="subAgentBalance"
+                                        class="sidebar-link {{ request()->is('subAgentBalance') ? 'text-success' : '' }}">
                                         <i
-                                            class="bi-currency-dollar {{ request()->is('/index/subAgentBalance') ? 'text-success' : '' }}"></i>
+                                            class="bi-currency-dollar {{ request()->is('subAgentBalance') ? 'text-success' : '' }}"></i>
                                         <span>أرصدة الوكلاء الفرعيين</span>
                                     </a>
                                 </li>
