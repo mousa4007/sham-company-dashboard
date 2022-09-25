@@ -27,6 +27,6 @@ class MessageController extends Controller
             'watched' => true
         ]);
 
-        return response()->json('success');
+        return 'success';
     }
 }
