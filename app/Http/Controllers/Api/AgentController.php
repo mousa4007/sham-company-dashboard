@@ -26,9 +26,9 @@ class AgentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function show(Agent $agent)
     {
-        //
+        return $agent;
     }
 
     /**
