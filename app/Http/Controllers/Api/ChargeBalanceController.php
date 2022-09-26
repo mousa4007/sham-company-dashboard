@@ -28,10 +28,6 @@ class ChargeBalanceController extends Controller
         if ($balance >= 10 && $balance >= $request->balance) {
             if ($request->balance >= 10) {
 
-
-
-
-
                 $request->user()->update([
                     'balance' =>   $request->user()->balance - $request->balance,
                     'outgoingBalance' => $request->user()->outgoingBalance + $request->balance,
