@@ -63,13 +63,13 @@
                                                             </td>
                                                             <td>{{ $product->name }}
                                                             </td>
-                                                            <td>{{ $product->price }}
+                                                            <td>{{ $product->sell_price }}
                                                             </td>
                                                             @foreach ($discounts as $discount)
                                                                 <td>
                                                                     <input  readonly="readonly" class="form-control"
                                                                         type="text"
-                                                                        value="{{ $product->price + (($product->price * $discount->percentage) / 100 ) }}">
+                                                                        value="{{ $product->sell_price + (($product->sell_price * $discount->percentage) / 100 ) }}">
                                                                 </td>
                                                             @endforeach
 

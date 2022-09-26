@@ -53,7 +53,7 @@
                                                     <td>{{ $product->name }}
                                                     </td>
                                                     <td class="text-success" style="font-weight: bold">
-                                                        {{ $product->price }}
+                                                        {{ $product->sell_price }}
                                                     </td>
                                                     @foreach ($discounts as $discount)
                                                         <td>
@@ -61,7 +61,7 @@
                                                                 <div style="display: flex">
                                                                     <input disabled class="form-control d-flex "
                                                                         type="text"
-                                                                        value="{{ $discount->exceptions->where('product_id', $product->id)->first()->price }}">
+                                                                        value="{{ $discount->exceptions->where('product_id', $product->id)->first()->sell_price }}">
                                                                     <input class="form-control d-flex mx-2"
                                                                         type="text"
                                                                         wire:model.defer='price.{{ $product->id }}.{{ $discount->id }}'>
@@ -74,7 +74,7 @@
                                                                 <div style="display: flex">
                                                                     <input disabled class="form-control d-flex "
                                                                         type="text"
-                                                                        value="{{ $product->price + ($product->price * $discount->percentage) / 100 }}">
+                                                                        value="{{ $product->sell_price + ($product->sell_price * $discount->percentage) / 100 }}">
                                                                     <input class="form-control d-flex mx-2"
                                                                         type="text"
                                                                         wire:model.defer='price.{{ $product->id }}.{{ $discount->id }}'>
