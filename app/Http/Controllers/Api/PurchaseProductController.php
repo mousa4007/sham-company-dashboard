@@ -4,18 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agent;
-use App\Models\AppUser;
 use App\Models\Discount;
-use App\Models\DiscountException;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Profit;
 use App\Models\Sale;
 use App\Models\TransferProduct;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use PDO;
 
 class PurchaseProductController extends Controller
 {
@@ -144,13 +140,11 @@ class PurchaseProductController extends Controller
                     }
                 }
 
-
             }
 
             $user->update([
                 'balance' => $user->balance - $product->sell_price * $quantity
             ]);
-
 
             return 'success';
         }
@@ -195,5 +189,4 @@ class PurchaseProductController extends Controller
         }
     }
 
- 
 }

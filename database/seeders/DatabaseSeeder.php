@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\AppUser;
+use App\Models\StockedProduct;
 use App\Models\WebApiKey;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -37,6 +38,8 @@ class DatabaseSeeder extends Seeder
             'image_id' => 'eg0mqfjp5adybhtz6zc6',
             'arrangement' => 1
         ]);
+
+
 
         $this->call(LaratrustSeeder::class);
     }
