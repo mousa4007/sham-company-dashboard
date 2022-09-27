@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('profits', function (Blueprint $table) {
             $table->id();
             $table->integer('app_user_id');
-            $table->integer('agent_id');
+            $table->integer('agent_id')->nullable();
             $table->integer('product_id');
             $table->double('profit');
+            $table->string('message');
+            $table->boolean('withdrawed')->default(false);
             $table->timestamps();
         });
     }

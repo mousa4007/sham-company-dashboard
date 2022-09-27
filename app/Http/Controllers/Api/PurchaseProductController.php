@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agent;
+use App\Models\AppUser;
 use App\Models\Discount;
 use App\Models\DiscountException;
 use App\Models\Order;
@@ -11,6 +12,7 @@ use App\Models\Product;
 use App\Models\Profit;
 use App\Models\Sale;
 use App\Models\TransferProduct;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDO;
@@ -84,6 +86,65 @@ class PurchaseProductController extends Controller
                     'product_id' => $order->product_id,
                 ]);
 
+                if($user->hasRole('super-user') || $user->hasRole('user')){
+
+                    $exception = Discount::find($user->discount)->exceptions;
+
+                    // return $exception->first()->price;
+                    $exceptions_ids = $exception->pluck('product_id')->toArray();
+
+                    if (in_array($order->product_id, $exceptions_ids)) {
+                        Profit::create([
+                            'app_user_id' => $user->id,
+                            'agent_id' => null,
+                            'product_id' => $order->product_id,
+                            'profit' => $product->sell_price - $exception->first()->price,
+                            'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
+                        ]);
+                    } else {
+                        Profit::create([
+                            'app_user_id' => $user->id,
+                            'agent_id' => null,
+                            'product_id' => $order->product_id,
+                            'profit' => abs($product->sell_price * Discount::find($user->discount)->percentage / 100),
+                            'message' => abs($product->sell_price * Discount::find($user->discount)->percentage / 100) . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
+                        ]);
+                    }
+                }
+
+
+                if ($user->hasRole('agent')) {
+
+
+                    $agent = Agent::find($user->agent_id);
+
+                    $exception = Discount::find($agent->user->id)->exceptions;
+
+                    // return $exception->first()->price;
+                    $exceptions_ids = $exception->pluck('product_id')->toArray();
+
+
+                    if (in_array($order->product_id, $exceptions_ids)) {
+                        Profit::create([
+                            'app_user_id' => $agent->user->id,
+                            'agent_id' => $user->agent_id,
+                            'product_id' => $order->product_id,
+                            'profit' => $product->sell_price - $exception->first()->price,
+                            'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
+
+                        ]);
+                    } else {
+                        Profit::create([
+                            'app_user_id' => $agent->user->id,
+                            'agent_id' => $user->agent_id,
+                            'product_id' => $order->product_id,
+                            'profit' => abs($product->sell_price * Discount::find($agent->user->id)->percentage / 100),
+                            'message' => abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100) . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
+                        ]);
+                    }
+                }
+
+
             }
 
             $user->update([
@@ -91,55 +152,10 @@ class PurchaseProductController extends Controller
             ]);
 
 
-            $exception = Discount::find($user->discount)->exceptions;
-
-            // return $exception->first()->price;
-            $exceptions_ids = $exception->pluck('product_id')->toArray();
-
-            if($user->hasRole('super-user') || $user->hasRole('user')){
-                if (in_array($order->product_id, $exceptions_ids)) {
-                    Profit::create([
-                        'app_user_id' => $user->id,
-                        'agent_id' => null,
-                        'product_id' => $order->product_id,
-                        'profit' => $product->price - $exception->first()->price,
-                        'message' => $product->price - $exception->first()->price . ' مربح من شراء منتج ' . Product::find($order->product_id)->name
-                    ]);
-                } else {
-                    Profit::create([
-                        'app_user_id' => $user->id,
-                        'agent_id' => null,
-                        'product_id' => $order->product_id,
-                        'profit' => abs($product->price * Discount::find($user->discount)->percentage / 100),
-                        'message' => abs($product->price * Discount::find($user->discount)->percentage / 100) . ' مربح من شراء منتج ' . Product::find($order->product_id)->name
-                    ]);
-                }
-            }
-
-
-
-            if ($user->hasRole('agent')) {
-                $agent = Agent::find($user->agent_id);
-                if (in_array($order->product_id, $exceptions_ids)) {
-                    Profit::create([
-                        'app_user_id' => $agent->user->id,
-                        'agent_id' => $user->agent_id,
-                        'product_id' => $order->product_id,
-                        'profit' => $product->price - $exception->first()->price
-                    ]);
-                } else {
-                    Profit::create([
-                        'app_user_id' => $agent->user->id,
-                        'agent_id' => $user->agent_id,
-                        'product_id' => $order->product_id,
-                        'profit' => abs($product->price * Discount::find($user->discount)->percentage / 100)
-                    ]);
-                }
-            }
-
             return 'success';
         }
     }
+
 
     public function updateUserBalance(Request $request)
     {
@@ -178,4 +194,6 @@ class PurchaseProductController extends Controller
             return 'error_occured';
         }
     }
+
+ 
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProductUserFavoriteController;
+use App\Http\Controllers\Api\ProfitsController;
 use App\Http\Controllers\Api\PurchaseProductController;
 use App\Http\Controllers\Api\ReturnsController;
 use App\Models\AppUser;
@@ -60,6 +61,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('cash-statement-in-week',[CashStatementController::class,'cashStatementInWeek']);
     Route::get('cash-statement-in-month',[CashStatementController::class,'cashStatementInMonth']);
     Route::post('charge-agent-balance',[ChargeBalanceController::class,'chargeAgentBalance']);
+
+    Route::get('super-user-profits-in-day',[ProfitsController::class,'superUserProfitsInDay']);
+    Route::get('super-user-profits-in-week',[ProfitsController::class,'superUserProfitsInWeek']);
+    Route::get('super-user-profits-in-month',[ProfitsController::class,'superUserProfitsInMonth']);
+
+    Route::post('profits-from-agents-in-day',[ProfitsController::class,'profitsFromAgentInDay']);
+    Route::post('profits-from-agents-in-week',[ProfitsController::class,'profitsFromAgentInWeek']);
+    Route::post('profits-from-agents-in-month',[ProfitsController::class,'profitsFromAgentInMonth']);
+
+
 });
 
 
@@ -128,6 +139,5 @@ Route::get(
 );
 
 Route::get('orders', function () {
-
     return auth()->user()->orders;
 })->middleware('auth:sanctum');
