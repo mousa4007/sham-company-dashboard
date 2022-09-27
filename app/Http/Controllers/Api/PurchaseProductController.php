@@ -90,27 +90,33 @@ class PurchaseProductController extends Controller
                     $exceptions_ids = $exception->pluck('product_id')->toArray();
 
                     if (in_array($order->product_id, $exceptions_ids)) {
+                        $profit = $product->sell_price - $exception->first()->price;
                         Profit::create([
                             'app_user_id' => $user->id,
                             'agent_id' => null,
                             'product_id' => $order->product_id,
-                            'profit' => $product->sell_price - $exception->first()->price,
+                            'profit' => $profit,
                             'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
                         ]);
+
+                        $user->update(['total_profits'=>$user->total_profits + $profit]);
                     } else {
+                        $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
                         Profit::create([
                             'app_user_id' => $user->id,
                             'agent_id' => null,
                             'product_id' => $order->product_id,
-                            'profit' => abs($product->sell_price * Discount::find($user->discount)->percentage / 100),
+                            'profit' => $profit,
                             'message' => abs($product->sell_price * Discount::find($user->discount)->percentage / 100) . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
                         ]);
+
+                        $user->update(['total_profits'=>$user->total_profits + $profit]);
+
                     }
                 }
 
 
                 if ($user->hasRole('agent')) {
-
 
                     $agent = Agent::find($user->agent_id);
 
@@ -119,24 +125,31 @@ class PurchaseProductController extends Controller
                     // return $exception->first()->price;
                     $exceptions_ids = $exception->pluck('product_id')->toArray();
 
-
                     if (in_array($order->product_id, $exceptions_ids)) {
-                        Profit::create([
-                            'app_user_id' => $agent->user->id,
-                            'agent_id' => $user->agent_id,
-                            'product_id' => $order->product_id,
-                            'profit' => $product->sell_price - $exception->first()->price,
-                            'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
+                        $profit = $product->sell_price - $exception->first()->price;
 
-                        ]);
-                    } else {
                         Profit::create([
                             'app_user_id' => $agent->user->id,
                             'agent_id' => $user->agent_id,
                             'product_id' => $order->product_id,
-                            'profit' => abs($product->sell_price * Discount::find($agent->user->id)->percentage / 100),
+                            'profit' => $profit,
+                            'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
+                        ]);
+
+                        $user->update(['total_profits'=>$user->total_profits + $profit]);
+
+                    } else {
+                        $profit = abs($product->sell_price * Discount::find($agent->user->id)->percentage / 100);
+                        Profit::create([
+                            'app_user_id' => $agent->user->id,
+                            'agent_id' => $user->agent_id,
+                            'product_id' => $order->product_id,
+                            'profit' => $profit,
                             'message' => abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100) . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
                         ]);
+
+                        $user->update(['total_profits'=>$user->total_profits + $profit]);
+
                     }
                 }
 
