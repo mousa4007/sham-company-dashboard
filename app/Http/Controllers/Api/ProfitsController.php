@@ -62,4 +62,18 @@ class ProfitsController extends Controller
     // Agents Profits start
 
 
+    public function withdrawProfits(Request $request)
+    {
+        $request->validate([
+            'profit' => 'required | numeric'
+        ]);
+
+        dd($request->user()->whithdrawed_profits);
+
+        if($request->user()->total_profits - $request->user()->withdrawed_profit){
+
+        }
+    }
+
+
 }

@@ -69,6 +69,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::post('profits-from-agents-in-day',[ProfitsController::class,'profitsFromAgentInDay']);
     Route::post('profits-from-agents-in-week',[ProfitsController::class,'profitsFromAgentInWeek']);
     Route::post('profits-from-agents-in-month',[ProfitsController::class,'profitsFromAgentInMonth']);
+    Route::post('withdraw-profits',[ProfitsController::class,'withdrawProfits']);
 
 });
 

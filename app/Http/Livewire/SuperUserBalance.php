@@ -8,7 +8,7 @@ use App\Models\SuperUserChargingBalance;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class OfficialAgentBalance extends Component
+class SuperUserBalance extends Component
 {
     use  WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -31,7 +31,7 @@ class OfficialAgentBalance extends Component
     public function render()
     {
         return view(
-            'livewire.official_agent_balance.official_agent_balance',
+            'livewire.super_user_balance.super_user_balance',
             [
                 'appUsers' => $this->app_users,
                 'superUserChargingBalance' => $this->superUserChargingBalance

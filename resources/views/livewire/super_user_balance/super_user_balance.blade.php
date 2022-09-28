@@ -46,8 +46,8 @@
                             </div>
                         </div>
                     </div>
-                    @include('livewire.official_agent_balance.charge_balance')
-                    @include('livewire.official_agent_balance.withdraw_balance')
+                    @include('livewire.super_user_balance.charge_balance')
+                    @include('livewire.super_user_balance.withdraw_balance')
                 </div>
 
                 <div class="card-content">

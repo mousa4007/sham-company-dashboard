@@ -94,12 +94,12 @@
                                 <span>أرصدة الوكلاء</span>
                             </a>
                             <ul
-                                class="submenu {{ request()->is('officialAgentBalance') || request()->is('subAgentBalance') ? 'active' : '' }}">
+                                class="submenu {{ request()->is('superUserBalance') || request()->is('subAgentBalance') ? 'active' : '' }}">
                                 <li class="submenu-item  ">
-                                    <a href="officialAgentBalance"
-                                        class="sidebar-link {{ request()->is('officialAgentBalance') ? 'text-success' : '' }}">
+                                    <a href="superUserBalance"
+                                        class="sidebar-link {{ request()->is('superUserBalance') ? 'text-success' : '' }}">
                                         <i
-                                            class="bi-currency-dollar {{ request()->is('officialAgentBalance') ? 'text-success' : '' }}"></i>
+                                            class="bi-currency-dollar {{ request()->is('superUserBalance') ? 'text-success' : '' }}"></i>
                                         <span>أرصدة الوكلاء الرسميين</span>
                                     </a>
                                 </li>

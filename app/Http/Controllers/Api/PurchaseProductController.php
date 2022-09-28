@@ -82,37 +82,44 @@ class PurchaseProductController extends Controller
                     'product_id' => $order->product_id,
                 ]);
 
-                if($user->hasRole('super-user') || $user->hasRole('user')){
+                if ($user->hasRole('super-user') || $user->hasRole('user')) {
+                    if ($user->discount != null) {
+                        if (count(Discount::find($user->discount)->exceptions)>0) {
 
-                    $exception = Discount::find($user->discount)->exceptions;
+                            $exception = Discount::find($user->discount)->exceptions;
 
-                    // return $exception->first()->price;
-                    $exceptions_ids = $exception->pluck('product_id')->toArray();
+                            // return $exception->first()->price;
+                            $exceptions_ids = $exception->pluck('product_id')->toArray();
 
-                    if (in_array($order->product_id, $exceptions_ids)) {
-                        $profit = $product->sell_price - $exception->first()->price;
-                        Profit::create([
-                            'app_user_id' => $user->id,
-                            'agent_id' => null,
-                            'product_id' => $order->product_id,
-                            'profit' => $profit,
-                            'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
-                        ]);
+                            if (in_array($order->product_id, $exceptions_ids)) {
+                                $profit = $product->sell_price - $exception->first()->price;
+                                Profit::create([
+                                    'app_user_id' => $user->id,
+                                    'agent_id' => null,
+                                    'product_id' => $order->product_id,
+                                    'profit' => $profit,
+                                    'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
+                                ]);
 
-                        $user->update(['total_profits'=>$user->total_profits + $profit]);
-                    } else {
-                        $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
-                        Profit::create([
-                            'app_user_id' => $user->id,
-                            'agent_id' => null,
-                            'product_id' => $order->product_id,
-                            'profit' => $profit,
-                            'message' => abs($product->sell_price * Discount::find($user->discount)->percentage / 100) . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
-                        ]);
+                                $user->update(['total_profits' => $user->total_profits + $profit]);
+                            }
+                        } else {
+                            $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
+                            Profit::create([
+                                'app_user_id' => $user->id,
+                                'agent_id' => null,
+                                'product_id' => $order->product_id,
+                                'profit' => $profit,
+                                'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
+                            ]);
 
-                        $user->update(['total_profits'=>$user->total_profits + $profit]);
-
+                            $user->update(['total_profits' => $user->total_profits + $profit]);
+                        }
                     }
+
+                    $user->update([
+                        'balance' => $user->balance - $product->sell_price
+                    ]);
                 }
 
 
@@ -120,44 +127,47 @@ class PurchaseProductController extends Controller
 
                     $agent = Agent::find($user->agent_id);
 
-                    $exception = Discount::find($agent->user->id)->exceptions;
+                    if ($agent->user->discount != null) {
+                        if (count(Discount::find($agent->user->id)->exceptions)>0) {
 
-                    // return $exception->first()->price;
-                    $exceptions_ids = $exception->pluck('product_id')->toArray();
+                            $exception = Discount::find($agent->user->id)->exceptions;
 
-                    if (in_array($order->product_id, $exceptions_ids)) {
-                        $profit = $product->sell_price - $exception->first()->price;
+                            // return $exception->first()->price;
+                            $exceptions_ids = $exception->pluck('product_id')->toArray();
 
-                        Profit::create([
-                            'app_user_id' => $agent->user->id,
-                            'agent_id' => $user->agent_id,
-                            'product_id' => $order->product_id,
-                            'profit' => $profit,
-                            'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
-                        ]);
+                            if (in_array($order->product_id, $exceptions_ids)) {
+                                $profit = $product->sell_price - $exception->first()->price;
 
-                        $user->update(['total_profits'=>$user->total_profits + $profit]);
+                                Profit::create([
+                                    'app_user_id' => $agent->user->id,
+                                    'agent_id' => $user->agent_id,
+                                    'product_id' => $order->product_id,
+                                    'profit' => $profit,
+                                    'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
+                                ]);
 
-                    } else {
-                        $profit = abs($product->sell_price * Discount::find($agent->user->id)->percentage / 100);
-                        Profit::create([
-                            'app_user_id' => $agent->user->id,
-                            'agent_id' => $user->agent_id,
-                            'product_id' => $order->product_id,
-                            'profit' => $profit,
-                            'message' => abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100) . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
-                        ]);
+                                $agent->user->update(['total_profits' => $user->total_profits + $profit]);
 
-                        $user->update(['total_profits'=>$user->total_profits + $profit]);
+                            }
+                        }else {
+                            $profit = abs($product->sell_price * Discount::find($agent->user->id)->percentage / 100);
+                            Profit::create([
+                                'app_user_id' => $agent->user->id,
+                                'agent_id' => $user->agent_id,
+                                'product_id' => $order->product_id,
+                                'profit' => $profit,
+                                'message' => abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100) . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
+                            ]);
 
+                            $agent->user->update(['total_profits' => $user->total_profits + $profit]);
+                        }
                     }
+
+                    $user->update([
+                        'balance' => $user->balance - $product->sell_price
+                    ]);
                 }
-
             }
-
-            $user->update([
-                'balance' => $user->balance - $product->sell_price * $quantity
-            ]);
 
             return 'success';
         }
@@ -201,5 +211,4 @@ class PurchaseProductController extends Controller
             return 'error_occured';
         }
     }
-
 }
