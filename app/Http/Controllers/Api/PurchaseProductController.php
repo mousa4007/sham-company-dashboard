@@ -21,7 +21,7 @@ class PurchaseProductController extends Controller
         return $request->user()->orders()->whereDate('created_at', '>=', Carbon::now()->subDays(30))->get();
     }
     public function userOrdersByWeek(Request $request)
-    {
+{
         return $request->user()->orders()->whereDate('created_at', '>=', Carbon::now()->subDays(7))->get();
     }
     public function userOrdersByDay(Request $request)
