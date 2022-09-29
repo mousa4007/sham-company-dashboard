@@ -13,7 +13,7 @@ class ProfitsController extends Controller
     public function superUserProfitsInDay(Request $request)
     {
         return $request->user()->profits()
-        ->where('created_at','>=',Carbon::now()->subDay())->sum('profit');
+        ->where('created_at','>=',Carbon::now()->subDay())->where('agent_id',null)->sum('profit');
     }
 
     public function superUserProfitsInWeek(Request $request)
@@ -68,10 +68,17 @@ class ProfitsController extends Controller
             'profit' => 'required | numeric'
         ]);
 
-        dd($request->user()->whithdrawed_profits);
+        // dd( $request->user()->whithdrawn_profits);
 
-        if($request->user()->total_profits - $request->user()->withdrawed_profit){
+        if($request->profit <= ($request->user()->total_profits - $request->user()->whithdrawn_profits)){
+            $request->user()->update([
+                'whithdrawn_profits' => $request->user()->whithdrawn_profits + $request->profit ,
+                'balance' =>   $request->user()->balance + $request->profit,
+            ]);
 
+            return 'success';
+        }else{
+            return 'profit_illegal';
         }
     }
 

@@ -146,7 +146,7 @@ class PurchaseProductController extends Controller
                                     'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
                                 ]);
 
-                                $agent->user->update(['total_profits' => $user->total_profits + $profit]);
+                                $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
 
                             }
                         }else {
@@ -159,16 +159,14 @@ class PurchaseProductController extends Controller
                                 'message' => abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100) . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
                             ]);
 
-                            $agent->user->update(['total_profits' => $user->total_profits + $profit]);
+                            $agent->user->update(['total_profits' => $agent->user->total_profits + $profit]);
                         }
                     }
-
                     $user->update([
                         'balance' => $user->balance - $product->sell_price
                     ]);
                 }
             }
-
             return 'success';
         }
     }

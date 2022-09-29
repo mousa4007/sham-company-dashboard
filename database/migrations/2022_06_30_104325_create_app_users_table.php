@@ -22,7 +22,7 @@ return new class extends Migration
             $table->double('outgoingBalance')->default(0);
             $table->double('incomingBalance')->default(0);
             $table->double('total_profits')->default(0);
-            $table->double('whithdrawed_profits')->default(0);
+            $table->double('whithdrawn_profits')->default(0);
             $table->string('phone');
             $table->string('address');
             $table->string('status')->default('active');
