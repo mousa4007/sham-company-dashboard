@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->string('product_name');
             $table->string('product');
+            $table->string('price');
             $table->timestamps();
         });
     }

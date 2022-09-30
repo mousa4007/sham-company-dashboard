@@ -22,18 +22,18 @@ class CashStatementController extends Controller
     public function cashStatementInWeek(Request $request)
     {
         if ($request->user()->hasRole('super-user') || $request->user()->hasRole('user')) {
-            return SuperUserChargingBalance::where('created_at', '>=', Carbon::now()->subDays(7))->latest()->get();
+            return SuperUserChargingBalance::where('created_at', '>=', Carbon::now()->subWeek())->latest()->get();
         } else {
-            return AgentChargingBalance::where('created_at', '>=', Carbon::now()->subDays(7))->latest()->get();
+            return AgentChargingBalance::where('created_at', '>=', Carbon::now()->subWeek())->latest()->get();
         }
     }
 
     public function cashStatementInMonth(Request $request)
     {
         if ($request->user()->hasRole('super-user') || $request->user()->hasRole('user')) {
-            return SuperUserChargingBalance::where('created_at', '>=', Carbon::now()->subDays(30))->latest()->get();
+            return SuperUserChargingBalance::where('created_at', '>=', Carbon::now()->subMonth())->latest()->get();
         } else {
-            return AgentChargingBalance::where('created_at', '>=', Carbon::now()->subDays(30))->latest()->get();
+            return AgentChargingBalance::where('created_at', '>=', Carbon::now()->subMonth())->latest()->get();
         }
     }
 }
