@@ -52,7 +52,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                            <button type="button" class="btn btn-info" wire:click.prevent='update()'>تعديل</button>
+                            <button type="button" class="btn btn-info" wire:click.prevent='update()'><i class="bi-pencil-square"></i></button>
                         </div>
                     </form>
                 </div>
