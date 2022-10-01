@@ -10,4 +10,5 @@ class Ad extends Model
     use HasFactory;
 
     protected $guarded = [];
+
 }

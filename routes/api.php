@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdController;
 use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\AuthController;
@@ -62,6 +63,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('cash-statement-in-week',[CashStatementController::class,'cashStatementInWeek']);
     Route::get('cash-statement-in-month',[CashStatementController::class,'cashStatementInMonth']);
     Route::post('charge-agent-balance',[ChargeBalanceController::class,'chargeAgentBalance']);
+    Route::get('ads',[AdController::class,'ads']);
 
     Route::get('super-user-profits-in-day',[ProfitsController::class,'superUserProfitsInDay']);
     Route::get('super-user-profits-in-week',[ProfitsController::class,'superUserProfitsInWeek']);
