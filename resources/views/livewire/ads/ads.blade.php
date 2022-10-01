@@ -52,7 +52,7 @@
                     <div class="card-header d-flex justify-content-between">
                         <div class="d-flex align-items-baseline">
                             <h3 class="card-title me-5"> الإعلانات</h3>
-                        
+
                         </div>
                         @include('livewire.ads.create_ad')
                     </div>
@@ -84,7 +84,7 @@
                                                 <button type="button"class="btn btn-sm btn-info" data-bs-toggle="modal"
                                                     data-bs-target="#updateAdModal"
                                                     wire:click='edit({{ $ad->id }})'>
-                                                    تعديل
+                                                    <i class="bi-pencil-square"></i>
                                                 </button>
                                             </td>
                                         </tr>
