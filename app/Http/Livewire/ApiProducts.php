@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\DiscountException;
+use App\Models\WebApiKey;
 use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -140,6 +141,12 @@ class ApiProducts extends Component
 
     public function updateApiKey()
     {
+
+        WebApiKey::query()->update([
+            'smsActivate_api_key' => $this->smsActivateApi,
+            'vakSms_api_key' => $this->vakSmsApi,
+            'secondLine_api_key' => $this->secondLineApi,
+        ]);
 
         Product::query()->update([
             'smsActivate_api_key' => $this->smsActivateApi,

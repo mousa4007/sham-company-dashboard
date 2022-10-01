@@ -239,6 +239,13 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item {{ request()->is('ads') ? 'active' : '' }}">
+                            <a href="/ads" class='sidebar-link '>
+                                <i class="bi-megaphone-fill"></i>
+                                <span>الإعلانات</span>
+                            </a>
+                        </li>
+
                         <li class="sidebar-item {{ request()->is('messages') ? 'active' : '' }}">
                             <a href="/messages" class='sidebar-link '>
                                 <i class="bi-envelope-fill"></i>
@@ -331,6 +338,8 @@
             $('#withdrawBalanceModal').modal('hide');
             $('#createTransferProudctModal').modal('hide');
             $('#createMessageModal').modal('hide');
+            $('#createAdModal').modal('hide');
+
 
             toastr.options = {
                 "closeButton": true,
@@ -353,6 +362,7 @@
             $('#updatePricesModal').modal('hide');
             $('#showStockedProductModal').modal('hide');
             $('#updateTransferProudctModal').modal('hide');
+            $('#updateAdModal').modal('hide');
             $('#editProfileModal').modal('hide');
 
 
@@ -378,6 +388,7 @@
             $('#deleteStockedProductShowModal').modal('hide');
             $('#deleteTransferProudctModal').modal('hide');
             $('#showStockedProductModal').modal('hide');
+            $('#deleteAdModal').modal('hide');
 
             toastr.options = {
                 "closeButton": true,

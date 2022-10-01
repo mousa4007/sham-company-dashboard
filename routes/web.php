@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Livewire\Ads;
 use App\Http\Livewire\Agents;
 use App\Http\Livewire\AppUsers;
 use App\Http\Livewire\Categories;
@@ -50,8 +51,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/updateProductsDiscounts', UpdateProductsDiscount::class);
     Route::get('/api-products', ApiProducts::class);
     Route::get('/sales', Sales::class);
+    Route::get('/ads', Ads::class);
     Route::get('/returns', Returns::class);
-
     Route::get('/messages', Messages::class);
     Route::get('/logout', [LogoutController::class, 'logout']);
 });

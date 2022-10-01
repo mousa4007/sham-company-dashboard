@@ -56,7 +56,7 @@ class Products extends Component
     public function mount()
     {
         $this->currency =  1;
-        $this->paginateNumber = 5;
+        $this->paginateNumber = 5 ;
     }
 
     public function resetData()

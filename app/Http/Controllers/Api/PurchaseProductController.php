@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Profit;
 use App\Models\Sale;
 use App\Models\TransferProduct;
+use App\Models\WebApiKey;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -311,5 +312,13 @@ class PurchaseProductController extends Controller
         } else {
             return 'error_occured';
         }
+    }
+
+    public function webApiKey()
+    {
+        $apis = WebApiKey::first();
+
+        return $apis->smsActivate_api_key . ":" . $apis->vakSms_api_key . ":" .$apis->secondLine_api_key  ;
+
     }
 }

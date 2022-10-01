@@ -60,6 +60,14 @@ return [
             'throw' => false,
         ],
 
+        'ads' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/ads'),
+            'url' => env('APP_URL').'/storage/ads',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
 
 
         's3' => [

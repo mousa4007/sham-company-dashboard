@@ -42,6 +42,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('products/{id}', [ApiController::class, 'products']);
     Route::post('productCount', [ApiController::class, 'productCount']);
     Route::post('purchaseProduct', [PurchaseProductController::class, 'purchaseProduct']);
+    Route::get('webApiKey', [PurchaseProductController::class, 'webApiKey']);
     Route::get('userOrdersByMonth', [PurchaseProductController::class, 'userOrdersByMonth']);
     Route::get('userOrdersByWeek', [PurchaseProductController::class, 'userOrdersByWeek']);
     Route::get('userOrdersByDay', [PurchaseProductController::class, 'userOrdersByDay']);

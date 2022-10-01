@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('web_api_keys', function (Blueprint $table) {
-            $table->string('smsActivate_api_key')->default('0');
-            $table->string('vakSms_api_key')->default('0');
-            $table->string('secondLine_api_key')->default('0');
+        Schema::create('ads', function (Blueprint $table) {
+            $table->id();
+            $table->string('description');
+            $table->string('status')->default('active');
+            $table->string('image_url');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('web_api_keys');
+        Schema::dropIfExists('ads');
     }
 };
