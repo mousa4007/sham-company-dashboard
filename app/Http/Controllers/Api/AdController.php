@@ -10,6 +10,6 @@ class AdController extends Controller
 {
     public function ads()
     {
-        return Ad::latest()->get();
+        return Ad::latest()->pluck('image_url');
     }
 }
