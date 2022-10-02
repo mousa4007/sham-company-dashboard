@@ -105,7 +105,6 @@ class PurchaseProductController extends Controller
 
                                 $user->update([
                                     'total_profits' => $user->total_profits + $profit,
-                                    'outgoingBalance' => $user->outgoingBalance + $product->sell_price
                                 ]);
                             }
                         } else {
@@ -123,7 +122,8 @@ class PurchaseProductController extends Controller
                     }
 
                     $user->update([
-                        'balance' => $user->balance - $product->sell_price
+                        'balance' => $user->balance - $product->sell_price,
+                        'outgoingBalance' => $user->outgoingBalance + $product->sell_price
                     ]);
                 }
 
@@ -168,7 +168,9 @@ class PurchaseProductController extends Controller
                         }
                     }
                     $user->update([
-                        'balance' => $user->balance - $product->sell_price
+                        'balance' => $user->balance - $product->sell_price,
+                        'outgoingBalance' => $user->outgoingBalance + $product->sell_price
+
                     ]);
                 }
             }
