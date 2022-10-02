@@ -13,27 +13,27 @@ class CashStatementController extends Controller
     public function cashStatementInDay(Request $request)
     {
         if ($request->user()->hasRole('super-user') || $request->user()->hasRole('user')) {
-            return SuperUserChargingBalance::where('created_at', '>=', Carbon::now()->subDay())->latest()->get();
+            return SuperUserChargingBalance::where('app_user_id',$request->user()->id)->where('created_at', '>=', Carbon::now()->subDay())->latest()->get();
         } else {
-            return AgentChargingBalance::where('created_at', '>=', Carbon::now()->subDay())->latest()->get();
+            return AgentChargingBalance::where('app_user_id',$request->user()->id)->where('created_at', '>=', Carbon::now()->subDay())->latest()->get();
         }
     }
 
     public function cashStatementInWeek(Request $request)
     {
         if ($request->user()->hasRole('super-user') || $request->user()->hasRole('user')) {
-            return SuperUserChargingBalance::where('created_at', '>=', Carbon::now()->subWeek())->latest()->get();
+            return SuperUserChargingBalance::where('app_user_id',$request->user()->id)->where('created_at', '>=', Carbon::now()->subWeek())->latest()->get();
         } else {
-            return AgentChargingBalance::where('created_at', '>=', Carbon::now()->subWeek())->latest()->get();
+            return AgentChargingBalance::where('app_user_id',$request->user()->id)->where('created_at', '>=', Carbon::now()->subWeek())->latest()->get();
         }
     }
 
     public function cashStatementInMonth(Request $request)
     {
         if ($request->user()->hasRole('super-user') || $request->user()->hasRole('user')) {
-            return SuperUserChargingBalance::where('created_at', '>=', Carbon::now()->subMonth())->latest()->get();
+            return SuperUserChargingBalance::where('app_user_id',$request->user()->id)->where('created_at', '>=', Carbon::now()->subMonth())->latest()->get();
         } else {
-            return AgentChargingBalance::where('created_at', '>=', Carbon::now()->subMonth())->latest()->get();
+            return AgentChargingBalance::where('app_user_id',$request->user()->id)->where('created_at', '>=', Carbon::now()->subMonth())->latest()->get();
         }
     }
 }
