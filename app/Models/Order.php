@@ -20,7 +20,7 @@ class Order extends Model
     public function getCreatedAtAttribute($value)
     {
         // return Carbon::parse($value)->diffForHumans();
-        return  Carbon::parse($value)->isoFormat('Y-M-D h a');
+        return  Carbon::parse($value)->isoFormat('Y-M-D h:m a');
 
     }
 
