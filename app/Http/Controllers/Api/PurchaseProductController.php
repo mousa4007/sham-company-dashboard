@@ -103,7 +103,10 @@ class PurchaseProductController extends Controller
                                     'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
                                 ]);
 
-                                $user->update(['total_profits' => $user->total_profits + $profit]);
+                                $user->update([
+                                    'total_profits' => $user->total_profits + $profit,
+                                    'outgoingBalance' => $user->outgoingBalance + $product->sell_price
+                                ]);
                             }
                         } else {
                             $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
