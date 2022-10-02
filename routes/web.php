@@ -21,7 +21,9 @@ use App\Http\Livewire\SuperUserBalance;
 use App\Http\Livewire\TransferProducts;
 use App\Http\Livewire\UpdateProductsDiscount;
 use App\Http\Livewire\UsersDiscounts;
+use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 
@@ -62,7 +64,7 @@ require __DIR__ . '/auth.php';
 
 Route::get('prod', function () {
 
-    $prod = Product::all();
+    $prod = DB::table('categories')->where('status','active')->orderBy('arrangement','asc')->get();
 
     return $prod;
 });

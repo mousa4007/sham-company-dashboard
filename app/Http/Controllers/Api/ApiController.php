@@ -7,12 +7,13 @@ use App\Models\AppUser;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
     public function categories()
     {
-        $category = Category::all();
+        $category = DB::table('categories')->where('status','active')->orderBy('arrangement','asc')->get();
 
         return $category;
     }
