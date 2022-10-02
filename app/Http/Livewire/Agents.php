@@ -117,38 +117,49 @@ class Agents extends Component
         $this->email = $appUser->email;
         $this->phone = $appUser->phone;
         $this->address = $appUser->address;
-        $this->password = $appUser->password;
-        $this->permission = $appUser->hasRole('super-user') ? 1 : 2;
-        $this->orders = count($appUser->orders);
-        $this->returns = count($appUser->returns);
+        // $this->password = $appUser->password;
+        // $this->permission = $appUser->hasRole('super-user') ? 1 : 2;
+        // $this->orders = count($appUser->orders);
+        // $this->returns = count($appUser->returns);
     } //end edit function
 
     public function update()
     {
         $appUser = AppUser::find($this->ids);
 
+
         $data = $this->validate([
             'name' => 'required|string|min:4',
             'email' => 'required|email',
-            'password' => 'required|min:6',
-            'permission' => 'required',
+            'password' => 'min:6',
             'phone' => 'required',
             'address' => 'required',
         ]);
 
-        $appUser->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'address' => $data['address'],
-            'password' => Hash::make($data['password']),
-        ]);
-
-        if ($data['permission'] == 1) {
-            $appUser->syncRoles(['super-user']);
-        } elseif ($data['permission'] == 2) {
-            $appUser->syncRoles(['user']);
+        if($this->password == null){
+            $appUser->update([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'address' => $data['address'],
+            ]);
+        }else{
+            $appUser->update([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'address' => $data['address'],
+                'password' => Hash::make($data['password']),
+            ]);
         }
+
+
+
+        // if ($data['permission'] == 1) {
+        //     $appUser->syncRoles(['super-user']);
+        // } elseif ($data['permission'] == 2) {
+        //     $appUser->syncRoles(['user']);
+        // }
         $email = $data['email'];
 
         if ($this->email != $email) {

@@ -42,7 +42,7 @@
                                 </div>
                             </div>
 
-                            @dump($incomingBalance)
+
                             <div class="col-md-12">
                                 <div class="form-group ">
                                     <label for="first-name-icon" class="mb-2">الرسالة</label>

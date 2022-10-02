@@ -46,20 +46,20 @@ class SubAgentBalance extends Component
 
     public function mount()
     {
-        $this->charge_message = 'تم شحن حسابك بمبلغ  ' . $this->balance;
-        $this->witdhraw_message = 'تم سحب مبلغ من حسابك  ' . $this->balance;
+        $this->charge_message = 'تم شحن حسابك ' ;
+        $this->witdhraw_message = 'تم سحب من حسابك ' ;
         // $this->app_user_id = AppUser::first()->id == '' ? app_user_id = AppUser::first()->id : '';
         $this->paginateNumber = 10;
     }
 
     public function updatedIncomingBalance()
     {
-        $this->charge_message =  'تم شحن حسابك بمبلغ  ' . $this->incomingBalance . '$';
+        $this->charge_message =  'تم شحن حسابك ' . $this->incomingBalance . '$';
     }
 
     public function updatedOutgoingBalance()
     {
-        $this->witdhraw_message =  'تم سحب مبلغ من حسابك  ' . $this->outgoingBalance . '$';
+        $this->witdhraw_message =  'تم سحب من حسابك ' . $this->outgoingBalance . '$';
     }
 
 
@@ -131,8 +131,8 @@ class SubAgentBalance extends Component
     {
         $this->outgoingBalance = '';
         $this->incomingBalance = '';
-        $this->charge_message = 'تم شحن حسابك بمبلغ ';
-        $this->witdhraw_message = 'تم سحب مبلغ من حسابك ';
+        $this->charge_message = 'تم شحن حسابك ';
+        $this->witdhraw_message = 'تم سحب من حسابك ';
         $this->app_user_id = "";
         $this->current_balance = '';
     }
@@ -211,14 +211,14 @@ class SubAgentBalance extends Component
         ]);
 
         $appUser->update([
-            'balance' => $appUser->balance - $this->incomingBalance,
+            'balance' => $appUser->balance - $this->outgoingBalance,
             'outgoingBalance' => $appUser->outgoingBalance + $this->outgoingBalance,
         ]);
 
         $agent = Agent::find($appUser->agent_id);
 
         $agent->update([
-            'balance' => $agent->balance - $this->incomingBalance
+            'balance' => $agent->balance - $this->outgoingBalance
         ]);
 
         Notification::create([
@@ -229,9 +229,17 @@ class SubAgentBalance extends Component
         AgentChargingBalance::create([
             'app_user_id' => $this->app_user_id,
             'name' => $appUser->name,
-            'message' => $this->witdhraw_message,
-            'balance' => $this->incomingBalance,
+            'message' => 'تم سحب مبلغ  ' . $this->outgoingBalance . '$' ,
+            'balance' => $this->outgoingBalance,
             'type' => 'withdraw'
+        ]);
+
+        SuperUserChargingBalance::create([
+            'app_user_id' => $this->app_user_id,
+            'name' => $appUser->name,
+            'message' => 'تم سحب من حساب '  . $appUser->name. ' ' . $this->outgoingBalance . '$'  ,
+            'balance' => $this->outgoingBalance,
+            'type' => 'charge'
         ]);
 
         $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم السحب من الرصيد بنجاح']);
@@ -262,19 +270,36 @@ class SubAgentBalance extends Component
             $super_user = $agent->user;
 
 
+
             if ($q->type == 'charge') {
-                $super_user->update([
-                    'balance' => $super_user->balance + $balance
-                ]);
 
-                $appUser->update([
-                    'balance' => $agent->balance - $balance,
-                    'outgoingBalance' => $appUser->outgoingBalance - $balance,
-                ]);
+                if($appUser->balance >= $balance ){
 
-                $agent->update([
-                    'balance' => $agent->balance - $balance,
-                ]);
+                    $super_user->update([
+                        'balance' => $super_user->balance + $balance
+                    ]);
+
+                    $appUser->update([
+                        'balance' => $appUser->balance - $balance,
+                        'incomingBalance' => $appUser->incomingBalance - $balance,
+                    ]);
+
+                    $agent->update([
+                        'balance' => $agent->balance - $balance,
+                    ]);
+
+                    $q->delete();
+
+                    $this->reset('checked');
+
+                    $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم الإلغاء بنجاح']);
+
+                }else{
+
+                    $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'رصيد المستخدم غير كافي']);
+
+                }
+
             } else {
                 $super_user->update([
                     'balance' => $super_user->balance - $balance
@@ -282,7 +307,7 @@ class SubAgentBalance extends Component
 
                 $appUser->update([
                     'balance' => $appUser->balance + $balance,
-                    'incomingBalance' => $appUser->incomingBalance - $balance,
+                    'outgoingBalance' => $appUser->outgoingBalance - $balance,
                 ]);
 
                 $agent->update([
@@ -290,19 +315,13 @@ class SubAgentBalance extends Component
                 ]);
             }
 
-            AgentChargingBalance::create([
-                'app_user_id' => $appUser->id,
-                'name' => $appUser->name,
-                'message' => 'تم إلغاء شحن حسابك بمبلغ ' . $balance . '$',
-                'balance' => $balance,
-                'type' => 'cancel'
-            ]);
-
             $q->delete();
 
             $this->reset('checked');
+
+           $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم الإلغاء بنجاح']);
+
         });
 
-        $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم الإلغاء بنجاح']);
     }
 }

@@ -356,7 +356,6 @@
 
         window.addEventListener('show-create-modal',event=>{
             $('#updateUserModal').modal('show');
-
         })
 
 
@@ -370,7 +369,7 @@
             $('#updateTransferProudctModal').modal('hide');
             $('#updateAdModal').modal('hide');
             $('#editProfileModal').modal('hide');
-
+            $('#updateAgentModal').modal('hide');
 
             toastr.options = {
                 "closeButton": true,
