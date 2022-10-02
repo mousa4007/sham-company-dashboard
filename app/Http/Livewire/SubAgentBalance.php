@@ -6,6 +6,7 @@ use App\Models\Agent;
 use App\Models\AgentChargingBalance;
 use App\Models\AppUser;
 use App\Models\Notification;
+use App\Models\SuperUserChargingBalance;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -51,14 +52,14 @@ class SubAgentBalance extends Component
         $this->paginateNumber = 10;
     }
 
-    public function updatedOutgoingBalance()
-    {
-        $this->charge_message =  'تم شحن حسابك بمبلغ  ' . $this->outgoingBalance . '$';
-    }
-
     public function updatedIncomingBalance()
     {
-        $this->witdhraw_message =  'تم سحب مبلغ من حسابك  ' . $this->incomingBalance . '$';
+        $this->charge_message =  'تم شحن حسابك بمبلغ  ' . $this->incomingBalance . '$';
+    }
+
+    public function updatedOutgoingBalance()
+    {
+        $this->witdhraw_message =  'تم سحب مبلغ من حسابك  ' . $this->outgoingBalance . '$';
     }
 
 
@@ -150,22 +151,23 @@ class SubAgentBalance extends Component
 
         $this->validate([
             'app_user_id' => 'required',
-            'outgoingBalance' => "required|numeric|max:$this->max_balance",
+            'incomingBalance' => "required|numeric|max:$this->max_balance",
         ]);
 
         $appUser->update([
-            'balance' => $appUser->balance + $this->outgoingBalance,
-            'outgoingBalance' => $appUser->outgoingBalance + $this->outgoingBalance,
+            'balance' => $appUser->balance + $this->incomingBalance,
+            'incomingBalance' => $appUser->incomingBalance + $this->incomingBalance,
         ]);
 
         $this->super_user->update([
-            'balance' => $this->super_user->balance - $this->outgoingBalance,
+            'balance' => $this->super_user->balance - $this->incomingBalance,
+            'outgoingBalance' => $this->super_user->outgoingBalance + $this->incomingBalance,
         ]);
 
         $agent = Agent::find($appUser->agent_id);
 
         $agent->update([
-            'balance' => $agent->balance + $this->outgoingBalance
+            'balance' => $agent->balance + $this->incomingBalance
         ]);
 
         Notification::create([
@@ -173,12 +175,21 @@ class SubAgentBalance extends Component
             'app_user_id' => $this->app_user_id
         ]);
 
+
         AgentChargingBalance::create([
             'app_user_id' => $this->app_user_id,
             'name' => $appUser->name,
             'message' => $this->charge_message,
-            'balance' => $this->outgoingBalance,
+            'balance' => $this->incomingBalance,
             'type' => 'charge'
+        ]);
+
+        SuperUserChargingBalance::create([
+            'app_user_id' => $this->app_user_id,
+            'name' => $appUser->name,
+            'message' => 'تم شحن حساب ' . $appUser->name . ' '. $this->incomingBalance . '$',
+            'balance' => $this->incomingBalance,
+            'type' => 'withdraw'
         ]);
 
         $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم شحن الرصيد بنجاح']);
@@ -191,17 +202,17 @@ class SubAgentBalance extends Component
 
         $this->validate([
             'app_user_id' => 'required',
-            'incomingBalance' => "required|numeric|max:$appUser->balance",
+            'outgoingBalance' => "required|numeric|max:$appUser->balance",
         ]);
 
         $super_user->update([
-            'balance' => $super_user->balance + $this->incomingBalance,
-            'incomingBalance' => $super_user->incomingBalance - $this->incomingBalance,
+            'balance' => $super_user->balance + $this->outgoingBalance,
+            'incomingBalance' => $super_user->incomingBalance + $this->outgoingBalance,
         ]);
 
         $appUser->update([
             'balance' => $appUser->balance - $this->incomingBalance,
-            'incomingBalance' => $appUser->incomingBalance + $this->incomingBalance,
+            'outgoingBalance' => $appUser->outgoingBalance + $this->outgoingBalance,
         ]);
 
         $agent = Agent::find($appUser->agent_id);

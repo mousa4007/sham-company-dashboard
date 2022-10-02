@@ -354,6 +354,12 @@
         });
 
 
+        window.addEventListener('show-create-modal',event=>{
+            $('#updateUserModal').modal('show');
+
+        })
+
+
         window.addEventListener('hide-update-modal', event => {
             $('#updateUserModal').modal('hide');
             $('#updateCategoryModal').modal('hide');

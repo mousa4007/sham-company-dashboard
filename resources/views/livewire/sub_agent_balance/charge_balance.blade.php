@@ -29,14 +29,14 @@
                                 <div class="form-group has-icon-left">
                                     <label for="الرصيد" class="mb-2">الرصيد</label>
                                     <div class="position-relative">
-                                        <input wire:model.debounce.300ms='outgoingBalance' type="number"
-                                            class="form-control @error('outgoingBalance') is-invalid @enderror"
+                                        <input wire:model.debounce.300ms='incomingBalance' type="number"
+                                            class="form-control @error('incomingBalance') is-invalid @enderror"
                                             placeholder="رصيد الوكيل الرسمي : {{ $official_agent_balance }}" required>
                                         <div class="form-control-icon">
                                             <i class="bi bi-cash"></i>
                                         </div>
                                     </div>
-                                    @error('outgoingBalance')
+                                    @error('incomingBalance')
                                         <span class="text-danger d-block mt-2">{{ $message }}</span>
                                     @enderror
                                 </div>

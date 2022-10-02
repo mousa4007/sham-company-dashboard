@@ -24,10 +24,6 @@
             </select>
         </fieldset>
     @endif
-
-
-
-
 </div>
 
 <script>

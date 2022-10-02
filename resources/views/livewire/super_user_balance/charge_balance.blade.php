@@ -29,18 +29,20 @@
                                 <div class="form-group has-icon-left">
                                     <label for="الرصيد" class="mb-2">الرصيد</label>
                                     <div class="position-relative">
-                                        <input wire:model.debounce.1000ms='outgoingBalance' type="number"
-                                            class="form-control @error('outgoingBalance') is-invalid @enderror"
+                                        <input wire:model.debounce.1000ms='incomingBalance' type="number"
+                                            class="form-control @error('incomingBalance') is-invalid @enderror"
                                             placeholder="الرصيد" required>
                                         <div class="form-control-icon">
                                             <i class="bi bi-cash"></i>
                                         </div>
                                     </div>
-                                    @error('outgoingBalance')
+                                    @error('incomingBalance')
                                         <span class="text-danger d-block mt-2">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
+
+                            @dump($incomingBalance)
                             <div class="col-md-12">
                                 <div class="form-group ">
                                     <label for="first-name-icon" class="mb-2">الرسالة</label>

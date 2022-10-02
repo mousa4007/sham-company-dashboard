@@ -14,7 +14,7 @@ class SuperUserChargingBalance extends Model
 
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d-m-Y');
+        return Carbon::parse($value)->format('Y-m-d');
     }
 
 }

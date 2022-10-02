@@ -29,14 +29,14 @@
                                 <div class="form-group has-icon-left">
                                     <label for="الرصيد الحالي" class="mb-2">الرصيد</label>
                                     <div class="position-relative">
-                                        <input wire:model.debounce.300ms='incomingBalance' type="number"
+                                        <input wire:model.debounce.300ms='outgoingBalance' type="number"
                                             class="form-control @error('balance') is-invalid @enderror"
                                             placeholder="الرصيد الحالي {{ $current_balance }}" required>
                                         <div class="form-control-icon">
                                             <i class="bi bi-cash"></i>
                                         </div>
                                     </div>
-                                    @error('incomingBalance')
+                                    @error('outgoingBalance')
                                         <span class="text-danger d-block mt-2">{{ $message }}</span>
                                     @enderror
                                 </div>

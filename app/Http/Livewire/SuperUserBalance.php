@@ -49,12 +49,12 @@ class SuperUserBalance extends Component
 
     public function updatedOutgoingBalance()
     {
-        $this->charge_message =  'تم شحن حسابك بمبلغ  ' . $this->outgoingBalance . '$';
+        $this->witdhraw_message ='تم سحب مبلغ من حسابك  '  . $this->outgoingBalance . '$';
     }
 
     public function updatedIncomingBalance()
     {
-        $this->witdhraw_message =  'تم سحب مبلغ من حسابك  ' . $this->incomingBalance . '$';
+        $this->charge_message =  'تم شحن حسابك بمبلغ  '  . $this->incomingBalance . '$';
     }
 
     public function updatedAppUserId()
@@ -139,12 +139,12 @@ class SuperUserBalance extends Component
 
         $this->validate([
             'app_user_id' => 'required|numeric',
-            'outgoingBalance' => "required|numeric|max:1000",
+            'incomingBalance' => "required|numeric|max:1000",
         ]);
 
         $appUser->update([
-            'balance' => $appUser->balance + $this->outgoingBalance,
-            'outgoingBalance' => $appUser->outgoingBalance + $this->outgoingBalance,
+            'balance' => $appUser->balance + $this->incomingBalance,
+            'incomingBalance' => $appUser->incomingBalance + $this->incomingBalance,
         ]);
 
         Notification::create([
@@ -156,7 +156,7 @@ class SuperUserBalance extends Component
             'app_user_id' => $this->app_user_id,
             'name' => $appUser->name,
             'message' => $this->charge_message,
-            'balance' => $this->outgoingBalance,
+            'balance' => $this->incomingBalance,
             'type' => 'charge'
         ]);
 
@@ -173,13 +173,13 @@ class SuperUserBalance extends Component
         }
         $this->validate([
             'app_user_id' => 'required|numeric',
-            'incomingBalance' => "required|numeric|max:$this->max_balance",
+            'outgoingBalance' => "required|numeric|max:$this->max_balance",
         ]);
 
 
         $appUser->update([
-            'balance' => $appUser->balance - $this->incomingBalance,
-            'incomingBalance' => $appUser->incomingBalance + $this->incomingBalance,
+            'balance' => $appUser->balance - $this->outgoingBalance,
+            'outgoingBalance' => $appUser->outgoingBalance + $this->outgoingBalance,
         ]);
 
         Notification::create([
@@ -191,7 +191,7 @@ class SuperUserBalance extends Component
             'app_user_id' => $this->app_user_id,
             'name' => $appUser->name,
             'message' => $this->witdhraw_message,
-            'balance' => $this->incomingBalance,
+            'balance' => $this->outgoingBalance,
             'type' => 'withdraw'
         ]);
 
@@ -214,30 +214,47 @@ class SuperUserBalance extends Component
             $appUser = AppUser::find($q->app_user_id);
 
             if ($q->type == 'charge') {
-                $appUser->update([
-                    'balance' => $appUser->balance - $balance,
-                    'outgoingBalance' => $appUser->outgoingBalance - $balance,
-                ]);
-            } else {
+                if($appUser->balance >= $balance){
+                    $appUser->update([
+                        'balance' => $appUser->balance - $balance,
+                        'incomingBalance' => $appUser->incomingBalance - $balance,
+                    ]);
+
+                        $q->delete();
+
+                        $this->reset('checked');
+
+                   $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم الإلغاء بنجاح']);
+
+
+                }else {
+                    // dd('رصيد المستخدم غير كافي لإلغاء العملية');
+                    //   $this->dispatchBrowserEvent('show-create-modal', ['message' => 'تم الإلغاء asd']);
+                   $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'رصيد المستخدم غير كافي']);
+
+
+                    //   $q->delete();
+
+                    //   $this->reset('checked');
+                }
+
+            }else{
                 $appUser->update([
                     'balance' => $appUser->balance + $balance,
-                    'incomingBalance' => $appUser->incomingBalance - $balance,
+                    'outgoingBalance' => $appUser->outgoingBalance - $balance,
                 ]);
             }
 
-            SuperUserChargingBalance::create([
-                'app_user_id' => $appUser->id,
-                'name' => $appUser->name,
-                'message' => 'تم إلغاء شحن حسابك بمبلغ ' . $balance . '$',
-                'balance' => $balance,
-                'type' => 'cancel'
-            ]);
+            // SuperUserChargingBalance::create([
+            //     'app_user_id' => $appUser->id,
+            //     'name' => $appUser->name,
+            //     'message' => 'تم إلغاء شحن حسابك بمبلغ ' . $balance . '$',
+            //     'balance' => $balance,
+            //     'type' => 'cancel'
+            // ]);
 
-            $q->delete();
 
-            $this->reset('checked');
         });
 
-        $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم الإلغاء بنجاح']);
     }
 }

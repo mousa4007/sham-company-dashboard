@@ -18,7 +18,7 @@
                     <a href="#" class="btn btn-success btn-sm m-0 mx-1" wire:click='accept'>موافقة</a>
                     <a href="#" class="btn btn-danger btn-sm m-0 mx-1" wire:click='reject'>رفض</a>
                     <a href="#" class="btn btn-success btn-sm m-0 mx-1" wire:click='export'><i
-                            class="bi-file-earmark-spreadsheet-fill"> </a>
+                            class="bi-file-earmark-spreadsheet-fill"></i> </a>
                     <span>|</span>
                     @include('components.datepicker')
 
