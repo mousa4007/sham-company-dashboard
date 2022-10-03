@@ -126,7 +126,8 @@ class ApiProducts extends Component
 
     public function editApiKey()
     {
-        $apis = Product::all();
+
+        $apis = WebApiKey::all();
 
         if (count($apis) > 0) {
             $this->smsActivateApi = $apis->first()->smsActivate_api_key;
@@ -137,16 +138,34 @@ class ApiProducts extends Component
             $this->vakSmsApi = '';
             $this->secondLineApi = '';
         }
+
+
     }
 
     public function updateApiKey()
     {
+        $apis = WebApiKey::all();
 
-        WebApiKey::query()->update([
-            'smsActivate_api_key' => $this->smsActivateApi,
-            'vakSms_api_key' => $this->vakSmsApi,
-            'secondLine_api_key' => $this->secondLineApi,
-        ]);
+        if($apis->first() == null){
+            WebApiKey::create([
+                'smsActivate_api_key' => $this->smsActivateApi,
+                'vakSms_api_key' => $this->vakSmsApi,
+                'secondLine_api_key' => $this->secondLineApi,
+            ]);
+
+        $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم الإضافة بنجاح']);
+
+        }else{
+            WebApiKey::query()->update([
+                'smsActivate_api_key' => $this->smsActivateApi,
+                'vakSms_api_key' => $this->vakSmsApi,
+                'secondLine_api_key' => $this->secondLineApi,
+            ]);
+
+        $this->dispatchBrowserEvent('hide-update-modal', ['message' => 'تم التعديل بنجاح']);
+
+        }
+
 
         Product::query()->update([
             'smsActivate_api_key' => $this->smsActivateApi,
@@ -154,7 +173,8 @@ class ApiProducts extends Component
             'secondLine_api_key' => $this->secondLineApi,
         ]);
 
-        $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم التعديل بنجاح']);
+
+
     }
 
     public function update()

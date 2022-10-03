@@ -14,9 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('web_api_keys', function (Blueprint $table) {
-            $table->string('smsActivate_api_key')->default('0');
-            $table->string('vakSms_api_key')->default('0');
-            $table->string('secondLine_api_key')->default('0');
+            $table->id();
+            $table->string('smsActivate_api_key');
+            $table->string('vakSms_api_key');
+            $table->string('secondLine_api_key');
+            $table->timestamps();
         });
     }
 
