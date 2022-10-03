@@ -119,8 +119,6 @@ class StockedProducts extends Component
 
     public function update()
     {
-
-
         $product_item = StockedProduct::find($this->product_item_id);
 
         $data = $this->validate([

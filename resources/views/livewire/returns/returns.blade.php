@@ -168,7 +168,7 @@
                                     </td>
 
                                     <td>{{
-                                        \Carbon\Carbon::parse($return->created_at)->diff(\Carbon\Carbon::parse($stocked_product->find($return->product_item_id)->first()->created_at))->format('%H:%I')
+                                        \Carbon\Carbon::parse($return->created_at)->diff(\Carbon\Carbon::parse($orders->where('product',$return->return)->first()->created_at))->format('%H:%I')
                                         }}
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($return->created_at)->isoFormat('Y-M-D h a') }}

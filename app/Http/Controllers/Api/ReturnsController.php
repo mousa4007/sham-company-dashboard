@@ -13,7 +13,7 @@ class ReturnsController extends Controller
         $request->validate([
             'return' => 'required',
             'reason' => 'required',
-            'product_id' => 'required'
+            'product_id' => 'required',
         ]);
 
         $return = Returns::create([

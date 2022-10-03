@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('reason');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->foreignId('app_user_id')->constrained('app_users')->onDelete('cascade');
-            $table->foreignId('product_item_id')->constrained('stocked_products')->onDelete('cascade');
             $table->foreignId('agent_id')->nullable();
             $table->string('status')->default('ignored');
             $table->timestamps();

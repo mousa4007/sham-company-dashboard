@@ -17,15 +17,15 @@ class Order extends Model
         return $this->belongsTo(AppUser::class, 'app_user_id');
     }
 
-    public function getCreatedAtAttribute($value)
-    {
-        // return Carbon::parse($value)->diffForHumans();
-        return  Carbon::parse($value)->isoFormat('Y-M-D h:m a');
+    // public function getCreatedAtAttribute($value)
+    // {
+    //     // return Carbon::parse($value)->diffForHumans();
+    //     return  Carbon::parse($value)->isoFormat('Y-M-D h:m a');
 
-    }
+    // }
 
-    public function getUpdatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->format('d-m-Y h:m');
-    }
+    // public function getUpdatedAtAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('d-m-Y h:m');
+    // }
 }

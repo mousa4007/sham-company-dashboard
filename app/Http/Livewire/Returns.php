@@ -21,7 +21,7 @@ class Returns extends Component
 {
     use WithPagination;
     use Exportable;
-    
+
     public $paginationTheme = 'bootstrap';
     public $return,
         $returner,
@@ -59,7 +59,7 @@ class Returns extends Component
         return view('livewire.returns.returns', [
             'returns' => $this->returns,
             'app_users' => AppUser::all(),
-            'stocked_product'=>StockedProduct::all()
+            'orders'=>Order::all()
         ]);
     }
 
