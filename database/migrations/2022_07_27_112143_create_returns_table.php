@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->foreignId('app_user_id')->constrained('app_users')->onDelete('cascade');
             $table->foreignId('agent_id')->nullable();
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
             $table->string('status')->default('ignored');
             $table->timestamps();
         });

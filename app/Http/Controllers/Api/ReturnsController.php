@@ -14,6 +14,7 @@ class ReturnsController extends Controller
             'return' => 'required',
             'reason' => 'required',
             'product_id' => 'required',
+            'order_id' => 'required',
         ]);
 
         $return = Returns::create([
@@ -21,6 +22,7 @@ class ReturnsController extends Controller
             'reason' => $request->reason,
             'product_id' => $request->product_id,
             'app_user_id' => $request->user()->id,
+            'order_id' => $request->order_id,
             'agent_id' => $request->user()->hasRole('agent') ? $request->user()->agent_id : '',
         ]);
 

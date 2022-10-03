@@ -45,6 +45,7 @@ class Returns extends Component
 
     public function mount()
     {
+
         // dd($this->returns);
         $this->users = AppUser::all();
         $this->products = Product::all();
@@ -56,6 +57,7 @@ class Returns extends Component
     }
     public function render()
     {
+        // dd('90222547460\n 90040056043' == '90222547460 90040056043');
         return view('livewire.returns.returns', [
             'returns' => $this->returns,
             'app_users' => AppUser::all(),
