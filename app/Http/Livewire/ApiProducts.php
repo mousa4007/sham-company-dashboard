@@ -79,11 +79,17 @@ class ApiProducts extends Component
 
     public function store()
     {
+        // dd(count(WebApiKey::all()));
         $data = $this->validate();
 
         if($data['image_url']){
             $image = $data['image_url']->store('/','products');
         }
+
+        $apis = WebApiKey::all();
+
+
+        if (count($apis) != 0) {
 
         $product = Product::create([
             'name' => $data['name'],
@@ -96,7 +102,10 @@ class ApiProducts extends Component
             'is_direct' => true,
             'web_api' => $this->web_api,
             'country_number' => $this->country_number,
-            'service_code' => $this->service_code
+            'service_code' => $this->service_code,
+            'smsActivate_api_key' =>$apis->first()->smsActivate_api_key,
+            'vakSms_api_key' =>$apis->first()->vakSms_api_key,
+            'secondLine_api_key' =>$apis->first()->secondLine_api_key,
         ]);
 
         DiscountException::create([
@@ -106,6 +115,10 @@ class ApiProducts extends Component
         ]);
 
         $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تمت الإضافة بنجاح']);
+        }else{
+        $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'حدد مفاتيح المواقع أولا']);
+        }
+
     } //end store fucntion
 
     public function edit(Product $product)
@@ -162,17 +175,20 @@ class ApiProducts extends Component
                 'secondLine_api_key' => $this->secondLineApi,
             ]);
 
-        $this->dispatchBrowserEvent('hide-update-modal', ['message' => 'تم التعديل بنجاح']);
+                $products = Product::where('is_direct',1)->get();
+
+                    foreach ($products as $product) {
+                        $product->update([
+                            'smsActivate_api_key' => $this->smsActivateApi,
+                            'vakSms_api_key' => $this->vakSmsApi,
+                            'secondLine_api_key' => $this->secondLineApi,
+                        ]);
+
+                    }
+
+                $this->dispatchBrowserEvent('hide-update-modal', ['message' => 'تم التعديل بنجاح']);
 
         }
-
-
-        Product::query()->update([
-            'smsActivate_api_key' => $this->smsActivateApi,
-            'vakSms_api_key' => $this->vakSmsApi,
-            'secondLine_api_key' => $this->secondLineApi,
-        ]);
-
 
 
     }

@@ -32,9 +32,9 @@ return new class extends Migration
             $table->string('country_number')->nullable();
             $table->string('service_code')->nullable();
             $table->string('web_api')->nullable();
-            $table->string('smsActivate_api_key')->default('87f928c1639b2be22f8f3AAcd052A334');
-            $table->string('vakSms_api_key')->default('938f785b9f024a2aa74d6d354ed0dbca');
-            $table->string('secondLine_api_key')->default('d0ccfaa3ae5471fb24ddaf00b1cdf458');
+            $table->string('smsActivate_api_key');
+            $table->string('vakSms_api_key');
+            $table->string('secondLine_api_key');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });
