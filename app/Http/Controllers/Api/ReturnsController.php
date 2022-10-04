@@ -26,8 +26,6 @@ class ReturnsController extends Controller
             'agent_id' => $request->user()->hasRole('agent') ? $request->user()->agent_id : '',
         ]);
 
-        return response()->json([
-            'return' => $return
-        ]);
+        return 'success';
     }
 }
