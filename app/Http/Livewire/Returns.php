@@ -83,7 +83,7 @@ class Returns extends Component
             $product =  Product::find($return->product_id);
             $user = AppUser::find($return->app_user_id);
 
-            if ($return->status != 'accept') {
+            if ($return->status != 'accepted') {
                 if ($return->agent_id) {
                     //find super user from agent id
                     $superUser = Agent::find($return->agent_id)->user;
@@ -119,7 +119,7 @@ class Returns extends Component
                     ]);
 
                     $return->update([
-                        'status' => 'accept'
+                        'status' => 'accepted'
                     ]);
 
                     $user->update([
@@ -133,8 +133,9 @@ class Returns extends Component
 
                     $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تمت الموافقة']);
                 } else {
+
                     $return->update([
-                        'status' => 'accept'
+                        'status' => 'accepted'
                     ]);
 
                     $user->update([
@@ -155,7 +156,7 @@ class Returns extends Component
     public function ignore()
     {
         ModelsReturns::whereIn('id', $this->selectedRows)->update([
-            'status' => 'ignore'
+            'status' => 'ignored'
         ]);
     }
 

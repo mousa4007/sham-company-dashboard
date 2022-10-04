@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Returns;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,8 @@ class ReturnsController extends Controller
             'order_id' => $request->order_id,
             'agent_id' => $request->user()->hasRole('agent') ? $request->user()->agent_id : '',
         ]);
+
+        Order::where('id',$request->order_id)->update(['is_returned' => false]);
 
         return 'success';
     }

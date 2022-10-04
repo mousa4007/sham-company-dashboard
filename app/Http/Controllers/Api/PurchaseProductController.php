@@ -77,6 +77,7 @@ class PurchaseProductController extends Controller
                     'product_name' => Product::find($order->product_id)->name,
                     'product' => $order->product_item,
                     'price' => Product::find($order->product_id)->sell_price,
+                    'is_returned' => true
                 ]);
 
                 Sale::create([
@@ -197,7 +198,7 @@ class PurchaseProductController extends Controller
                 'product_id' => $product->id,
                 'product_name' => $product->name,
                 'product' => $request->product_item,
-                'price' =>$product->sell_price
+                'price' =>$product->sell_price,
             ]);
 
             Sale::create([
