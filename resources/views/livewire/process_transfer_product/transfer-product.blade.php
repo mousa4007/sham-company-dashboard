@@ -14,8 +14,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="buttons m-3">
-                    <a href="#" class="btn btn-primary btn-sm m-0 mx-1" wire:click.prevent='resetData'
-                        data-bs-toggle="modal" data-bs-target="#createTransferProudctModal">موافقة</a>
+                    <a href="#" class="btn btn-primary btn-sm m-0 mx-1" wire:click.prevent='acceptTransfer'>
+                        موافقة</a>
                     <a href="#" class="btn btn-danger btn-sm m-0 mx-1" data-bs-toggle="modal"
                         data-bs-target="#deleteTransferProudctModal">رفض</a>
 
@@ -71,6 +71,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 @forelse ($transferProducts as  $item)
                                     <tr>
                                         <td><input wire:model='selectedRows' value="{{ $item->id }}" type="checkbox"

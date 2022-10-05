@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('product');
             $table->string('price');
             $table->double('profit');
+            $table->string('transfer_status')->nullable();
             $table->boolean('is_returned')->default(false);
             $table->timestamps();
         });

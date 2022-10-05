@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products');
             $table->string('address');
             $table->double('amount');
+            $table->bigInteger('order_id');
             $table->string('status')->default('ignored');
             $table->timestamps();
         });

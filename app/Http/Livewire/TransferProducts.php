@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Category;
 use App\Models\DiscountException;
 use App\Models\Product;
-use App\Models\TransferProduct;
 use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Livewire\WithFileUploads;

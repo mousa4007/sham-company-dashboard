@@ -2,10 +2,14 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Agent;
 use App\Models\AppUser;
+use App\Models\Discount;
 use App\Models\Message;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Profit;
 use App\Models\Sale;
 use App\Models\TransferProduct;
 use Livewire\Component;
@@ -46,6 +50,15 @@ class ProcessTransferProduct extends Component
     public function mount()
     {
         $this->products = Product::all();
+    }
+
+    public function updatedChecked($value)
+    {
+        if($value){
+            $this->selectedRows = $this->transferProducts->pluck('id');
+        }else{
+            $this->reset(['selectedRows','checked']);
+        }
     }
 
     public function getTransferProductsProperty()
@@ -137,36 +150,121 @@ class ProcessTransferProduct extends Component
 
     public function acceptTransfer()
     {
+        TransferProduct::whereIn('id',$this->selectedRows)->each(function($q){
 
-        $user = AppUser::find($this->app_user_id);
-        $product = Product::find($this->product_id);
+            $user = AppUser::find($q->app_user_id);
+            $product = Product::find($q->product_id);
+            $order = Order::find($q->order_id);
 
-        Order::create([
-            'app_user_id' => $this->app_user_id,
-            'product_id' => $this->product_id,
-            'product' => $product->name,
-        ]);
+            if ($user->hasRole('super-user') || $user->hasRole('user')) {
+                if ($user->discount != null) {
+                    if (count(Discount::find($user->discount)->exceptions)>0) {
 
-        Sale::create([
-            'product' => $product->name,
-            'product_id' => $this->product_id,
-        ]);
+                        $exception = Discount::find($user->discount)->exceptions;
 
-        $user->update([
-            'balance' => $user->balance - $this->amount
-        ]);
+                        // return $exception->first()->price;
+                        $exceptions_ids = $exception->pluck('product_id')->toArray();
 
-        TransferProduct::find($this->transfer_id)->update([
-            'status' => 'accepted',
-        ]);
+                        if (in_array($order->product_id, $exceptions_ids)) {
+                            $profit = $product->sell_price - $exception->first()->price;
 
-        Message::create([
-            'app_user_id' => $this->app_user_id,
-            'message' => $this->message
-        ]);
+                            Profit::create([
+                                'order_id'=> $order->id,
+                                'app_user_id' => $user->id,
+                                'agent_id' => null,
+                                'product_id' => $order->product_id,
+                                'profit' => $profit,
+                                'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
+                            ]);
 
-        $this->dispatchBrowserEvent('hide-create-modal', ['message' => ' تم الموافقة على عملية التحويل وخصم المبلغ من المستخدم']);
-    }
+                            $user->update([
+                                'total_profits' => $user->total_profits + $profit,
+                            ]);
+                        }
+                    } else {
+                        $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
+
+                        Profit::create([
+                            'order_id'=> $order->id,
+                            'app_user_id' => $user->id,
+                            'agent_id' => null,
+                            'product_id' => $order->product_id,
+                            'profit' => $profit,
+                            'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
+                        ]);
+
+                        $user->update(['total_profits' => $user->total_profits + $profit]);
+                    }
+                }
+            }
+
+
+            if ($user->hasRole('agent')) {
+
+                $agent = Agent::find($user->agent_id);
+
+                if ($agent->user->discount != null) {
+                    if (count(Discount::find($agent->user->id)->exceptions)>0) {
+
+                        $exception = Discount::find($agent->user->id)->exceptions;
+
+                        // return $exception->first()->price;
+                        $exceptions_ids = $exception->pluck('product_id')->toArray();
+
+                        if (in_array($order->product_id, $exceptions_ids)) {
+                            $profit = $product->sell_price - $exception->first()->price;
+
+                            Profit::create([
+                                'order_id'=> $order->id,
+                                'app_user_id' => $agent->user->id,
+                                'agent_id' => $user->agent_id,
+                                'product_id' => $order->product_id,
+                                'profit' => $profit,
+                                'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
+                            ]);
+
+                            $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
+                        }
+                    }else {
+                        $profit = abs($product->sell_price * Discount::find($agent->user->id)->percentage / 100);
+
+                        Profit::create([
+                            'order_id'=> $order->id,
+                            'app_user_id' => $agent->user->id,
+                            'agent_id' => $user->agent_id,
+                            'product_id' => $order->product_id,
+                            'profit' => $profit,
+                            'message' => abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100) . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
+                        ]);
+                        $agent->user->update(['total_profits' => $agent->user->total_profits + $profit]);
+                    }
+                }
+            }
+
+           $q->update([
+            'status'=>'accepted'
+           ]);
+
+            $order->update([
+                'transfer_status' => 'accepted',
+            ]);
+
+            Sale::create([
+                'product' => $product->name,
+                'product_id' => $product->id,
+            ]);
+
+            Notification::create([
+                'app_user_id' => $user->id,
+                'message' => "العملية مكتملة ✅  \r\nالرقم : $order->product  \r\nالمنتج : $product->name  \r\nالمبلغ :  $product->sell_price"
+
+            ]);
+
+            $this->dispatchBrowserEvent('hide-create-modal', ['message' => ' تم الموافقة على عملية التحويل']);
+
+        });
+
+          }
 
     public function rejectTransfer()
     {

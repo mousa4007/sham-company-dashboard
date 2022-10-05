@@ -31,7 +31,6 @@ class PurchaseProductController extends Controller
         return $request->user()->orders()->whereDate('created_at', '>=', Carbon::now()->subDays(1))->get();
     }
 
-
     public function purchaseProduct(Request $request)
     {
 
@@ -47,7 +46,7 @@ class PurchaseProductController extends Controller
 
 
         //find the product from id
-        $product = Product::find(7);
+        $product = Product::find($request->product_id);
 
 
         //get product items count
@@ -193,7 +192,6 @@ class PurchaseProductController extends Controller
                                 ]);
 
                                 $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
-
                             }
                         }else {
                             $profit = abs($product->sell_price * Discount::find($agent->user->id)->percentage / 100);
@@ -238,7 +236,6 @@ class PurchaseProductController extends Controller
             return 'success';
         }
     }
-
 
     public function updateUserBalance(Request $request)
     {
@@ -361,13 +358,34 @@ class PurchaseProductController extends Controller
         ]);
 
         if ($request->user()->balance >= $request->amount) {
+
+
+            $order = Order::create([
+                'app_user_id' => $request->user()->id,
+                'product_id' => $request->product_id,
+                'product_name' => Product::find($request->product_id)->name,
+                'product' => $request->address,
+                'price' => Product::find($request->product_id)->sell_price,
+                'is_returned' => false,
+                'profit' => 0,
+                'transfer_status' => 'ignored'
+            ]);
+
             TransferProduct::create([
+                'order_id'=> $order->id,
                 'amount' => $request->amount,
                 'address' => $request->address,
                 'product_id' => $request->product_id,
                 'app_user_id' => $request->user()->id,
             ]);
-            return response()->json(true);
+
+            $request->user()->update([
+                'balance'=> $request->user()->balance - Product::find($request->product_id)->sell_price,
+                'outgoingBalance'=> $request->user()->outgoingBalance + Product::find($request->product_id)->sell_price,
+            ]);
+
+            return 'success';
+
         } else if ($request->user()->balance <= $request->amount) {
             return 'not_enough_balance';
         } else {
@@ -380,6 +398,5 @@ class PurchaseProductController extends Controller
         $apis = WebApiKey::first();
 
         return $apis->smsActivate_api_key . ":" . $apis->vakSms_api_key . ":" .$apis->secondLine_api_key  ;
-
     }
 }

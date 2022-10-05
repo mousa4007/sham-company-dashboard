@@ -104,7 +104,7 @@ class Returns extends Component
                 ]);
 
                 $order->update([
-                    'product' => 'تم الإرجاع',
+                    'product' => 'تم قبول المراجعة',
                     'profit' => 0
                 ]);
 
@@ -158,7 +158,7 @@ class Returns extends Component
                     }
 
                     Order::where('product', $return->return)->update([
-                        'product' => 'تم الإرجاع'
+                        'product' => 'تم قبول المراجعة'
                     ]);
 
                     $return->update([
