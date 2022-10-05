@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('product_name');
             $table->string('product');
             $table->string('price');
+            $table->double('profit');
             $table->boolean('is_returned')->default(false);
             $table->timestamps();
         });

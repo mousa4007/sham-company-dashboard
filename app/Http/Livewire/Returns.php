@@ -61,7 +61,7 @@ class Returns extends Component
         return view('livewire.returns.returns', [
             'returns' => $this->returns,
             'app_users' => AppUser::all(),
-            'orders'=>Order::all()
+            'orders' => Order::all()
         ]);
     }
 
@@ -80,10 +80,57 @@ class Returns extends Component
     public function accept()
     {
         ModelsReturns::whereIn('id', $this->selectedRows)->each(function ($return) {
+            if ($return->status != 'rejected' && $return->status != 'accepted') {
+                Profit::where('order_id', $return->order_id)->update([
+                    'profit' => 0
+                ]);
+
+                $user = AppUser::find($return->app_user_id);
+
+                // dd($return->order_id);
+
+                $order = Order::find($return->order_id);
+
+                // dd($order);
+
+                $user->update([
+                    'balance' => $user->balance + $order->price,
+                    'outgoingBalance' => $user->outgoingBalance - $order->price,
+                    'total_profits' => $user->total_profits - $order->profit,
+                ]);
+
+                $return->update([
+                    'status' => 'accepted'
+                ]);
+
+                $order->update([
+                    'product' => 'تم الإرجاع',
+                    'profit' => 0
+                ]);
+
+                Notification::create([
+                    'app_user_id' => $return->app_user_id,
+                    'message' => ' تم استرجاع قيمة المنتج  ' . $order->product_name,
+                ]);
+
+                $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تمت الموافقة']);
+            }
+        });
+    }
+
+    public function accept2()
+    {
+        ModelsReturns::whereIn('id', $this->selectedRows)->each(function ($return) {
             $product =  Product::find($return->product_id);
             $user = AppUser::find($return->app_user_id);
 
-            if ($return->status != 'accepted') {
+            if ($return->status != 'rejected' && $return->status != 'accepted') {
+
+
+
+
+
+
                 if ($return->agent_id) {
                     //find super user from agent id
                     $superUser = Agent::find($return->agent_id)->user;
@@ -97,12 +144,8 @@ class Returns extends Component
                     if ($user->hasRole('agent')) {
                         $agent = Agent::find($user->agent_id);
                         if (in_array($return->product_id, $exceptions_ids)) {
-
-                            Profit::create([
-                                'app_user_id' => $agent->user->id,
-                                'agent_id' => $user->agent_id,
-                                'product_id' => $return->product_id,
-                                'profit' =>  - ($product->price - $exception->first()->price)
+                            Profit::where('order_id', $return->order_id)->update([
+                                'profit' => 0
                             ]);
                         } else {
                             Profit::create([
@@ -153,19 +196,17 @@ class Returns extends Component
         });
     }
 
-    public function ignore()
-    {
-        ModelsReturns::whereIn('id', $this->selectedRows)->update([
-            'status' => 'ignored'
-        ]);
-    }
 
     public function reject()
     {
+        ModelsReturns::whereIn('id', $this->selectedRows)->each(function ($return) {
 
-        ModelsReturns::whereIn('id', $this->selectedRows)->update([
-            'status' => 'rejected'
-        ]);
+            if ($return->status != 'rejected' && $return->status != 'accepted') {
+                $return->update([
+                    'status' => 'rejected'
+                ]);
+            }
+        });
     }
 
     public function updatedChecked($value)
