@@ -114,86 +114,14 @@ class Returns extends Component
                 ]);
 
                 $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تمت الموافقة']);
-            }
-        });
-    }
-
-    public function accept2()
-    {
-        ModelsReturns::whereIn('id', $this->selectedRows)->each(function ($return) {
-            $product =  Product::find($return->product_id);
-            $user = AppUser::find($return->app_user_id);
-
-            if ($return->status != 'rejected' && $return->status != 'accepted') {
-
-
-                if ($return->agent_id) {
-                    //find super user from agent id
-                    $superUser = Agent::find($return->agent_id)->user;
-
-                    //find super user discount
-                    $exception = Discount::find($superUser->discount)->exceptions;
-
-                    // get discount excetion ids
-                    $exceptions_ids = $exception->pluck('product_id')->toArray();
-
-                    if ($user->hasRole('agent')) {
-                        $agent = Agent::find($user->agent_id);
-                        if (in_array($return->product_id, $exceptions_ids)) {
-                            Profit::where('order_id', $return->order_id)->update([
-                                'profit' => 0
-                            ]);
-                        } else {
-                            Profit::create([
-                                'app_user_id' => $agent->user->id,
-                                'agent_id' => $user->agent_id,
-                                'product_id' => $return->product_id,
-                                'profit' => - ($product->price * Discount::find($user->discount)->percentage / 100)
-                            ]);
-                        }
-                    }
-
-                    Order::where('product', $return->return)->update([
-                        'product' => 'تم قبول المراجعة'
-                    ]);
-
-                    $return->update([
-                        'status' => 'accepted'
-                    ]);
-
-                    $user->update([
-                        'balance' => $user->balance + $product->price
-                    ]);
-
-                    Notification::create([
-                        'app_user_id' => $return->app_user_id,
-                        'message' => ' تم استرجاع قيمة المنتج  ' . $product->name,
-                    ]);
-
-                    $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تمت الموافقة']);
-                } else {
-
-                    $return->update([
-                        'status' => 'accepted'
-                    ]);
-
-                    $user->update([
-                        'balance' => $user->balance + $product->price
-                    ]);
-
-                    Notification::create([
-                        'app_user_id' => $return->app_user_id,
-                        'message' => ' تم استرجاع قيمة المنتج  ' . $product->name,
-                    ]);
-
-                    $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تمت الموافقة']);
-                }
             }else{
                 $this->dispatchBrowserEvent('hide-update-modal', ['message' => ' تمت معالجة هذا المرتجع من قبل']);
 
             }
         });
     }
+
+
 
 
     public function reject()
