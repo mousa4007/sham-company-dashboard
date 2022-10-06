@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->string('product_name');
             $table->string('product');
-            $table->string('price');
+            $table->string('price'); 
             $table->double('profit');
             $table->string('transfer_status')->nullable();
             $table->boolean('is_returned')->default(false);
