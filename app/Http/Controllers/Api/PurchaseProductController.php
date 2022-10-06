@@ -224,7 +224,7 @@ class PurchaseProductController extends Controller
         $user = $request->user();
         $product = Product::find($request->product_id);
 
-        dd($product->sell_price);
+        // dd($product->sell_price);
 
 
 
