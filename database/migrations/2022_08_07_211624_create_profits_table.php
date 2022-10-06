@@ -18,9 +18,9 @@ return new class extends Migration
             $table->integer('app_user_id');
             $table->integer('agent_id')->nullable();
             $table->integer('product_id');
+            $table->bigInteger('order_id');
             $table->double('profit');
             $table->string('message');
-            $table->boolean('withdrawed')->default(false);
             $table->timestamps();
         });
     }
