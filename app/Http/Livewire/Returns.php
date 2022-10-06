@@ -127,10 +127,6 @@ class Returns extends Component
             if ($return->status != 'rejected' && $return->status != 'accepted') {
 
 
-
-
-
-
                 if ($return->agent_id) {
                     //find super user from agent id
                     $superUser = Agent::find($return->agent_id)->user;
@@ -192,6 +188,9 @@ class Returns extends Component
 
                     $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تمت الموافقة']);
                 }
+            }else{
+                $this->dispatchBrowserEvent('hide-update-modal', ['message' => ' تمت معالجة هذا المرتجع من قبل']);
+
             }
         });
     }
