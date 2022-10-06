@@ -226,9 +226,6 @@ class PurchaseProductController extends Controller
         $product = Product::find($request->product_id);
 
 
-
-         dd($user->outgoingBalance);
-
             Sale::create([
                 'product' => $product->name,
                 'product_id' => $request->product_id,
