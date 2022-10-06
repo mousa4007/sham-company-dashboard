@@ -50,7 +50,7 @@ class AppUser extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Returns::class, 'app_user_id');
     }
 
-    public function notifcations()
+    public function notifications()
     {
         return $this->hasMany(Notification::class, 'app_user_id');
     }
