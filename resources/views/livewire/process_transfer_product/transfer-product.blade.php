@@ -67,11 +67,11 @@
                                     <th>المنتج المراد تحويله</th>
                                     <th> المبلغ </th>
                                     <th>التاريخ</th>
-                                    <th>معالجة</th>
+                                    {{-- <th>معالجة</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                                 @forelse ($transferProducts as  $item)
                                     <tr>
                                         <td><input wire:model='selectedRows' value="{{ $item->id }}" type="checkbox"
@@ -93,19 +93,19 @@
                                         </td>
                                         <td>{{ $item->amount }}</td>
                                         <td>{{ $item->created_at }}</td>
-                                        <td>
+                                        {{-- <td>
                                             <button type="button"class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#createMessageModal"
                                                 wire:click='createAcceptMessage({{ $item->id }})'>
                                                 <i class="bi-check-lg"></i>
-                                                {{-- <i class="bi-pencil-square"></i> --}}
+
                                             </button>
                                             <button type="button"class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#createMessageModal"
                                                 wire:click='createRejectMessage({{ $item->id }})'>
                                                 <i class="bi-x-circle-fill"></i></button></i></button>
                                             </button>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     <!-- Modal -->
                                 @empty

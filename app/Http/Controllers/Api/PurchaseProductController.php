@@ -368,9 +368,7 @@ class PurchaseProductController extends Controller
                 ]);
 
             }
-
             return 'success';
-
         }
 
     public function createTransferProduct(Request $request)
