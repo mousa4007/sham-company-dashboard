@@ -227,7 +227,7 @@ class PurchaseProductController extends Controller
 
 
 
-         dd($user);
+         dd($user->outgoingBalance);
 
             Sale::create([
                 'product' => $product->name,
