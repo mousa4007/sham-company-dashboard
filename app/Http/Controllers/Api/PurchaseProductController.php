@@ -90,29 +90,6 @@ class PurchaseProductController extends Controller
 
                             if (in_array($order->product_id, $exceptions_ids)) {
                                 $profit = $product->sell_price - $exception->first()->price;
-
-                                 $ord = Order::create([
-                                    'app_user_id' => $user->id,
-                                    'product_id' => $order->product_id,
-                                    'product_name' => Product::find($order->product_id)->name,
-                                    'product' => $order->product_item,
-                                    'price' => Product::find($order->product_id)->sell_price,
-                                    'is_returned' => true,
-                                    'profit' => $profit,
-                                ]);
-
-                                Profit::create([
-                                    'order_id'=> $ord->id,
-                                    'app_user_id' => $user->id,
-                                    'agent_id' => null,
-                                    'product_id' => $order->product_id,
-                                    'profit' => $profit,
-                                    'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
-                                ]);
-
-                                $user->update([
-                                    'total_profits' => $user->total_profits + $profit,
-                                ]);
                             }
                         } else {
                             $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
@@ -248,14 +225,15 @@ class PurchaseProductController extends Controller
         $user = $request->user();
         $product = Product::find($request->product_id);
 
-        // dd($product);
 
 
+         dd($user);
 
             Sale::create([
                 'product' => $product->name,
                 'product_id' => $request->product_id,
             ]);
+
 
             if ($user->hasRole('super-user') || $user->hasRole('user')) {
                 if ($user->discount != null) {
@@ -266,37 +244,48 @@ class PurchaseProductController extends Controller
                         // return $exception->first()->price;
                         $exceptions_ids = $exception->pluck('product_id')->toArray();
 
-                        if (in_array($request->product_id, $exceptions_ids)) {
+                        if (in_array($product->product_id, $exceptions_ids)) {
                             $profit = $product->sell_price - $exception->first()->price;
-                            Profit::create([
-                                'app_user_id' => $user->id,
-                                'agent_id' => null,
-                                'product_id' => $product->id,
-                                'profit' => $profit,
-                                'message' => $profit . '$ مربح من شراء منتج ' . $product->name
-                            ]);
-
-                            $user->update(['total_profits' => $user->total_profits + $profit]);
                         }
                     } else {
                         $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
+
+                        $ord = Order::create([
+                            'app_user_id' => $user->id,
+                            'product_id' => $product->product_id,
+                            'product_name' => $product->name,
+                            'product' => $request->product_item,
+                            'price' => $product->sell_price,
+                            'is_returned' => true,
+                            'profit' => $profit,
+                        ]);
+
                         Profit::create([
+                            'order_id'=> $ord->id,
                             'app_user_id' => $user->id,
                             'agent_id' => null,
-                            'product_id' => $product->id,
+                            'product_id' => $product->product_id,
                             'profit' => $profit,
                             'message' => $profit . '$ مربح من شراء منتج ' . $product->name
                         ]);
 
                         $user->update(['total_profits' => $user->total_profits + $profit]);
                     }
+                }else{
+                    Order::create([
+                        'app_user_id' => $user->id,
+                        'product_id' => $product->product_id,
+                        'product_name' => $product->name,
+                        'product' => $request->product_item,
+                        'price' => $product->sell_price,
+                        'profit' => 0,
+                    ]);
                 }
 
                 $user->update([
-                    'balance' => $user->balance - $product->sell_price
+                    'balance' => $user->balance - $product->sell_price,
+                    'outgoingBalance' => $user->outgoingBalance + $request->cost
                 ]);
-
-                return 'success';
             }
 
 
@@ -312,41 +301,71 @@ class PurchaseProductController extends Controller
                         // return $exception->first()->price;
                         $exceptions_ids = $exception->pluck('product_id')->toArray();
 
-                        if (in_array($product->id, $exceptions_ids)) {
+                        if (in_array($product->product_id, $exceptions_ids)) {
                             $profit = $product->sell_price - $exception->first()->price;
 
+                           $ord = Order::create([
+                            'app_user_id' => $user->id,
+                            'product_id' => $product->product_id,
+                            'product_name' => $product->name,
+                            'product' => $request->product_item,
+                            'price' => $product->sell_price,
+                            'is_returned' => true,
+                            'profit' => $profit,
+                            ]);
+
                             Profit::create([
+                                'order_id'=> $ord->id,
                                 'app_user_id' => $agent->user->id,
                                 'agent_id' => $user->agent_id,
-                                'product_id' =>$product->id,
+                                'product_id' => $product->product_id,
                                 'profit' => $profit,
                                 'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء وكيل منتج ' . $product->name
                             ]);
 
-
                             $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
-
                         }
                     }else {
                         $profit = abs($product->sell_price * Discount::find($agent->user->id)->percentage / 100);
+
+                        $ord = Order::create([
+                            'app_user_id' => $user->id,
+                            'product_id' => $product->product_id,
+                            'product_name' => $product->name,
+                            'product' => $request->product_item,
+                            'price' => $product->sell_price,
+                            'is_returned' => true,
+                            'profit' => $profit,
+                        ]);
+
                         Profit::create([
+                            'order_id'=> $ord->id,
                             'app_user_id' => $agent->user->id,
                             'agent_id' => $user->agent_id,
-                            'product_id' =>$product->id,
+                            'product_id' => $product->product_id,
                             'profit' => $profit,
                             'message' => abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100) . '$ مربح من شراء وكيل منتج ' . $product->name
                         ]);
 
                         $agent->user->update(['total_profits' => $agent->user->total_profits + $profit]);
                     }
+                }else{
+                    Order::create([
+                        'app_user_id' => $user->id,
+                        'product_id' => $product->product_id,
+                        'product_name' => $product->name,
+                        'product' => $request->product_item,
+                        'price' => $product->sell_price,
+                        'is_returned' => true,
+                        'profit' => 0,
+                    ]);
                 }
                 $user->update([
-                    'balance' => $user->balance - $product->sell_price
+                    'balance' => $user->balance - $product->sell_price,
+                    'outgoingBalance' => $user->outgoingBalance + $product->sell_price
                 ]);
-
-                return 'success';
-
             }
+
         }
 
     public function createTransferProduct(Request $request)
