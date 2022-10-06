@@ -217,7 +217,6 @@ class PurchaseProductController extends Controller
     public function updateUserBalance(Request $request)
     {
         $request->validate([
-            'cost' => 'required',
             'product_id' => 'required',
             'product_item' => 'required'
         ]);
