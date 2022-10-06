@@ -225,7 +225,7 @@ class PurchaseProductController extends Controller
         $user = $request->user();
         $product = Product::find($request->product_id);
 
-      
+
 
 
 
@@ -366,7 +366,10 @@ class PurchaseProductController extends Controller
                     'balance' => $user->balance - $product->sell_price,
                     'outgoingBalance' => $user->outgoingBalance + $product->sell_price
                 ]);
+
             }
+
+            return 'success';
 
         }
 
