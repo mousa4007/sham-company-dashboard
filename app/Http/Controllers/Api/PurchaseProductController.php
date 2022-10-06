@@ -225,7 +225,7 @@ class PurchaseProductController extends Controller
         $user = $request->user();
         $product = Product::find($request->product_id);
 
-        dd($user->ougtgoingBalance);
+        dd($user->outgoingBalance  + $product->sell_price);
 
 
             Sale::create([
