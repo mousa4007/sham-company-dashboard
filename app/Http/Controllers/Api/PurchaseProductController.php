@@ -259,7 +259,7 @@ class PurchaseProductController extends Controller
                             'product_name' => $product->name,
                             'product' => $request->product_item,
                             'price' => $product->sell_price,
-                            'is_returned' => true,
+                            'is_returned' => false,
                             'profit' => $profit,
                         ]);
 
@@ -313,7 +313,7 @@ class PurchaseProductController extends Controller
                             'product_name' => $product->name,
                             'product' => $request->product_item,
                             'price' => $product->sell_price,
-                            'is_returned' => true,
+                            'is_returned' => false,
                             'profit' => $profit,
                             ]);
 
@@ -337,7 +337,7 @@ class PurchaseProductController extends Controller
                             'product_name' => $product->name,
                             'product' => $request->product_item,
                             'price' => $product->sell_price,
-                            'is_returned' => true,
+                            'is_returned' => false,
                             'profit' => $profit,
                         ]);
 
@@ -359,7 +359,7 @@ class PurchaseProductController extends Controller
                         'product_name' => $product->name,
                         'product' => $request->product_item,
                         'price' => $product->sell_price,
-                        'is_returned' => true,
+                        'is_returned' => false,
                         'profit' => 0,
                     ]);
                 }

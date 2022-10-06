@@ -4,16 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\AppUser;
-use App\Models\Notification;
-use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
-use PhpParser\Node\Expr\Cast\String_;
+
 
 class NotificationController extends Controller
 {
-    public function notifications()
+    public function notifications(Request $request)
     {
-        return Notification::latest()->get();
+        return $request->user()->notifications;
     }
 
     public function addAppUserFcmTokenKey(Request $request)

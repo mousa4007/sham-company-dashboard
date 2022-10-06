@@ -190,7 +190,6 @@ class AppUsers extends Component
         AppUser::whereIn('id', $this->selectedRow)->delete();
 
 
-
         $this->reset(['checked']);
 
         return $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم الحذف بنجاح']);
