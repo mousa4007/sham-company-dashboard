@@ -287,7 +287,7 @@ class PurchaseProductController extends Controller
 
                 $user->update([
                     'balance' => $user->balance - $product->sell_price,
-                    'outgoingBalance' => $user->outgoingBalance + $request->$product->sell_price
+                    'outgoingBalance' => $user->outgoingBalance + $product->sell_price
                 ]);
             }
 
