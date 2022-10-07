@@ -284,7 +284,8 @@ class ProcessTransferProduct extends Component
             ]);
 
             $user->update([
-                'balance' => $user->balance + $order->price
+                'balance' => $user->balance + $order->price,
+                'outgoingBalance' => $user->outgoingBalance - $order->price,
             ]);
 
             $q->update([
