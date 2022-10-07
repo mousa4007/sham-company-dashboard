@@ -139,7 +139,7 @@ class PurchaseProductController extends Controller
 
                     $agent = Agent::find($user->agent_id);
 
-                    dd(count(Discount::find($agent->user->id)->exceptions));
+                    dd(count(Discount::find(1)->exceptions) );
 
 
 
