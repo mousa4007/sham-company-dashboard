@@ -141,14 +141,12 @@ class PurchaseProductController extends Controller
 
                     dd(count(Discount::find(1)->exceptions) );
 
-
-
                     if ($agent->user->discount != null) {
-                        if (count(Discount::find($agent->user->id)->exceptions)>0) {
+                        if (count(Discount::find($agent->user->discount)->exceptions)>0) {
 
 
 
-                            $exception = Discount::find($agent->user->id)->exceptions;
+                            $exception = Discount::find($agent->user->discount)->exceptions;
 
                             // return $exception->first()->price;
                             $exceptions_ids = $exception->pluck('product_id')->toArray();
@@ -178,7 +176,7 @@ class PurchaseProductController extends Controller
                                 $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
                             }
                         }else {
-                            $profit = abs($product->sell_price * Discount::find($agent->user->id)->percentage / 100);
+                            $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
 
                             $ord = Order::create([
                                 'app_user_id' => AppUser::where('agent_id',$agent->id)->first()->id,
@@ -231,13 +229,6 @@ class PurchaseProductController extends Controller
         $user = $request->user();
         $product = Product::find($request->product_id);
 
-        // dd($product->sell_price);
-
-
-
-
-
-        // dd($product);
 
             Sale::create([
                 'product' => $product->name,
@@ -304,9 +295,9 @@ class PurchaseProductController extends Controller
                 $agent = Agent::find($user->agent_id);
 
                 if ($agent->user->discount != null) {
-                    if (count(Discount::find($agent->user->id)->exceptions)>0) {
+                    if (count(Discount::find($agent->user->discount)->exceptions)>0) {
 
-                        $exception = Discount::find($agent->user->id)->exceptions;
+                        $exception = Discount::find($agent->user->discount)->exceptions;
 
                         // return $exception->first()->price;
                         $exceptions_ids = $exception->pluck('product_id')->toArray();
@@ -336,7 +327,7 @@ class PurchaseProductController extends Controller
                             $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
                         }
                     }else {
-                        $profit = abs($product->sell_price * Discount::find($agent->user->id)->percentage / 100);
+                        $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
 
                         $ord = Order::create([
                             'app_user_id' => $user->id,
