@@ -8,11 +8,10 @@ use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
-    public function messages()
+    public function messages(Request $request)
     {
-        $messages = Message::latest()->get();
 
-        return $messages;
+        return $request->user()->messages;
     }
 
     public function updateWatched(Request $request)

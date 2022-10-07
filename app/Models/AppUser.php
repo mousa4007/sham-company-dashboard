@@ -55,6 +55,11 @@ class AppUser extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Notification::class, 'app_user_id')->latest();
     }
 
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'app_user_id')->latest();
+    }
+
     public function profits()
     {
         return $this->hasMany(Profit::class,'app_user_id');
