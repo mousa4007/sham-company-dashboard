@@ -274,12 +274,9 @@ class ProcessTransferProduct extends Component
             $product = Product::find($q->product_id);
             $order = Order::find($q->order_id);
 
-            dd($order);
-
-
 
            $q->update([
-            'status'=>'accepted'
+            'status'=>'rejected'
            ]);
 
             $order->update([
@@ -287,7 +284,7 @@ class ProcessTransferProduct extends Component
             ]);
 
             $user->update([
-                'balance' => $user->balance + $product->sell_price
+                'balance' => $user->balance + $order->price
             ]);
 
             $q->update([
@@ -297,8 +294,7 @@ class ProcessTransferProduct extends Component
 
             Notification::create([
                 'app_user_id' => $user->id,
-                'message' => "العملية مرفوضة ⛔️  \r\nالرقم : $order->product  \r\nالمنتج : $product->name  \r\nالمبلغ :  $product->sell_price"
-
+                'message' => "العملية مرفوضة ⛔️  \r\nالرقم : $order->product  \r\nالمنتج : $product->name  \r\nالمبلغ :  $order->price"
             ]);
 
             $this->dispatchBrowserEvent('hide-delete-modal', ['message' => ' تم رفض عملية التحويل وإرجاع المبلغ إلى المستخدم']);
