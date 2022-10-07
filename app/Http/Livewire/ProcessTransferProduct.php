@@ -268,22 +268,39 @@ class ProcessTransferProduct extends Component
 
     public function rejectTransfer()
     {
+        TransferProduct::whereIn('id',$this->selectedRows)->each(function($q){
 
-        $user = AppUser::find($this->app_user_id);
+            $user = AppUser::find($q->app_user_id);
+            $product = Product::find($q->product_id);
+            $order = Order::find($q->order_id);
 
-        $user->update([
-            'balance' => $user->balance + $this->amount
-        ]);
 
-        TransferProduct::find($this->transfer_id)->update([
-            'status' => 'rejected',
-        ]);
+           $q->update([
+            'status'=>'accepted'
+           ]);
 
-        Message::create([
-            'app_user_id' => $this->app_user_id,
-            'message' => $this->message
-        ]);
+            $order->update([
+                'transfer_status' => 'rejected',
+            ]);
 
-        $this->dispatchBrowserEvent('hide-create-modal', ['message' => ' تم رفض عملية التحويل وإرجاع المبلغ إلى المستخدم']);
+            $user->update([
+                'balance' => $user->balance + $this->amount
+            ]);
+
+            TransferProduct::find($this->transfer_id)->update([
+                'status' => 'rejected',
+            ]);
+
+
+            Notification::create([
+                'app_user_id' => $user->id,
+                'message' => "العملية مرفوضة ⛔️  \r\nالرقم : $order->product  \r\nالمنتج : $product->name  \r\nالمبلغ :  $product->sell_price"
+
+            ]);
+
+            $this->dispatchBrowserEvent('hide-delete-modal', ['message' => ' تم رفض عملية التحويل وإرجاع المبلغ إلى المستخدم']);
+
+        });
+
     }
 }

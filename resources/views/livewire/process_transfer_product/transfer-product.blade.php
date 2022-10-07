@@ -17,7 +17,7 @@
                     <a href="#" class="btn btn-primary btn-sm m-0 mx-1" wire:click.prevent='acceptTransfer'>
                         موافقة</a>
                     <a href="#" class="btn btn-danger btn-sm m-0 mx-1" data-bs-toggle="modal"
-                        data-bs-target="#deleteTransferProudctModal">رفض</a>
+                        data-bs-target="#deleteTransferProudctModal" wire:click.prevent='acceptTransfer'>رفض</a>
 
                     <a href="#" class="btn btn-success btn-sm m-0 mx-1" data-bs-toggle="modal"
                         data-bs-target="#acceptedTransferProductModal">الطلبات المقبولة</a>
