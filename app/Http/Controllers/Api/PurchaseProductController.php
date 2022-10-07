@@ -139,8 +139,6 @@ class PurchaseProductController extends Controller
 
                     $agent = Agent::find($user->agent_id);
 
-                    dd(count(Discount::find(1)->exceptions) );
-
                     if ($agent->user->discount != null) {
                         if (count(Discount::find($agent->user->discount)->exceptions)>0) {
 
