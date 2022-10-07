@@ -10,7 +10,6 @@ class MessageController extends Controller
 {
     public function messages(Request $request)
     {
-
         return $request->user()->messages;
     }
 
