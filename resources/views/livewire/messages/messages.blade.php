@@ -72,7 +72,7 @@
                                             class="form-check-input form-check-secondary"></td>
                                     <td>{{ $message->id }}</td>
                                     <td>{{ $message->title }}</td>
-                                    <td style="width: 250px">{{ $message->body }}</td>
+                                    <td >{{ $message->body }}</td>
                                     <td>{{ $message->created_at }}</td>
                                     <td>{{ $message->watched == true ? 'نعم' : 'لا' }}</td>
                                     <td>{{ $message->type == 'general' ? 'عامة' : 'خاصة' }}</td>
