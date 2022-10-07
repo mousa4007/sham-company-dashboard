@@ -274,6 +274,9 @@ class ProcessTransferProduct extends Component
             $product = Product::find($q->product_id);
             $order = Order::find($q->order_id);
 
+            dd($order);
+
+
 
            $q->update([
             'status'=>'accepted'
@@ -284,10 +287,10 @@ class ProcessTransferProduct extends Component
             ]);
 
             $user->update([
-                'balance' => $user->balance + $this->amount
+                'balance' => $user->balance + $product->sell_price
             ]);
 
-            TransferProduct::find($this->transfer_id)->update([
+            $q->update([
                 'status' => 'rejected',
             ]);
 
