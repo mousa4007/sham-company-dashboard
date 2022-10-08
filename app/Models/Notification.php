@@ -19,6 +19,6 @@ class Notification extends Model
 
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->isoFormat('Y-M-D h:m a');
+        return Carbon::parse($value)->tz('Asia/Damascus')->isoFormat('Y-M-D h:m a');
     }
 }
