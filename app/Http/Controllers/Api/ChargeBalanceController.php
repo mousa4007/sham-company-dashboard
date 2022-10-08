@@ -23,7 +23,7 @@ class ChargeBalanceController extends Controller
 
         $agent = AppUser::where('agent_id',$request->agent_id)->first();
 
-        
+
 
         // dd($agent);
 
@@ -56,14 +56,20 @@ class ChargeBalanceController extends Controller
 
                 Notification::create([
                     'title' => 'شحن رصيد',
-                    'message' => 'تم شحن حسابك بمبلغ ' . $request->balance,
-                    'app_user_id' => $request->agent_id
+                    'message' => 'تم شحن حسابك ' . $request->balance . '$',
+                    'app_user_id' => $agent->id
+                ]);
+
+                Notification::create([
+                    'title' => 'سحب رصيد',
+                    'message' => 'تم سحب رصيد ' . $request->balance . '$',
+                    'app_user_id' => $request->user()->id
                 ]);
 
                 AgentChargingBalance::create([
                     'app_user_id' => $agent->id,
                     'name' => $agent->name,
-                    'message' => 'تم شحن حسابك بمبلغ ' . $request->balance,
+                    'message' => 'تم شحن حسابك بمبلغ ' . $request->balance . '$',
                     'balance' => $request->balance,
                     'type' => 'charge'
                 ]);
@@ -71,7 +77,7 @@ class ChargeBalanceController extends Controller
                 SuperUserChargingBalance::create([
                     'app_user_id' => $agent->id,
                     'name' => $agent->name,
-                    'message' => 'تم سحب مبلغ من حسابك ' . $request->balance,
+                    'message' => 'تم سحب مبلغ من حسابك ' . $request->balance . '$',
                     'balance' => $request->balance,
                     'type' => 'withdraw'
                 ]);
