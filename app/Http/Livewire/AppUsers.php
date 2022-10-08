@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Mail\EmailVerify;
 use App\Models\AppUser;
 use App\Models\Discount;
+use App\Models\NotifcationsCount;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
@@ -89,6 +90,10 @@ class AppUsers extends Component
         // $email = $data['email'];
 
         // Mail::to($email)->send($rand);
+
+        NotifcationsCount::create([
+            'app_user_id'=>$user->id
+        ]);
 
         $this->resetData();
 

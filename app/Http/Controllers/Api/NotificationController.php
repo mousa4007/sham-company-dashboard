@@ -31,12 +31,12 @@ class NotificationController extends Controller
 
     public function getNotificationsCount(Request $request)
     {
-        return $request->user()->notifications->notifications_count;
+        return $request->user()->notificationsCount;
     }
 
     public function updateNotificationsCount(Request $request)
     {
-        $request->user()->notifications->update([
+        $request->user()->notificationsCount->update([
             'notifications_count' => 0
         ]);
     }

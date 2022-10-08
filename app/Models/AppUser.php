@@ -64,4 +64,9 @@ class AppUser extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Profit::class,'app_user_id');
     }
+
+    public function notificationsCount()
+    {
+        return $this->hasOne(notificationsCount::class,'app_user_id');
+    }
 }
