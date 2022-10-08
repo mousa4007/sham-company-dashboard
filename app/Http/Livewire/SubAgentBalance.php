@@ -160,7 +160,7 @@ class SubAgentBalance extends Component
         ]);
 
         $appUser->notificationsCount->update([
-            'notifications_count' =>  $appUser->notifications_count + 1
+            'notifications_count' =>  $appUser->notificationsCount->notifications_count + 1
         ]);
 
         $this->super_user->update([
@@ -229,7 +229,7 @@ class SubAgentBalance extends Component
         ]);
 
         $appUser->notificationsCount->update([
-            'notifications_count' =>  $appUser->notifications_count + 1
+            'notifications_count' =>  $appUser->notificationsCount->notifications_count + 1
         ]);
 
         $agent = Agent::find($appUser->agent_id);

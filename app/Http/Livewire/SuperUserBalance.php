@@ -166,6 +166,7 @@ class SuperUserBalance extends Component
 
         $appUser->notificationsCount->update([
             'notifications_count' =>  $appUser->notificationsCount->notifications_count + 1
+
         ]);
 
         $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم شحن الرصيد بنجاح']);
@@ -206,7 +207,7 @@ class SuperUserBalance extends Component
         ]);
 
         $appUser->notificationsCount->update([
-            'notifications_count' =>  $appUser->notifications_count + 1
+            'notifications_count' =>  $appUser->notificationsCount->notifications_count + 1
         ]);
 
         $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم السحب من الرصيد بنجاح']);
