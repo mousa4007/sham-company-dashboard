@@ -137,7 +137,7 @@ class SuperUserBalance extends Component
     {
         $appUser = AppUser::find($this->app_user_id);
 
-dd($appUser);
+dd($this->app_user_id);
 
 
         $this->validate([
