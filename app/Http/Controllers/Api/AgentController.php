@@ -45,7 +45,7 @@ class AgentController extends Controller
 
             $request->validate([
                 'name' => 'required',
-                'email' => 'required|email|unique:agents,email',
+                'email' => 'required|email|unique:agents,email|unique:app_users,email',
                 'password' => 'required|min:6',
                 'phone' => 'required',
                 'address' => 'required',
