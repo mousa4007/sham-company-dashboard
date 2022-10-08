@@ -148,9 +148,9 @@ class Returns extends Component
                         'notifications_count' =>  $user->notifications_count + 1
                     ]);
                 }
+                $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم رفض المراجعة']);
             }
         );
-        $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم رفض المراجعة']);
     }
 
     public function updatedChecked($value)
