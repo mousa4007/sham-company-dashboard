@@ -67,6 +67,6 @@ class AppUser extends Authenticatable implements MustVerifyEmail
 
     public function notificationsCount()
     {
-        return $this->hasOne(notificationsCount::class,'app_user_id');
+        return $this->hasOne(NotifcationsCount::class,'app_user_id');
     }
 }
