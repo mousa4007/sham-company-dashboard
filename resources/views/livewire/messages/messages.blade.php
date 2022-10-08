@@ -71,7 +71,7 @@
                                     <td><input wire:model='selectedRows' value="{{ $message->id }}" type="checkbox"
                                             class="form-check-input form-check-secondary"></td>
                                     <td>{{ $message->id }}</td>
-                                    <td style="width: 200px">{{ $message->title }}</td>
+                                    <td style="width: 250px;display: block;">{{ $message->title }}</td>
                                     <td style="width: 400px">{{ $message->body }}</td>
                                     <td>{{ $message->created_at }}</td>
                                     <td>{{ $message->watched == true ? 'نعم' : 'لا' }}</td>
