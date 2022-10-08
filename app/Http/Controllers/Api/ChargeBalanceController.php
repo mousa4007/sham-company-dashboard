@@ -23,6 +23,8 @@ class ChargeBalanceController extends Controller
 
         $agent = AppUser::where('agent_id',$request->agent_id)->first();
 
+        
+
         // dd($agent);
 
         $agent_table = Agent::find($request->agent_id);
