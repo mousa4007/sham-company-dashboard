@@ -27,4 +27,10 @@ class MessageController extends Controller
 
         return 'success';
     }
+
+    public function getMessagesCount(Request $request){
+
+        return count($request->user()->messages->where('watched',false));
+
+    }
 }

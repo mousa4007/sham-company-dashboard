@@ -35,7 +35,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
-
     Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'user']);
@@ -55,6 +54,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::post('returns', [ReturnsController::class, 'createReturns']);
     Route::apiResource('agent', AgentController::class);
     Route::get('messages', [MessageController::class, 'messages']);
+    Route::get('getMessagesCount', [MessageController::class, 'getMessagesCount']);
     Route::post('updateWatched', [MessageController::class, 'updateWatched']);
     Route::get('notifications', [NotificationController::class, 'notifications']);
     Route::post('addAppUserFcmTokenKey', [NotificationController::class, 'addAppUserFcmTokenKey']);
@@ -66,11 +66,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('getNotificationsCount',[NotificationController::class,'getNotificationsCount']);
     Route::post('updateNotificationsCount',[NotificationController::class,'updateNotificationsCount']);
     Route::get('ads',[AdController::class,'ads']);
-
     Route::get('super-user-profits-in-day',[ProfitsController::class,'superUserProfitsInDay']);
     Route::get('super-user-profits-in-week',[ProfitsController::class,'superUserProfitsInWeek']);
     Route::get('super-user-profits-in-month',[ProfitsController::class,'superUserProfitsInMonth']);
-
     Route::post('profits-from-agents-in-day',[ProfitsController::class,'profitsFromAgentInDay']);
     Route::post('profits-from-agents-in-week',[ProfitsController::class,'profitsFromAgentInWeek']);
     Route::post('profits-from-agents-in-month',[ProfitsController::class,'profitsFromAgentInMonth']);
