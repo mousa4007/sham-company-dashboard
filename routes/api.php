@@ -63,6 +63,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('cash-statement-in-week',[CashStatementController::class,'cashStatementInWeek']);
     Route::get('cash-statement-in-month',[CashStatementController::class,'cashStatementInMonth']);
     Route::post('charge-agent-balance',[ChargeBalanceController::class,'chargeAgentBalance']);
+    Route::post('getNotificationsCount',[NotificationController::class,'getNotificationsCount']);
+    Route::post('updateNotificationsCount',[NotificationController::class,'updateNotificationsCount']);
     Route::get('ads',[AdController::class,'ads']);
 
     Route::get('super-user-profits-in-day',[ProfitsController::class,'superUserProfitsInDay']);

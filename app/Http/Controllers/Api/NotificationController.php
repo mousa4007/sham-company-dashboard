@@ -28,4 +28,18 @@ class NotificationController extends Controller
 
         return 'Success';
     }
+
+    public function getNotificationsCount(Request $request)
+    {
+        return $request->user()->notifications->notifications_count;
+    }
+
+    public function updateNotificationsCount(Request $request)
+    {
+        $request->user()->notifications->update([
+            'notifications_count' => 0
+        ]);
+    }
+
+
 }
