@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('app_user_id');
             $table->string('title');
             $table->string('message');
-            $table->integer('notifications_count');
             $table->timestamps();
         });
     }
