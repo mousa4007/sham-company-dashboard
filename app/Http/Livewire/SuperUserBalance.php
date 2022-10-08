@@ -137,6 +137,9 @@ class SuperUserBalance extends Component
     {
         $appUser = AppUser::find($this->app_user_id);
 
+dd($appUser->notifications_count);
+
+
         $this->validate([
             'app_user_id' => 'required|numeric',
             'incomingBalance' => "required|numeric|max:1000",
