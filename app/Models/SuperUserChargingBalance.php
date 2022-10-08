@@ -12,9 +12,9 @@ class SuperUserChargingBalance extends Model
 
     protected $guarded = [];
 
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->format('Y-m-d');
-    }
+    // public function getCreatedAtAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('Y-m-d');
+    // }
 
 }
