@@ -137,7 +137,6 @@ class SuperUserBalance extends Component
     {
         $appUser = AppUser::find($this->app_user_id);
 
-dd($appUser);
 
 
         $this->validate([
@@ -166,7 +165,7 @@ dd($appUser);
         ]);
 
         $appUser->notificationsCount->update([
-            'notifications_count' =>  $appUser->notifications_count + 1
+            'notifications_count' =>  $appUser->notificationsCount->notifications_count + 1
         ]);
 
         $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم شحن الرصيد بنجاح']);
