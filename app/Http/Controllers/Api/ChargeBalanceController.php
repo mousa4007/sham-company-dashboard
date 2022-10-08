@@ -34,11 +34,11 @@ class ChargeBalanceController extends Controller
                 ]);
 
                 $request->user()->notificationsCount->update([
-                    'notifications_count' =>  $request->user()->notifications_count + 1
+                    'notifications_count' =>   $request->user()->notificationsCount->notifications_count + 1
                 ]);
 
                 $agent->notificationsCount->update([
-                    'notifications_count' =>  $agent->notifications_count + 1
+                    'notifications_count' =>  $agent->notificationsCount->notifications_count + 1
                 ]);
 
                 $agent->update([
