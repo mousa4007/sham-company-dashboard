@@ -37,7 +37,7 @@ class NotificationController extends Controller
     public function updateNotificationsCount(Request $request)
     {
         $request->user()->notificationsCount->update([
-            'notifications_count' => 0
+            'notifications_count' => 10
         ]);
     }
 
