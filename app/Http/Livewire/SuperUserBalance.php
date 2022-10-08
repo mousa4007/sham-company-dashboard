@@ -152,12 +152,17 @@ class SuperUserBalance extends Component
             'app_user_id' => $this->app_user_id
         ]);
 
+
         SuperUserChargingBalance::create([
             'app_user_id' => $this->app_user_id,
             'name' => $appUser->name,
             'message' => $this->charge_message,
             'balance' => $this->incomingBalance,
             'type' => 'charge'
+        ]);
+
+        $appUser->notificationsCount->update([
+            'notifications_count' =>  $appUser->notifications_count + 1
         ]);
 
         $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم شحن الرصيد بنجاح']);
@@ -193,6 +198,10 @@ class SuperUserBalance extends Component
             'message' => $this->witdhraw_message,
             'balance' => $this->outgoingBalance,
             'type' => 'withdraw'
+        ]);
+
+        $appUser->notificationsCount->update([
+            'notifications_count' =>  $appUser->notifications_count + 1
         ]);
 
         $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم السحب من الرصيد بنجاح']);

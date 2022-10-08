@@ -36,7 +36,7 @@
                                             <i class="bi bi-cash"></i>
                                         </div>
                                     </div>
-                                    @error('incomingBalance')
+                                @error('incomingBalance')
                                         <span class="text-danger d-block mt-2">{{ $message }}</span>
                                     @enderror
                                 </div>

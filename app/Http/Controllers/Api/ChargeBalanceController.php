@@ -39,7 +39,7 @@ class ChargeBalanceController extends Controller
                 ]);
 
                 $agent_table->update([
-                    'balance' =>  +$agent_table->balance + $request->balance,
+                    'balance' =>  $agent_table->balance + $request->balance,
                 ]);
 
                 Notification::create([
