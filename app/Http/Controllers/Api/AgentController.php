@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Agent;
 use App\Models\AppUser;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,6 +41,7 @@ class AgentController extends Controller
     public function store(Request $request)
     {
         if ($request->user()->hasRole('super-user')) {
+            
             $request->validate([
                 'name' => 'required',
                 'email' => 'required|email|unique:agents,email',
@@ -66,7 +68,13 @@ class AgentController extends Controller
                 'agent_id' => $agent->id
             ]);
 
+
             $appUser->syncRoles(['agent']);
+
+
+            Notification::create([
+                'app_user_id'=>$appUser->id
+            ]);
 
             // $request->user()->update([
             //     'balance' => $request->user()->balance - $request->balance
