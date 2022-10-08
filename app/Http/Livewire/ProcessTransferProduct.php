@@ -54,10 +54,10 @@ class ProcessTransferProduct extends Component
 
     public function updatedChecked($value)
     {
-        if($value){
+        if ($value) {
             $this->selectedRows = $this->transferProducts->pluck('id');
-        }else{
-            $this->reset(['selectedRows','checked']);
+        } else {
+            $this->reset(['selectedRows', 'checked']);
         }
     }
 
@@ -150,7 +150,7 @@ class ProcessTransferProduct extends Component
 
     public function acceptTransfer()
     {
-        TransferProduct::whereIn('id',$this->selectedRows)->each(function($q){
+        TransferProduct::whereIn('id', $this->selectedRows)->each(function ($q) {
 
             $user = AppUser::find($q->app_user_id);
             $product = Product::find($q->product_id);
@@ -158,7 +158,7 @@ class ProcessTransferProduct extends Component
 
             if ($user->hasRole('super-user') || $user->hasRole('user')) {
                 if ($user->discount != null) {
-                    if (count(Discount::find($user->discount)->exceptions)>0) {
+                    if (count(Discount::find($user->discount)->exceptions) > 0) {
 
                         $exception = Discount::find($user->discount)->exceptions;
 
@@ -169,7 +169,7 @@ class ProcessTransferProduct extends Component
                             $profit = $product->sell_price - $exception->first()->price;
 
                             Profit::create([
-                                'order_id'=> $order->id,
+                                'order_id' => $order->id,
                                 'app_user_id' => $user->id,
                                 'agent_id' => null,
                                 'product_id' => $order->product_id,
@@ -185,7 +185,7 @@ class ProcessTransferProduct extends Component
                         $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
 
                         Profit::create([
-                            'order_id'=> $order->id,
+                            'order_id' => $order->id,
                             'app_user_id' => $user->id,
                             'agent_id' => null,
                             'product_id' => $order->product_id,
@@ -204,7 +204,7 @@ class ProcessTransferProduct extends Component
                 $agent = Agent::find($user->agent_id);
 
                 if ($agent->user->discount != null) {
-                    if (count(Discount::find($agent->user->discount)->exceptions)>0) {
+                    if (count(Discount::find($agent->user->discount)->exceptions) > 0) {
 
                         $exception = Discount::find($agent->user->discount)->exceptions;
 
@@ -215,7 +215,7 @@ class ProcessTransferProduct extends Component
                             $profit = $product->sell_price - $exception->first()->price;
 
                             Profit::create([
-                                'order_id'=> $order->id,
+                                'order_id' => $order->id,
                                 'app_user_id' => $agent->user->id,
                                 'agent_id' => $user->agent_id,
                                 'product_id' => $order->product_id,
@@ -225,11 +225,11 @@ class ProcessTransferProduct extends Component
 
                             $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
                         }
-                    }else {
+                    } else {
                         $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
 
                         Profit::create([
-                            'order_id'=> $order->id,
+                            'order_id' => $order->id,
                             'app_user_id' => $agent->user->id,
                             'agent_id' => $user->agent_id,
                             'product_id' => $order->product_id,
@@ -241,9 +241,9 @@ class ProcessTransferProduct extends Component
                 }
             }
 
-           $q->update([
-            'status'=>'accepted'
-           ]);
+            $q->update([
+                'status' => 'accepted'
+            ]);
 
             $order->update([
                 'transfer_status' => 'accepted',
@@ -257,7 +257,7 @@ class ProcessTransferProduct extends Component
             Notification::create([
                 'title' => 'موافقة على عملية تحويل',
                 'app_user_id' => $user->id,
-                'message' => "العملية مكتملة ✅  \r\nالرقم : $order->product  \r\nالمنتج : $product->name  \r\nالمبلغ :  $product->sell_price" .' $ '
+                'message' => "العملية مكتملة ✅  \r\nالرقم : $order->product  \r\nالمنتج : $product->name  \r\nالمبلغ :  $product->sell_price" . ' $ '
 
             ]);
 
@@ -265,26 +265,24 @@ class ProcessTransferProduct extends Component
                 'notifications_count' =>  $user->notifications_count + 1
             ]);
 
-            $this->reset(['checked','selectedRows']);
+            $this->reset(['checked', 'selectedRows']);
 
             $this->dispatchBrowserEvent('hide-create-modal', ['message' => ' تم الموافقة على عملية التحويل']);
-
         });
-
-          }
+    }
 
     public function rejectTransfer()
     {
-        TransferProduct::whereIn('id',$this->selectedRows)->each(function($q){
+        TransferProduct::whereIn('id', $this->selectedRows)->each(function ($q) {
 
             $user = AppUser::find($q->app_user_id);
             $product = Product::find($q->product_id);
             $order = Order::find($q->order_id);
 
 
-           $q->update([
-            'status'=>'rejected'
-           ]);
+            $q->update([
+                'status' => 'rejected'
+            ]);
 
             $order->update([
                 'transfer_status' => 'rejected',
@@ -303,18 +301,16 @@ class ProcessTransferProduct extends Component
             Notification::create([
                 'title' => 'رفض عملية تحويل',
                 'app_user_id' => $user->id,
-                'message' => "العملية مرفوضة ⛔️  \r\nالرقم : $order->product  \r\nالمنتج : $product->name  \r\nالمبلغ :  $order->price"  .' $ '
+                'message' => "العملية مرفوضة ⛔️  \r\nالرقم : $order->product  \r\nالمنتج : $product->name  \r\nالمبلغ :  $order->price"  . ' $ '
             ]);
 
             $user->notificationsCount->update([
                 'notifications_count' =>  $user->notifications_count + 1
             ]);
 
-            $this->reset(['checked','selectedRows']);
+            $this->reset(['checked', 'selectedRows']);
 
             $this->dispatchBrowserEvent('hide-delete-modal', ['message' => ' تم رفض عملية التحويل وإرجاع المبلغ إلى المستخدم']);
-
         });
-
     }
 }
