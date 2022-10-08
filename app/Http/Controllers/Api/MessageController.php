@@ -30,7 +30,7 @@ class MessageController extends Controller
 
     public function getMessagesCount(Request $request){
 
-        return count($request->user()->messages->where('watched',false));
+        return count($request->user()->messages->where('watched',false)->get());
 
     }
 }
