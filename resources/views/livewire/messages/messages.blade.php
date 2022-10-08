@@ -75,7 +75,7 @@
                                     <td style="width: 400px">{{ $message->body }}</td>
                                     <td>{{ $message->created_at }}</td>
                                     <td>{{ $message->watched == true ? 'نعم' : 'لا' }}</td>
-                                    <td>{{ $message->type == 'general' ? 'عامة' : 'خاصة' }}</td>
+                                    <td>{{ $message->type == 'general' ? 'عامة' : 'خاصة  ' }}</td>
 
 
                                     <td>
