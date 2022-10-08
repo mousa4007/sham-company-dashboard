@@ -107,7 +107,7 @@ class Returns extends Component
                 ]);
 
                 Notification::create([
-                'title' => 'موافقة على طلب مراجعة',
+                    'title' => 'موافقة على طلب مراجعة',
                     'app_user_id' => $return->app_user_id,
                     'message' => ' تم استرجاع قيمة المنتج  ' . $order->product_name,
                 ]);
@@ -117,9 +117,8 @@ class Returns extends Component
                 ]);
 
                 $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تمت الموافقة']);
-            }else{
+            } else {
                 $this->dispatchBrowserEvent('hide-update-modal', ['message' => ' تمت معالجة هذا المرتجع من قبل']);
-
             }
         });
     }
@@ -129,15 +128,16 @@ class Returns extends Component
 
     public function reject()
     {
-        ModelsReturns::whereIn('id', $this->selectedRows)->each(function ($return) {
+        ModelsReturns::whereIn('id', $this->selectedRows)->each(
+            function ($return) {
 
-            if ($return->status != 'rejected' && $return->status != 'accepted') {
-                $return->update([
-                    'status' => 'rejected'
-                ]);
+                if ($return->status != 'rejected' && $return->status != 'accepted') {
+                    $return->update([
+                        'status' => 'rejected'
+                    ]);
 
-                Notification::create([
-                    'title' => 'رفض  طلب مراجعة',
+                    Notification::create([
+                        'title' => 'رفض  طلب مراجعة',
                         'app_user_id' => $return->app_user_id,
                         'message' => ' رفض طلب مراجعة المنتج ' . $return->return,
                     ]);
@@ -147,8 +147,10 @@ class Returns extends Component
                     $user->notificationsCount->update([
                         'notifications_count' =>  $user->notifications_count + 1
                     ]);
+                }
             }
-        });
+        );
+        $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم رفض المراجعة']);
     }
 
     public function updatedChecked($value)
