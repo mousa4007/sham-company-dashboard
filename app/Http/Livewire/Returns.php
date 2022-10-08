@@ -112,6 +112,10 @@ class Returns extends Component
                     'message' => ' تم استرجاع قيمة المنتج  ' . $order->product_name,
                 ]);
 
+                $user->notificationsCount->update([
+                    'notifications_count' =>  $user->notifications_count + 1
+                ]);
+
                 $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تمت الموافقة']);
             }else{
                 $this->dispatchBrowserEvent('hide-update-modal', ['message' => ' تمت معالجة هذا المرتجع من قبل']);
@@ -136,6 +140,12 @@ class Returns extends Component
                     'title' => 'رفض  طلب مراجعة',
                         'app_user_id' => $return->app_user_id,
                         'message' => ' رفض طلب مراجعة المنتج ' . $return->return,
+                    ]);
+
+                    $user = AppUser::find($return->app_user_id);
+
+                    $user->notificationsCount->update([
+                        'notifications_count' =>  $user->notifications_count + 1
                     ]);
             }
         });

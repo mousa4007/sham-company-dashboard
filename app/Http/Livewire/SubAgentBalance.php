@@ -159,6 +159,10 @@ class SubAgentBalance extends Component
             'incomingBalance' => $appUser->incomingBalance + $this->incomingBalance,
         ]);
 
+        $appUser->notificationsCount->update([
+            'notifications_count' =>  $appUser->notifications_count + 1
+        ]);
+
         $this->super_user->update([
             'balance' => $this->super_user->balance - $this->incomingBalance,
             'outgoingBalance' => $this->super_user->outgoingBalance + $this->incomingBalance,
@@ -193,6 +197,10 @@ class SubAgentBalance extends Component
             'type' => 'withdraw'
         ]);
 
+        $this->super_user->notificationsCount->update([
+            'notifications_count' =>  $this->super_user->notifications_count + 1
+        ]);
+
         $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم شحن الرصيد بنجاح']);
     }
 
@@ -214,6 +222,14 @@ class SubAgentBalance extends Component
         $appUser->update([
             'balance' => $appUser->balance - $this->outgoingBalance,
             'outgoingBalance' => $appUser->outgoingBalance + $this->outgoingBalance,
+        ]);
+
+        $this->super_user->notificationsCount->update([
+            'notifications_count' =>  $this->super_user->notifications_count + 1
+        ]);
+
+        $appUser->notificationsCount->update([
+            'notifications_count' =>  $appUser->notifications_count + 1
         ]);
 
         $agent = Agent::find($appUser->agent_id);

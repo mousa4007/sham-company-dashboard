@@ -33,6 +33,14 @@ class ChargeBalanceController extends Controller
                     'outgoingBalance' => $request->user()->outgoingBalance + $request->balance,
                 ]);
 
+                $request->user()->notificationsCount->update([
+                    'notifications_count' =>  $request->user()->notifications_count + 1
+                ]);
+
+                $agent->notificationsCount->update([
+                    'notifications_count' =>  $agent->notifications_count + 1
+                ]);
+
                 $agent->update([
                     'balance' =>  $agent->balance + $request->balance,
                     'incomingBalance' => $agent->incomingBalance + $request->balance,

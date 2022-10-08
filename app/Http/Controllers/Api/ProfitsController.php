@@ -102,6 +102,10 @@ class ProfitsController extends Controller
                 'app_user_id' =>  $request->user()->id
             ]);
 
+            $request->user()->notificationsCount->update([
+                'notifications_count' =>  $request->user()->notifications_count + 1
+            ]);
+
             SuperUserChargingBalance::create([
                 'app_user_id' => $request->user()->id,
                 'name' => $request->user()->name,

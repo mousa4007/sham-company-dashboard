@@ -261,6 +261,10 @@ class ProcessTransferProduct extends Component
 
             ]);
 
+            $user->notificationsCount->update([
+                'notifications_count' =>  $user->notifications_count + 1
+            ]);
+
             $this->dispatchBrowserEvent('hide-create-modal', ['message' => ' تم الموافقة على عملية التحويل']);
 
         });
@@ -296,9 +300,12 @@ class ProcessTransferProduct extends Component
 
             Notification::create([
                 'title' => 'رفض عملية تحويل',
-
                 'app_user_id' => $user->id,
                 'message' => "العملية مرفوضة ⛔️  \r\nالرقم : $order->product  \r\nالمنتج : $product->name  \r\nالمبلغ :  $order->price"
+            ]);
+
+            $user->notificationsCount->update([
+                'notifications_count' =>  $user->notifications_count + 1
             ]);
 
             $this->dispatchBrowserEvent('hide-delete-modal', ['message' => ' تم رفض عملية التحويل وإرجاع المبلغ إلى المستخدم']);
