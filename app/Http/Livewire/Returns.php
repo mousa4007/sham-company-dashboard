@@ -11,8 +11,6 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Profit;
 use App\Models\Returns as ModelsReturns;
-use App\Models\StockedProduct;
-use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Concerns\Exportable;
@@ -109,6 +107,7 @@ class Returns extends Component
                 ]);
 
                 Notification::create([
+                'title' => 'موافقة على طلب مراجعة',
                     'app_user_id' => $return->app_user_id,
                     'message' => ' تم استرجاع قيمة المنتج  ' . $order->product_name,
                 ]);
@@ -132,6 +131,12 @@ class Returns extends Component
                 $return->update([
                     'status' => 'rejected'
                 ]);
+
+                Notification::create([
+                    'title' => 'رفض  طلب مراجعة',
+                        'app_user_id' => $return->app_user_id,
+                        'message' => ' رفض طلب مراجعة المنتج ' . $return->return,
+                    ]);
             }
         });
     }

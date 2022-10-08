@@ -171,6 +171,7 @@ class SubAgentBalance extends Component
         ]);
 
         Notification::create([
+            'title' => 'شحن رصيد',
             'message' => $this->charge_message,
             'app_user_id' => $this->app_user_id
         ]);
@@ -222,6 +223,7 @@ class SubAgentBalance extends Component
         ]);
 
         Notification::create([
+            'title' => 'سحب رصيد',
             'message' => $this->witdhraw_message,
             'app_user_id' => $this->app_user_id
         ]);

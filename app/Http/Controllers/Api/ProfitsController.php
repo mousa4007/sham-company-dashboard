@@ -97,6 +97,7 @@ class ProfitsController extends Controller
 
 
             Notification::create([
+                'title' => 'سحب مربح',
                 'message' => 'تم سحب مربح من التطبيق' . $request->profit . '$',
                 'app_user_id' =>  $request->user()->id
             ]);

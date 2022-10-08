@@ -148,6 +148,7 @@ class SuperUserBalance extends Component
         ]);
 
         Notification::create([
+            'title' => 'شحن رصيد',
             'message' => $this->charge_message,
             'app_user_id' => $this->app_user_id
         ]);
@@ -183,11 +184,13 @@ class SuperUserBalance extends Component
 
 
         $appUser->update([
+
             'balance' => $appUser->balance - $this->outgoingBalance,
             'outgoingBalance' => $appUser->outgoingBalance + $this->outgoingBalance,
         ]);
 
         Notification::create([
+            'title' => 'سحب رصيد',
             'message' => $this->witdhraw_message,
             'app_user_id' => $this->app_user_id
         ]);

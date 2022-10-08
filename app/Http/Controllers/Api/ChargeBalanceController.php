@@ -43,6 +43,7 @@ class ChargeBalanceController extends Controller
                 ]);
 
                 Notification::create([
+                    'title' => 'شحن رصيد',
                     'message' => 'تم شحن حسابك بمبلغ ' . $request->balance,
                     'app_user_id' => $request->agent_id
                 ]);

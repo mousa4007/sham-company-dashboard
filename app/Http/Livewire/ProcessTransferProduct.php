@@ -255,6 +255,7 @@ class ProcessTransferProduct extends Component
             ]);
 
             Notification::create([
+                'title' => 'موافقة على عملية تحويل',
                 'app_user_id' => $user->id,
                 'message' => "العملية مكتملة ✅  \r\nالرقم : $order->product  \r\nالمنتج : $product->name  \r\nالمبلغ :  $product->sell_price"
 
@@ -294,6 +295,8 @@ class ProcessTransferProduct extends Component
 
 
             Notification::create([
+                'title' => 'رفض عملية تحويل',
+
                 'app_user_id' => $user->id,
                 'message' => "العملية مرفوضة ⛔️  \r\nالرقم : $order->product  \r\nالمنتج : $product->name  \r\nالمبلغ :  $order->price"
             ]);
