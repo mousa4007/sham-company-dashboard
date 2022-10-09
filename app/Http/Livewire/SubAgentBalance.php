@@ -46,8 +46,8 @@ class SubAgentBalance extends Component
 
     public function mount()
     {
-        $this->charge_message = 'تم شحن حسابك ' ;
-        $this->witdhraw_message = 'تم سحب من حسابك ' ;
+        $this->charge_message = 'تم شحن حسابك ';
+        $this->witdhraw_message = 'تم سحب من حسابك ';
         // $this->app_user_id = AppUser::first()->id == '' ? app_user_id = AppUser::first()->id : '';
         $this->paginateNumber = 10;
     }
@@ -192,7 +192,7 @@ class SubAgentBalance extends Component
         SuperUserChargingBalance::create([
             'app_user_id' => $this->app_user_id,
             'name' => $appUser->name,
-            'message' => 'تم شحن حساب ' . $appUser->name . ' '. $this->incomingBalance . '$',
+            'message' => 'تم شحن حساب ' . $appUser->name . ' ' . $this->incomingBalance . '$',
             'balance' => $this->incomingBalance,
             'type' => 'withdraw'
         ]);
@@ -224,7 +224,7 @@ class SubAgentBalance extends Component
             'outgoingBalance' => $appUser->outgoingBalance + $this->outgoingBalance,
         ]);
 
-        $this->super_user->notificationsCount->update([
+        $super_user->notificationsCount->update([
             'notifications_count' =>  $this->super_user->notifications_count + 1
         ]);
 
@@ -247,7 +247,7 @@ class SubAgentBalance extends Component
         AgentChargingBalance::create([
             'app_user_id' => $this->app_user_id,
             'name' => $appUser->name,
-            'message' => 'تم سحب مبلغ  ' . $this->outgoingBalance . '$' ,
+            'message' => 'تم سحب مبلغ  ' . $this->outgoingBalance . '$',
             'balance' => $this->outgoingBalance,
             'type' => 'withdraw'
         ]);
@@ -255,7 +255,7 @@ class SubAgentBalance extends Component
         SuperUserChargingBalance::create([
             'app_user_id' => $this->app_user_id,
             'name' => $appUser->name,
-            'message' => 'تم سحب من حساب '  . $appUser->name. ' ' . $this->outgoingBalance . '$'  ,
+            'message' => 'تم سحب من حساب '  . $appUser->name . ' ' . $this->outgoingBalance . '$',
             'balance' => $this->outgoingBalance,
             'type' => 'charge'
         ]);
@@ -291,7 +291,7 @@ class SubAgentBalance extends Component
 
             if ($q->type == 'charge') {
 
-                if($appUser->balance >= $balance ){
+                if ($appUser->balance >= $balance) {
 
                     $super_user->update([
                         'balance' => $super_user->balance + $balance
@@ -311,13 +311,10 @@ class SubAgentBalance extends Component
                     $this->reset('checked');
 
                     $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم الإلغاء بنجاح']);
-
-                }else{
+                } else {
 
                     $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'رصيد المستخدم غير كافي']);
-
                 }
-
             } else {
                 $super_user->update([
                     'balance' => $super_user->balance - $balance
@@ -337,9 +334,7 @@ class SubAgentBalance extends Component
 
             $this->reset('checked');
 
-           $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم الإلغاء بنجاح']);
-
+            $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم الإلغاء بنجاح']);
         });
-
     }
 }
