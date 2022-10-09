@@ -207,9 +207,14 @@ class PurchaseProductController extends Controller
                             'profit' => 0,
                         ]);
                     }
+
                     $user->update([
                         'balance' => $user->balance - $product->sell_price,
                         'outgoingBalance' => $user->outgoingBalance + $product->sell_price
+                    ]);
+
+                    Agent::find($user->agent_id)->update([
+                        'balance' => $agent->balance - $product->sell_price,
                     ]);
                 }
             }
