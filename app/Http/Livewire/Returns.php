@@ -97,6 +97,14 @@ class Returns extends Component
                     'total_profits' => $user->total_profits - $order->profit,
                 ]);
 
+                if($user->hasRole('agent')){
+                    $agent = Agent::find($user->agent_id);
+
+                    $agent->update([
+                        'balance' => $agent->balance + $order->price
+                    ]);
+                }
+
                 $return->update([
                     'status' => 'accepted'
                 ]);
