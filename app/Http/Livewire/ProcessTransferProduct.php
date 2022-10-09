@@ -297,7 +297,7 @@ class ProcessTransferProduct extends Component
                 $agent = Agent::find($user->agent_id);
 
                 $agent->update([
-                    'balance' => $agent->balance - $order->price
+                    'balance' => $agent->balance + $order->price
                 ]);
             }
 
