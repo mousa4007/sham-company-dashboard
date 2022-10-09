@@ -233,10 +233,10 @@ class PurchaseProductController extends Controller
         $product = Product::find($request->product_id);
 
 
-            Sale::create([
-                'product' => $product->name,
-                'product_id' => $request->product_id,
-            ]);
+        Sale::create([
+            'product' => $product->name,
+            'product_id' => $request->product_id,
+        ]);
 
 
             if ($user->hasRole('super-user') || $user->hasRole('user')) {
@@ -367,6 +367,10 @@ class PurchaseProductController extends Controller
                 $user->update([
                     'balance' => $user->balance - $product->sell_price,
                     'outgoingBalance' => $user->outgoingBalance + $product->sell_price
+                ]);
+
+               $agent->update([
+                    'balance' => $agent->balance - $product->sell_price
                 ]);
 
             }
