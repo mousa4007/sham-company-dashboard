@@ -78,7 +78,6 @@
                                             {{ $appUser->email }}
                                         </td>
                                         <td>{{ $appUser->balance  }}</td>
-
                                         <td>{{ count($appUser->agent) }}</td>
                                         <td>{{ $appUser->agent }}</td>
                                         <td>{{ $appUser->status == 'active' ? 'مفعل' : 'معطل' }}</td>
