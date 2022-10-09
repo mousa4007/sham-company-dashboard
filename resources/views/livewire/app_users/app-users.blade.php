@@ -80,7 +80,7 @@
                                         <td>{{ $appUser->balance }}</td>
 
                                         <td>{{ count($appUser->agent) }}</td>
-                                        <td>{{ $appUser->agent->sum('balance') }}</td>
+                                        <td>{{ $appUser->agent }}</td>
                                         <td>{{ $appUser->status == 'active' ? 'مفعل' : 'معطل' }}</td>
                                         <td>
                                             <button type="button"class="btn btn-sm btn-info" data-bs-toggle="modal"
