@@ -48,7 +48,6 @@
                     <div class="d-flex">
                         @include('livewire.apiProduct.update_api_key')
                         @include('livewire.apiProduct.create_api_product')
-
                     </div>
                 </div>
                 @include('livewire.apiProduct.delete_api_product')
@@ -85,11 +84,6 @@
                                                 data-bs-target="#updateProductModal"
                                                 wire:click='edit({{ $product->id }})'>
                                                 تعديل
-                                            </button>
-                                            <button type="button"class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteProductModal"
-                                                wire:click='confirmProductRemoval({{ $product->id }})'>
-                                                حذف
                                             </button>
                                         </td>
                                     </tr>
