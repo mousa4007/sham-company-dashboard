@@ -126,7 +126,9 @@
                                 <span>المنتجات</span>
                             </a>
                             <ul
-                                class="submenu {{ request()->is('products') || request()->is('stockedProducts') || request()->is('api-products') || request()->is('transferProducts') ? 'active' : '' }}">
+                                class="submenu {{ request()->is('products') || request()->is('stockedProducts')
+                                || request()->is('api-products') || request()->is('transferProducts')
+                                || request()->is('stock')|| request()->is('productPrices')  ? 'active' : '' }}">
                                 <li class="submenu-item  ">
                                     <a href="/products"
                                         class="sidebar-link {{ request()->is('products') ? 'text-success' : '' }}">
@@ -168,6 +170,14 @@
                                         <span> تحديد أسعار المنتجات</span>
                                     </a>
                                 </li>
+
+                                <li class="submenu-item ">
+                                    <a href="/stock"
+                                        class="sidebar-link {{ request()->is('stock') ? 'text-success' : '' }}">
+                                        <i class="bi-archive-fill {{ request()->is('stock') ? 'text-success' : '' }}"></i>
+                                        <span>المخزن</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -203,16 +213,7 @@
                                         <span>مجموعة الأسعار</span>
                                     </a>
                                 </li>
-                                {{-- dont delete !imporatant --}}
 
-                                {{-- <li class="submenu-item  ">
-                                    <a href="/usersDiscounts"
-                                        class="sidebar-link {{ request()->is('usersDiscounts') ? 'text-success' : '' }}">
-                                        <i
-                                            class="bi bi-cash {{ request()->is('usersDiscounts') ? 'text-success' : '' }}"></i>
-                                        <span> تخصيص الأسعار للمستخدمين</span>
-                                    </a>
-                                </li> --}}
                                 <li class="submenu-item  ">
                                     <a href="/productsDiscounts"
                                         class="sidebar-link {{ request()->is('productsDiscounts') ? 'text-success' : '' }}">

@@ -16,6 +16,7 @@ use App\Http\Livewire\Products;
 use App\Http\Livewire\ProductsDiscounts;
 use App\Http\Livewire\Returns;
 use App\Http\Livewire\Sales;
+use App\Http\Livewire\Stock;
 use App\Http\Livewire\SubAgentBalance;
 use App\Http\Livewire\SuperUserBalance;
 use App\Http\Livewire\TransferProducts;
@@ -56,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ads', Ads::class);
     Route::get('/returns', Returns::class);
     Route::get('/messages', Messages::class);
+    Route::get('/stock', Stock::class);
     Route::get('/logout', [LogoutController::class, 'logout']);
 });
 

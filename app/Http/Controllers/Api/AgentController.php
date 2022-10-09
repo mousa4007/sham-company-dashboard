@@ -77,10 +77,6 @@ class AgentController extends Controller
                 'app_user_id'=>$appUser->id
             ]);
 
-            // $request->user()->update([
-            //     'balance' => $request->user()->balance - $request->balance
-            // ]);
-
             return 'success';
         } else {
             return 'no_permission';
