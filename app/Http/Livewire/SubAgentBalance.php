@@ -225,7 +225,7 @@ class SubAgentBalance extends Component
         ]);
 
         $super_user->notificationsCount->update([
-            'notifications_count' =>  $this->super_user->notifications_count + 1
+            'notifications_count' =>  $super_user->notifications_count + 1
         ]);
 
         $appUser->notificationsCount->update([
