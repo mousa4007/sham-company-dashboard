@@ -19,14 +19,14 @@ class PasswordController extends Controller
             'password'=>'required'
         ]);
 
-        if($request->email == $request->user()->email){
+        if(Hash::check($request->password,$request->user()->password)){
             $request->user()->update([
                 'password' => Hash::make($request->password)
             ]);
 
             return 'success';
         }else{
-            return 'email_not_match';
+            return 'password_not_match';
         }
     }
 
