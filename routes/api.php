@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ChargeBalanceController;
 use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\PasswordController;
 use App\Http\Controllers\Api\ProductUserFavoriteController;
 use App\Http\Controllers\Api\ProfitsController;
 use App\Http\Controllers\Api\PurchaseProductController;
@@ -73,7 +74,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::post('profits-from-agents-in-week',[ProfitsController::class,'profitsFromAgentInWeek']);
     Route::post('profits-from-agents-in-month',[ProfitsController::class,'profitsFromAgentInMonth']);
     Route::post('withdraw-profits',[ProfitsController::class,'withdrawProfits']);
-
+    Route::post('change-password',[PasswordController::class,'changePassword']);
 });
 
 
