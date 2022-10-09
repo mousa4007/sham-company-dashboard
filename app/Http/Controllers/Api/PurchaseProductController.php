@@ -381,15 +381,16 @@ class PurchaseProductController extends Controller
             'product_id' => 'required',
         ]);
 
-        if ($request->user()->balance >= $request->amount) {
+        $sell_price = Product::find($request->product_id)->sell_price;
 
+        if ($request->user()->balance >= $request->amount) {
 
             $order = Order::create([
                 'app_user_id' => $request->user()->id,
                 'product_id' => $request->product_id,
                 'product_name' => Product::find($request->product_id)->name,
                 'product' => $request->address,
-                'price' => Product::find($request->product_id)->sell_price,
+                'price' =>$sell_price,
                 'is_returned' => false,
                 'profit' => 0,
                 'transfer_status' => 'ignored'
@@ -407,6 +408,14 @@ class PurchaseProductController extends Controller
                 'balance'=> $request->user()->balance - Product::find($request->product_id)->sell_price,
                 'outgoingBalance'=> $request->user()->outgoingBalance + Product::find($request->product_id)->sell_price,
             ]);
+
+            if($request->user()->hasRole('agent')){
+                $agent = Agent::find($request->user()->agent_id);
+                
+                $agent->update([
+                    'balance' => $agent->balance - $sell_price,
+                ]);
+            }
 
             return 'success';
 

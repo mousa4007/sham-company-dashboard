@@ -50,7 +50,7 @@ class TransferProducts extends Component
             'livewire.transfer_product.transfer-product',
             [
                 'products' => $this->products,
-
+                
                 'categories' => Category::latest()->get()
             ]
         );
@@ -71,12 +71,7 @@ class TransferProducts extends Component
 
     public function store()
     {
-
-
-
         $data = $this->validate();
-
-        // dd($data['hintMessage']);
 
         if($data['image_url']){
             $image = $data['image_url']->store('/','products');
@@ -86,7 +81,6 @@ class TransferProducts extends Component
             'name' => $data['name'],
             'image_url' => asset('storage/products/'.$image),
             'image_id' => $image,
-            // 'price' => $data['price'],
             'category_id' => $data['category_id'],
             'arrangement' => $this->arrangement != '' ? $this->arrangement : 1,
             'description' => $this->description,
