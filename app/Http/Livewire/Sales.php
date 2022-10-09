@@ -82,7 +82,7 @@ class Sales extends Component
         });
 
         return $query->groupBy('product_id')
-            ->selectRaw('*, sum(price) as sum_price')
+            ->selectRaw('*, sum(sell_price) as sum_price')
             ->selectRaw('count(*) as count_sell ')
             ->paginate($this->paginateNumber);
 
@@ -94,7 +94,7 @@ class Sales extends Component
         // return Excel::download(new ReturnsExport, 'المرتجعات.xlsx');
 
         return (new SalesExport($this->from, $this->to,$this->product_id,$this->category_id))
-        
+
         ->download('asdf.xls');
     }
 }

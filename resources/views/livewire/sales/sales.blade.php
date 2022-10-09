@@ -111,13 +111,7 @@
                                             }}
                                         </span>
                                     </td>
-                                    {{-- <td>
-                                        <span class="badge bg-primary">
-                                            {{ count($sale->whereDate('created_at', '>=',
-                                            $from)->whereDate('created_at', '<=', $to)->
-                                                where('product_id',$sale->product_id)->get()) }}
-                                        </span>
-                                    </td> --}}
+
                                 </tr>
                                 @empty
                                 @include('components.not-found')
