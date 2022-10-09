@@ -38,7 +38,7 @@ class PasswordController extends Controller
 		]);
 
 		$status = Password::reset(
-			$request->only('email', 'password', 'password_confirmation', 'token'),
+			$request->only('email', 'password', 'token'),
 			function ($user, $password) use ($request) {
 				$user->forceFill([
 					'password' => Hash::make($password)
