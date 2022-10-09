@@ -82,7 +82,7 @@ class Sales extends Component
         });
 
         return $query->groupBy('product_id')
-            ->selectRaw('*, sum(sell_price) as sum_price')
+            ->selectRaw('*, sum(price) as sum_price')
             ->selectRaw('count(*) as count_sell ')
             ->paginate($this->paginateNumber);
 
