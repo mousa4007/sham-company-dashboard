@@ -411,9 +411,9 @@ class PurchaseProductController extends Controller
 
             if($request->user()->hasRole('agent')){
                 $agent = Agent::find($request->user()->agent_id);
-                
+
                 $agent->update([
-                    'balance' => $agent->balance - $sell_price,
+                    'balance' => $agent->balance - $sell_price 
                 ]);
             }
 
