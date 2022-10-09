@@ -413,7 +413,7 @@ class PurchaseProductController extends Controller
                 $agent = Agent::find($request->user()->agent_id);
 
                 $agent->update([
-                    'balance' => $agent->balance - $sell_price 
+                    'balance' => $agent->balance - $sell_price
                 ]);
             }
 
@@ -424,12 +424,5 @@ class PurchaseProductController extends Controller
         } else {
             return 'error_occured';
         }
-    }
-
-    public function webApiKey()
-    {
-        $apis = WebApiKey::first();
-
-        return $apis->smsActivate_api_key . ":" . $apis->vakSms_api_key . ":" .$apis->secondLine_api_key  ;
     }
 }

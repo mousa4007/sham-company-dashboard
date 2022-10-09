@@ -293,6 +293,14 @@ class ProcessTransferProduct extends Component
                 'outgoingBalance' => $user->outgoingBalance - $order->price,
             ]);
 
+            if($user->hasRole('agent')){
+                $agent = Agent::find($user->agent_id);
+
+                $agent->update([
+                    'balance' => $agent->balance - $order->price
+                ]);
+            }
+
             $q->update([
                 'status' => 'rejected',
             ]);
