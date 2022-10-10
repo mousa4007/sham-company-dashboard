@@ -13,7 +13,7 @@ class ApiController extends Controller
 {
     public function categories()
     {
-        $category = DB::table('categories')->where('status','active')->orderBy('arrangement','asc')->orderBy('available','asc')->get();
+        $category = DB::table('categories')->where('status','active')->orderBy('arrangement','asc')->get();
 
         return $category;
     }
