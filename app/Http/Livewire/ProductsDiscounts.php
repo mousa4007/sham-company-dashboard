@@ -6,13 +6,18 @@ use App\Models\Category;
 use App\Models\Discount;
 use App\Models\DiscountException;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ProductsDiscounts extends Component
 {
+    use  WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
+
     public $products = [];
     public $price;
     public $product_id;
-    
+
     public $discount_id;
     public $discountException;
 
