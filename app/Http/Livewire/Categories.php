@@ -54,7 +54,7 @@ class Categories extends Component
     {
         $data = $this->validate([
             'name' => 'required|string',
-            'image_url' => 'required',
+            'image_url' => 'nullable',
             'description' => 'required',
         ]);
 
@@ -66,8 +66,10 @@ class Categories extends Component
         Category::create([
             'name' => $data['name'],
             'description' => $data['description'],
-            'image_url' => asset('storage/categories/' . $image),
-            'image_id' => $image,
+            // 'image_url' => asset('storage/categories/' . $image),
+            'image_url' => 'null',
+            // 'image_id' => $image,
+            'image_id' => 'null',
             'arrangement' => $this->arrangement != null ? $this->arrangement : 1
         ]);
 
