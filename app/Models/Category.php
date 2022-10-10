@@ -13,7 +13,7 @@ class Category extends Model
 
     public function products()
     {
-        return $this->hasMany(Product::class, 'category_id')->where('status','active')->orderBy('arrangement','asc')->orderBy('available','desc');
+        return $this->hasMany(Product::class, 'category_id')->where('status','active')->orderBy('arrangement','asc')->orderBy('available','asc');
 
     }
 }
