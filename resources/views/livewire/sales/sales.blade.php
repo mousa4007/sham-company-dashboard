@@ -14,7 +14,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="my-3">
-
                     <a href="#" class="btn btn-success btn-sm btn-excel" wire:click='export'><i
                             class="bi-file-earmark-spreadsheet-fill"></i> </a>
 
@@ -102,6 +101,9 @@
                                     </td>
                                     <td>
                                         <span class="badge bg-danger">
+
+                                            
+
                                             {{ count($sale->products->return->where('status', 'accepted')) }}
                                         </span>
                                     </td>

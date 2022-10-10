@@ -252,6 +252,7 @@ class ProcessTransferProduct extends Component
             Sale::create([
                 'product' => $product->name,
                 'product_id' => $product->id,
+                'price'=> $product->sell_price
             ]);
 
             Notification::create([

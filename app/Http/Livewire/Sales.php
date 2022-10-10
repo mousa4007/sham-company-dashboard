@@ -86,6 +86,8 @@ class Sales extends Component
             ->selectRaw('count(*) as count_sell ')
             ->paginate($this->paginateNumber);
 
+
+
         // return $this->customized_sale;
     }
     public function export()

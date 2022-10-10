@@ -77,6 +77,7 @@ class PurchaseProductController extends Controller
                 Sale::create([
                     'product' => $order->product_item,
                     'product_id' => $order->product_id,
+                    'price'=> $product->sell_price
                 ]);
 
                 if ($user->hasRole('super-user') || $user->hasRole('user')) {
@@ -236,6 +237,7 @@ class PurchaseProductController extends Controller
         Sale::create([
             'product' => $product->name,
             'product_id' => $request->product_id,
+            'price'=> $product->sell_price
         ]);
 
 
