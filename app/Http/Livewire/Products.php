@@ -34,7 +34,7 @@ class Products extends Component
 
     protected $rules = [
         'name' => 'required|string',
-        'image_url' => 'required',
+        // 'image_url' => 'required',
         'description' => 'required',
         'currency' => 'required',
         // 'price' => 'required|numeric|min:0|max:1000',
@@ -76,8 +76,8 @@ class Products extends Component
 
         $product = Product::create([
             'name' => $data['name'],
-            'image_url' => asset('storage/products/'.$image),
-            'image_id' => $image,
+            'image_url' => 'null',
+            'image_id' => 'null',
             // 'price' => $data['price'],
             'category_id' => $data['category_id'],
             'arrangement' => $this->arrangement != '' ? $this->arrangement : 1,
