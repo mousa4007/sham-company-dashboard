@@ -42,7 +42,7 @@ class ApiProducts extends Component
 
     protected $rules = [
         'name' => 'required|string',
-        'image_url' => 'required',
+        // 'image_url' => 'required',
         'description' => 'required',
         'currency' => 'required',
         'category_id' => 'required|integer',
@@ -93,8 +93,10 @@ class ApiProducts extends Component
 
         $product = Product::create([
             'name' => $data['name'],
-            'image_url' => asset('storage/products/'.$image),
-            'image_id' => $image,
+            // 'image_url' => asset('storage/products/'.$image),
+            'image_url' => 'null',
+
+            'image_id' => 'null',
             'category_id' => $data['category_id'],
             'arrangement' => $this->arrangement != '' ? $this->arrangement : 1,
             'description' => $this->description,
