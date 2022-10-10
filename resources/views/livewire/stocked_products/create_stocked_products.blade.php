@@ -32,9 +32,6 @@
                                             <input wire:model.defer='lineNumber' type="number"
                                                 class="form-control @error('lineNumber') is-invalid @enderror"
                                                 placeholder="عدد الأسطر" id="first-name-icon" required>
-                                            {{-- <div class="form-control-icon">
-                                                <i class="bi bi-basket"></i>
-                                            </div> --}}
                                         </div>
                                         @error('lineNumber')
                                             <span class="text-danger d-block mt-2">{{ $message }}</span>

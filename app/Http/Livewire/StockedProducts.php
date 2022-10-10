@@ -6,9 +6,6 @@ use App\Imports\StockedProductsImport;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\StockedProduct;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -54,7 +51,7 @@ class StockedProducts extends Component
             [
                 'stockedProducts' => $this->stockedProduct,
                 'categories' => Category::all(),
-                'productList' => Product::all(),
+                'productList' => $this->products,
             ],
         );
     }
@@ -152,7 +149,8 @@ class StockedProducts extends Component
 
         $this->emitUp('sectionRefresh');
         $this->class = "show";
-        $this->style = "display: block;";
+        $this->style = "display: bl
+        ock;";
 
         return $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم الحذف بنجاح']);
     }
