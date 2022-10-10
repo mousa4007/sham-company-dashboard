@@ -51,14 +51,15 @@ class StockedProducts extends Component
             [
                 'stockedProducts' => $this->stockedProduct,
                 'categories' => Category::all(),
-                'productList' => $this->products,
+                'productList' => Product::all(),
+                'products' =>$this->products
             ],
         );
     }
     public function updatedCategoryId()
     {
         if (!is_null($this->categoryId)) {
-            $this->products = Product::where('category_id', $this->categoryId)->get();
+            $this->products = Product::where('is_direct',false)->where('is_transfer',null)->where('category_id', $this->categoryId)->get();
         }
     }
 

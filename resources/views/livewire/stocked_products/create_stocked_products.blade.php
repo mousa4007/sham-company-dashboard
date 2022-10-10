@@ -59,7 +59,7 @@
                                     <fieldset class="form-group">
                                         <select wire:model='product_id' class="form-select" id="basicSelect">
                                             <option value="">اختيار</option>
-                                            @foreach ($productList as $product)
+                                            @foreach ($products as $product)
                                                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                                             @endforeach
                                         </select>

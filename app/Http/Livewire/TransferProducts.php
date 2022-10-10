@@ -50,7 +50,7 @@ class TransferProducts extends Component
             'livewire.transfer_product.transfer-product',
             [
                 'products' => $this->products,
-                
+
                 'categories' => Category::latest()->get()
             ]
         );
@@ -60,6 +60,7 @@ class TransferProducts extends Component
     {
         $this->currency =  1;
         $this->paginateNumber = 5;
+        $this->dataType = 0;
     }
 
     public function resetData()

@@ -186,6 +186,7 @@ class Products extends Component
     {
         if ($this->from) {
             return Product::where('is_direct', false)
+                ->where('is_transfer', null)
                 ->whereDate('created_at', '>=', $this->from)
                 ->whereDate('created_at', '<=', $this->to)
                 ->where(function ($q) {
@@ -194,6 +195,7 @@ class Products extends Component
                 })->latest()->paginate($this->paginateNumber);
         } else {
             return Product::where('is_direct', false)
+            ->where('is_transfer', null)
                 ->where(function ($q) {
                     $q->where('name', 'like', '%' . $this->searchTerm . '%')
                         ->orWhere('sell_price', 'like', '%' . $this->searchTerm . '%');
