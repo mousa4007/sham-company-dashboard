@@ -36,7 +36,7 @@ class TransferProducts extends Component
 
     protected $rules = [
         'name' => 'required|string',
-        'image_url' => 'required',
+        'image_url' => 'nullable',
         'description' => 'required',
         'currency' => 'required',
         'hintMessage' => 'required',
