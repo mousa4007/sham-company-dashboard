@@ -34,7 +34,7 @@ class Products extends Component
 
     protected $rules = [
         'name' => 'required|string',
-        // 'image_url' => 'required',
+        'image_url' => 'nullable',
         'description' => 'required',
         'currency' => 'required',
         // 'price' => 'required|numeric|min:0|max:1000',
