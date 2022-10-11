@@ -41,7 +41,7 @@
                     <div class="d-inline-flex align-items-center" style="width: 150px;">
                         <h6 class="px-2"> المستخدم</h6>
                         <fieldset class="form-group paginate-select" style="width: 200px;">
-                            <select wire:model='app_user_id' class="form-select" id="basicSelect">
+                            <select wire:model='app_user_id' class="form-select" id="basicSelect" style="width: 100px">
                                 <option value="">الكل</option>
                                 @foreach ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
