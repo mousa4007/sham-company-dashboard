@@ -76,7 +76,7 @@ class Orders extends Component
         });
 
 
-        return $query->paginate($this->paginateNumber);
+        return $query->latest()->paginate($this->paginateNumber);
     }
 
 
