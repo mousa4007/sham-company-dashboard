@@ -29,15 +29,16 @@ class Sales extends Component
         $product_id,
         $category_id,
         $selectedRows = [],
-        $checked = false;
+        $checked = false,
+        $products;
 
 
     public function render()
     {
 
         return view('livewire.sales.sales', [
-            'products' => Product::all(),
-            'categories' => Category::all(),
+            'products' =>$this->products,
+            'categories' => $this->categories,
             'sales' => $this->sales
         ]);
     }
@@ -47,6 +48,8 @@ class Sales extends Component
         $this->to = Carbon::today();
         $this->from = Carbon::today();
         $this->paginateNumber = 10;
+        $this->products = Product::all();
+        $this->categories =    Category::all();
     }
 
     public function updatedChecked($value)
