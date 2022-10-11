@@ -62,11 +62,11 @@ class Categories extends Component
         ]);
 
 
-        if($data['image_url']){
-            $img =$data['image_url'];
+        if ($data['image_url']) {
+            $img = $data['image_url'];
             $img_name = $img->getClientOriginalName();
-            $img = Image::make($img)->resize(150,100);
-           $img->save('storage/categories/'.$img_name,100);
+            $img = Image::make($img)->resize(200,100);
+            $img->save('storage/categories/' . $img_name, 40);
         }
 
         Category::create([
@@ -74,7 +74,6 @@ class Categories extends Component
             'description' => $data['description'],
             'image_url' => asset('storage/categories/' . $img_name),
             'image_id' => $img_name,
-            'image_id' => 'null',
             'arrangement' => $this->arrangement != null ? $this->arrangement : 1
         ]);
 
@@ -111,20 +110,23 @@ class Categories extends Component
                 'arrangement' => $this->arrangement != null ? $this->arrangement : 1
             ]);
         } else {
-            if (File::exists(public_path('storage/categories/'.explode('/' ,$this->image_url_preview)[5]))) {
-                File::delete(public_path('storage/categories/'.explode('/' ,$this->image_url_preview)[5]));
+            if (File::exists(public_path('storage/categories/' . explode('/', $this->image_url_preview)[5]))) {
+                File::delete(public_path('storage/categories/' . explode('/', $this->image_url_preview)[5]));
             }
 
-            if($data['image_url']){
-                $image = $data['image_url']->store('/','categories');
+            if ($data['image_url']) {
+                $img = $data['image_url'];
+                $img_name = $img->getClientOriginalName();
+                $img = Image::make($img)->resize(150, 100);
+                $img->save('storage/categories/' . $img_name, 100);
             }
 
 
             $category->update([
                 'name' => $data['name'],
                 'description' => $data['description'],
-                'image_url' => asset('storage/categories/'.$image),
-                'image_id' => $image,
+                'image_url' => asset('storage/categories/' . $img_name),
+                'image_id' => $img_name,
                 'arrangement' => $this->arrangement != null ? $this->arrangement : 1
             ]);
         }
@@ -137,14 +139,14 @@ class Categories extends Component
 
     public function destroy()
     {
-        Category::whereIn('id', $this->selectedRows)->each(function($q){
-            if (File::exists(public_path('storage/categories/'.$q->image_id))) {
-                File::delete(public_path('storage/categories/'.$q->image_id));
+        Category::whereIn('id', $this->selectedRows)->each(function ($q) {
+            if (File::exists(public_path('storage/categories/' . $q->image_id))) {
+                File::delete(public_path('storage/categories/' . $q->image_id));
             }
 
             $q->delete();
         });
-        $this->image_url_preview='';
+        $this->image_url_preview = '';
         $this->reset(['checked']);
 
         return $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم الحذف بنجاح']);
