@@ -116,14 +116,14 @@ class SubAgentBalance extends Component
                     $q->where('name', 'like', '%' . $this->searchTerm . '%')
                         ->orWhere('balance', 'like', '%' . $this->searchTerm . '%');
                 })
-                ->latest()->get();
+                ->latest()->paginate($this->paginateNumber);
         } else {
             return AgentChargingBalance::query()
                 ->where(function ($q) {
                     $q->where('name', 'like', '%' . $this->searchTerm . '%')
                         ->orWhere('balance', 'like', '%' . $this->searchTerm . '%');
                 })
-                ->latest()->get();
+                ->latest()->paginate($this->paginateNumber);
         }
     }
 
