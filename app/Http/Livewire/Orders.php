@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\AppUser;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
@@ -52,7 +53,7 @@ class Orders extends Component
     }
 
     public function getOrdersProperty(){
-        return Order::latest()->paginate($this->paginateNumber);
+        // return Order::latest()->paginate($this->paginateNumber);
 
         $query = Order::query();
 
@@ -65,15 +66,15 @@ class Orders extends Component
             return $q->where('product_id',$this->product_id);
         });
 
-        $query->when($this->category_id,function($q){
-            return $q->where('category_id',$this->category_id);
+        $query->when($this->product_id,function($q){
+            // $ids = Category::pluck
+            return $q->where('product_id',$this->product_id);
         });
 
+        $query->when($this->searchTerm,function($q){
+            return $q->where('id',$this->searchTerm);
+        });
 
-
-        // $query->when($this->app_user_id,function($q){
-        //     return $q->where('name',$this->category_id);
-        // });
 
         return $query->paginate($this->paginateNumber);
     }

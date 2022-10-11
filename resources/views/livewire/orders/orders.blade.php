@@ -69,23 +69,22 @@
                             <thead>
 
                                 <th>#</th>
+                                <th>المستخدم</th>
+                                <th>القسم</th>
                                 <th>اسم المنتج</th>
                                 <th>السعر</th>
-                                <th>القسم</th>
-                                <th>المستخدم</th>
                                 <th>التاريخ</th>
                             </thead>
                             <tbody>
                                 @forelse ($orders as $order)
                                     <tr>
-
                                         {{-- @dump(\App\Models\Category::all()); --}}
                                         <td>{{ $order->id }}</td>
+                                        <td>{{ \App\Models\AppUser::find($order->app_user_id)  != null ? \App\Models\AppUser::find($order->app_user_id)->name : $order->app_user_id }}</td>
+                                        <td>{{ \App\Models\Product::find($order->product_id)->category->name != null ? \App\Models\Category::find($order->product_id)->name :$order->product_id }}</td>
                                         <td>{{ $order->product_name }}</td>
                                         <td>{{ $order->price }}</td>
 
-                                      <td>{{ \App\Models\Category::find($order->product_id) != null ? \App\Models\Category::find($order->product_id)->name :$order->product_id }}</td>
-                                        <td>{{ \App\Models\AppUser::find($order->app_user_id)  != null ? \App\Models\AppUser::find($order->app_user_id)->name : $order->app_user_id }}</td>
                                         <td>{{ $order->created_at }}</td>
                                     </tr>
                                 @empty
