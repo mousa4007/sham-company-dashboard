@@ -61,7 +61,7 @@
                                                                 <div style="display: flex">
                                                                     <input disabled class="form-control d-flex "
                                                                         type="text"
-                                                                        value="{{ $discount->exceptions->where('product_id', $product->id)->first()->sell_price }}">
+                                                                        value="{{ $discount->exceptions->where('product_id', $product->id)->first()->price }}">
                                                                     <input class="form-control d-flex mx-2"
                                                                         type="text"
                                                                         wire:model.defer='price.{{ $product->id }}.{{ $discount->id }}'>
