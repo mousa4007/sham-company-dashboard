@@ -7,6 +7,9 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class Categories extends Component
 {
@@ -54,21 +57,23 @@ class Categories extends Component
     {
         $data = $this->validate([
             'name' => 'required|string',
-            'image_url' => 'nullable',
+            'image_url' => 'required',
             'description' => 'required',
         ]);
 
 
         if($data['image_url']){
-            $image = $data['image_url']->store('/','categories');
+            $img =$data['image_url'];
+            $img_name = $img->getClientOriginalName();
+            $img = Image::make($img)->resize(150,100);
+           $img->save('storage/categories/'.$img_name,100);
         }
 
         Category::create([
             'name' => $data['name'],
             'description' => $data['description'],
-            // 'image_url' => asset('storage/categories/' . $image),
-            'image_url' => 'null',
-            // 'image_id' => $image,
+            'image_url' => asset('storage/categories/' . $img_name),
+            'image_id' => $img_name,
             'image_id' => 'null',
             'arrangement' => $this->arrangement != null ? $this->arrangement : 1
         ]);
