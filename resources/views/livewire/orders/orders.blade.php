@@ -60,6 +60,8 @@
                                         <td>{{ $order->id }}</td>
                                         <td>{{ $order->product_name }}</td>
                                         <td>{{ $order->price }}</td>
+                                        <td>{{ $order->product_id}}</td>
+                                        <td>{{ $order->app_user_id }}</td>
                                         {{-- <td>{{ \App\Models\Category::find($order->product_id)->name }}</td>
                                         <td>{{ \App\Models\AppUser::find($order->app_user_id)->name }}</td> --}}
                                         <td>{{ $order->created_at }}</td>
