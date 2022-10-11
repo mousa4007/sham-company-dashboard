@@ -36,8 +36,8 @@ class Sales extends Component
     {
 
         return view('livewire.sales.sales', [
-            'products' => Product::paginate($this->paginateNumber),
-            'categories' => $this->categories,
+            'products' => Product::all(),
+            'categories' => Category::all(),
             'sales' => $this->sales
         ]);
     }
@@ -47,7 +47,6 @@ class Sales extends Component
         $this->to = Carbon::today();
         $this->from = Carbon::today();
         $this->paginateNumber = 10;
-        $this->categories = Category::all();
     }
 
     public function updatedChecked($value)

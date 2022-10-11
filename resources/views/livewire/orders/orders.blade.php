@@ -14,8 +14,33 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="buttons m-3">
+                <div class="my-3">
+                    <a href="#" class="btn btn-success btn-sm btn-excel" wire:click='export'><i
+                            class="bi-file-earmark-spreadsheet-fill"></i> </a>
+
                     @include('components.datepicker')
+                    <div class="d-inline-flex align-items-center" style="width: 150px;">
+                        <h6 class="px-2"> المنتج</h6>
+                        <fieldset class="form-group paginate-select" style="width: 200px;">
+                            <select wire:model='product_id' class="form-select" id="basicSelect">
+                                <option value="">الكل</option>
+                                @foreach ($products as $product)
+                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                @endforeach
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div class="d-inline-flex align-items-center" style="width: 150px;">
+                        <h6 class="px-2"> الأقسام</h6>
+                        <fieldset class="form-group paginate-select" style="width: 200px;">
+                            <select wire:model='category_id' class="form-select" id="basicSelect">
+                                <option value="">الكل</option>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </fieldset>
+                    </div>
                 </div>
             </div>
         </div>
