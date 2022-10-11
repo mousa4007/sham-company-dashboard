@@ -34,6 +34,7 @@ class Orders extends Component
         $app_user_id,
         $selectedRows = [],
         $checked = false,
+        $users,
         $products;
 
     public function render()
@@ -42,6 +43,7 @@ class Orders extends Component
             'orders' => $this->orders,
             'products' =>$this->products,
             'categories' => $this->categories,
+            'users' => $this->users,
         ]);
     }
     public function mount()
@@ -50,6 +52,7 @@ class Orders extends Component
         $this->paginateNumber = 10;
         $this->products = Product::all();
         $this->categories =    Category::all();
+        $this->users =    AppUser::all();
     }
 
     public function getOrdersProperty(){
@@ -66,10 +69,13 @@ class Orders extends Component
             return $q->where('product_id',$this->product_id);
         });
 
+        $query->when($this->app_user_id,function($q){
+            return $q->where('app_user_id',$this->app_user_id);
+        });
+
         $query->when($this->category_id, function ($q) {
 
             $ids = Category::find($this->category_id)->products->pluck('id');
-            // dd($ids);
 
             return $q->whereIn('product_id', $ids)->get();
         });

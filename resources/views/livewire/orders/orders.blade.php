@@ -38,6 +38,17 @@
                             </select>
                         </fieldset>
                     </div>
+                    <div class="d-inline-flex align-items-center" style="width: 150px;">
+                        <h6 class="px-2"> المستخدم</h6>
+                        <fieldset class="form-group paginate-select" style="width: 200px;">
+                            <select wire:model='app_user_id' class="form-select" id="basicSelect">
+                                <option value="">الكل</option>
+                                @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </fieldset>
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,7 +64,7 @@
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
                                 <input type="text" class="form-control" aria-label="Recipient's username"
-                                    aria-describedby="button-addon2" wire:model='searchTerm'>
+                                    aria-describedby="button-addon2" wire:model='searchTerm' placeholder="رقم الطلب">
                                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">بحث</button>
                             </div>
                         </div>
