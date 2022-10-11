@@ -88,7 +88,7 @@ class SuperUserBalance extends Component
                 })
                 ->whereRoleIs('super-user')
                 ->orWhereRoleIs('user')
-                ->latest()->paginate($this->paginateNumber);
+                ->latest()->get();
         } else {
             return AppUser::query()
                 ->where('status', 'active')
@@ -98,7 +98,7 @@ class SuperUserBalance extends Component
                 })
                 ->whereRoleIs('super-user')
                 ->orWhereRoleIs('user')
-                ->latest()->paginate($this->paginateNumber);
+                ->latest()->get();
         }
     }
 
