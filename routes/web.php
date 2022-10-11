@@ -9,6 +9,7 @@ use App\Http\Livewire\ApiProducts;
 use App\Http\Livewire\Discounts;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Messages;
+use App\Http\Livewire\Orders;
 use App\Http\Livewire\ProcessTransferProduct;
 use App\Http\Livewire\StockedProducts;
 use App\Http\Livewire\ProductPrices;
@@ -54,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/updateProductsDiscounts', UpdateProductsDiscount::class);
     Route::get('/api-products', ApiProducts::class);
     Route::get('/sales', Sales::class);
+    Route::get('/orders', Orders::class);
     Route::get('/ads', Ads::class);
     Route::get('/returns', Returns::class);
     Route::get('/messages', Messages::class);

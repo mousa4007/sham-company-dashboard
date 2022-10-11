@@ -240,6 +240,13 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item {{ request()->is('orders') ? 'active' : '' }}">
+                            <a href="/orders" class='sidebar-link '>
+                                <i class="bi-server"></i>
+                                <span>الطلبات</span>
+                            </a>
+                        </li>
+
                         <li class="sidebar-item {{ request()->is('ads') ? 'active' : '' }}">
                             <a href="/ads" class='sidebar-link '>
                                 <i class="bi-megaphone-fill"></i>
