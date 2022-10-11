@@ -65,7 +65,7 @@ class Categories extends Component
         if ($data['image_url']) {
             $img = $data['image_url'];
             $img_name = $img->getClientOriginalName();
-            $img = Image::make($img)->resize(200,100);
+            $img = Image::make($img)->resize(250,150);
             $img->save('storage/categories/' . $img_name, 40);
         }
 
@@ -117,8 +117,8 @@ class Categories extends Component
             if ($data['image_url']) {
                 $img = $data['image_url'];
                 $img_name = $img->getClientOriginalName();
-                $img = Image::make($img)->resize(150, 100);
-                $img->save('storage/categories/' . $img_name, 100);
+                $img = Image::make($img)->resize(250, 150);
+                $img->save('storage/categories/' . $img_name, 40);
             }
 
 
