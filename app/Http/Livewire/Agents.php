@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use App\Mail\EmailVerify;
 use App\Models\Agent;
 use App\Models\AppUser;
+use App\Models\NotifcationsCount;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
@@ -90,6 +92,10 @@ class Agents extends Component
         $user->syncRoles(['agent']);
 
         $email = $data['email'];
+
+        NotifcationsCount::create([
+            'app_user_id'=>$user->id
+        ]);
 
         // Mail::to($email)->send($rand);
 
