@@ -83,6 +83,23 @@ class AgentController extends Controller
         }
     }
 
+    public function agentUserId(Request $request)
+    {
+        $agents = $request->user()->agent;
+
+        // dd(count($agents));
+
+        foreach ($agents as $agent) {
+
+            NotifcationsCount::create([
+                'notifications_count' => 0,
+                'app_user_id' => AppUser::where('agent_id',$agent->id)->first()->id
+            ]);
+        }
+
+        return 'success';
+    }
+
 
     public function addAgentPermission(Request $request)
     {

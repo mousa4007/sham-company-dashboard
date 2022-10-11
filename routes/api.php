@@ -54,6 +54,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::post('updateUserBalance', [PurchaseProductController::class, 'updateUserBalance']);
     Route::post('returns', [ReturnsController::class, 'createReturns']);
     Route::apiResource('agent', AgentController::class);
+    Route::get('agentUserId', [AgentController::class,'agentUserId']);
+
     Route::get('messages', [MessageController::class, 'messages']);
     Route::get('getMessagesCount', [MessageController::class, 'getMessagesCount']);
     Route::post('updateWatched', [MessageController::class, 'updateWatched']);
