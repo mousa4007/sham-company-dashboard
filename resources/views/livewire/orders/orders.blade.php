@@ -15,9 +15,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="my-3">
-                    <a href="#" class="btn btn-success btn-sm btn-excel" wire:click='export'><i
-                            class="bi-file-earmark-spreadsheet-fill"></i> </a>
-
                     @include('components.datepicker')
                     <div class="d-inline-flex align-items-center" style="width: 150px;">
                         <h6 class="px-2"> المنتج</h6>
