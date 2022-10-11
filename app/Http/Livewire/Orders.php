@@ -35,9 +35,16 @@ class Orders extends Component
     {
         return view('livewire.orders.orders',[
             'orders' => $this->orders,
-            'products' => Product::all(),
-            'categories' => Category::all(),
+            'products' =>$this->products,
+            'categories' => $this->categories,
         ]);
+    }
+    public function mount()
+    {
+
+        $this->paginateNumber = 10;
+        $this->products = Product::all();
+        $this->categories =    Category::all();
     }
 
     public function getOrdersProperty(){
