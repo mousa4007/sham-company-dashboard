@@ -66,9 +66,12 @@ class Orders extends Component
             return $q->where('product_id',$this->product_id);
         });
 
-        $query->when($this->product_id,function($q){
-            // $ids = Category::pluck
-            return $q->where('product_id',$this->product_id);
+        $query->when($this->category_id, function ($q) {
+
+            $ids = Category::find($this->category_id)->products->pluck('id');
+            // dd($ids);
+
+            return $q->whereIn('product_id', $ids)->get();
         });
 
         $query->when($this->searchTerm,function($q){

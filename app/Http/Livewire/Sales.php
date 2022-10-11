@@ -77,7 +77,7 @@ class Sales extends Component
         $query->when($this->category_id, function ($q) {
             // $categprories = Category::all();
             // return $q->where('product_id', $this->product_id);
-
+            
             $product = Product::where('category_id', $this->category_id)->pluck('id');
 
             return $q->whereIn('product_id', $product);
