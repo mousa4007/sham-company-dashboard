@@ -93,7 +93,7 @@ class SubAgentBalance extends Component
                         ->orWhere('email', 'like', '%' . $this->searchTerm . '%');
                 })
                 ->whereRoleIs('agent')
-                ->latest()->paginate($this->paginateNumber);
+                ->latest()->get();
         } else {
             return AppUser::query()
                 ->where('status', 'active')
@@ -102,7 +102,7 @@ class SubAgentBalance extends Component
                         ->orWhere('email', 'like', '%' . $this->searchTerm . '%');
                 })
                 ->whereRoleIs('agent')
-                ->latest()->paginate($this->paginateNumber);
+                ->latest()->get();
         }
     }
 
