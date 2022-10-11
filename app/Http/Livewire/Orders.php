@@ -25,11 +25,15 @@ class Orders extends Component
         $description,
         $currency,
         $arrangement,
-        $checked = false,
-        $selectedRows = [],
         $from,
         $to,
-        $paginateNumber = 10;
+        $paginateNumber = 10,
+        $categories,
+        $product_id,
+        $app_user_id,
+        $selectedRows = [],
+        $checked = false,
+        $products;
 
     public function render()
     {
@@ -49,6 +53,29 @@ class Orders extends Component
 
     public function getOrdersProperty(){
         return Order::latest()->paginate($this->paginateNumber);
+
+        $query = Order::query();
+
+        $query->when($this->from,function($q){
+            return $q->where('created_at','>=',$this->from)
+            ->where('created_at','<=',$this->to);
+        });
+
+        $query->when($this->product_id,function($q){
+            return $q->where('product_id',$this->product_id);
+        });
+
+        $query->when($this->category_id,function($q){
+            return $q->where('category_id',$this->category_id);
+        });
+
+
+
+        // $query->when($this->app_user_id,function($q){
+        //     return $q->where('name',$this->category_id);
+        // });
+
+        return $query->paginate($this->paginateNumber);
     }
 
 
