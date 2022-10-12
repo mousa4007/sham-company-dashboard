@@ -114,6 +114,7 @@
                                             <option value="sms-activate">أكتيفيت sms-activate </option>
                                             <option value="vak-sms">ڤاك vak-sms </option>
                                             <option value="2ndLine">سكند لاين 2ndLine </option>
+                                            <option value="actiwator"> أكتيواتور  actiwator  </option>
                                         </select>
                                     </fieldset>
                                     @error('web_api')
