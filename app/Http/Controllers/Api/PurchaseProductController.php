@@ -272,7 +272,7 @@ class PurchaseProductController extends Controller
                         'profit' => $profit,
                     ]);
 
-                    dd($ord);
+
 
                     Profit::create([
                         'order_id' => $ord->id,
@@ -296,11 +296,11 @@ class PurchaseProductController extends Controller
                     'profit' => 0,
                 ]);
 
-                dd($order);
+
 
             }
 
-            dd('here before update balance');
+           
 
             $user->update([
                 'balance' => $user->balance - $product->sell_price,
