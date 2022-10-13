@@ -240,6 +240,8 @@ class PurchaseProductController extends Controller
 
 
         if ($user->hasRole('super-user') || $user->hasRole('user')) {
+
+            dd('here');
             if ($user->discount != null) {
                 if (count(Discount::find($user->discount)->exceptions) > 0) {
 
