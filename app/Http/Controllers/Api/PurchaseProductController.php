@@ -232,11 +232,11 @@ class PurchaseProductController extends Controller
         $product = Product::find($request->product_id);
 
 
-        Sale::create([
-            'product' => $product->name,
-            'product_id' => $request->product_id,
-            'price' => $product->sell_price
-        ]);
+        // Sale::create([
+        //     'product' => $product->name,
+        //     'product_id' => $request->product_id,
+        //     'price' => $product->sell_price
+        // ]);
 
 
         if ($user->hasRole('super-user') || $user->hasRole('user')) {
