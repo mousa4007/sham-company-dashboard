@@ -256,7 +256,7 @@ class PurchaseProductController extends Controller
                         $profit = $product->sell_price - $exception->first()->price;
                     }
 
-                    // dd('here exceptions');
+                 
                 }
                  else {
 
@@ -286,7 +286,7 @@ class PurchaseProductController extends Controller
                     $user->update(['total_profits' => $user->total_profits + $profit]);
                 }
             } else {
-                dd('here');
+
                $order =  Order::create([
                     'app_user_id' => $user->id,
                     'product_id' => $product->id,
@@ -300,7 +300,7 @@ class PurchaseProductController extends Controller
 
             }
 
-           
+
 
             $user->update([
                 'balance' => $user->balance - $product->sell_price,
@@ -414,7 +414,6 @@ class PurchaseProductController extends Controller
                 'transfer_status' => 'ignored'
             ]);
 
-            dd($order);
 
             TransferProduct::create([
                 'order_id' => $order->id,
