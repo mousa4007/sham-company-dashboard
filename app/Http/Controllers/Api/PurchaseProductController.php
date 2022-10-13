@@ -278,7 +278,7 @@ class PurchaseProductController extends Controller
                     $user->update(['total_profits' => $user->total_profits + $profit]);
                 }
             } else {
-                Order::create([
+               $order =  Order::create([
                     'app_user_id' => $user->id,
                     'product_id' => $product->id,
                     'product_name' => $product->name,
@@ -286,6 +286,9 @@ class PurchaseProductController extends Controller
                     'price' => $product->sell_price,
                     'profit' => 0,
                 ]);
+
+                dd($order);
+
             }
 
             $user->update([
