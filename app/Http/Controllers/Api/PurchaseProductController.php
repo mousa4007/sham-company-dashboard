@@ -264,6 +264,8 @@ class PurchaseProductController extends Controller
                         'profit' => $profit,
                     ]);
 
+                    dd($ord);
+
                     Profit::create([
                         'order_id' => $ord->id,
                         'app_user_id' => $user->id,
