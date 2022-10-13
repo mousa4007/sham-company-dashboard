@@ -244,7 +244,7 @@ class PurchaseProductController extends Controller
 
             if ($user->discount != null) {
 
-                dd('here');
+                dd('here have discount');
                 if (count(Discount::find($user->discount)->exceptions) > 0) {
 
 
