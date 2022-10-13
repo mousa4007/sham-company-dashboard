@@ -244,10 +244,8 @@ class PurchaseProductController extends Controller
 
             if ($user->discount != null) {
 
-                dd('here have discount');
+
                 if (count(Discount::find($user->discount)->exceptions) > 0) {
-
-
 
                     $exception = Discount::find($user->discount)->exceptions;
 
@@ -258,6 +256,7 @@ class PurchaseProductController extends Controller
                         $profit = $product->sell_price - $exception->first()->price;
                     }
                 } else {
+                    dd('here not exceptions');
                     $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
 
                     $ord = Order::create([
