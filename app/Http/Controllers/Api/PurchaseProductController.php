@@ -233,9 +233,9 @@ class PurchaseProductController extends Controller
 
 
         Sale::create([
-            'product' => '123',
-            'product_id' => '12341234',
-            'price' => '9'
+            'product' => $product->name,
+            'product_id' => $request->product_id,
+            'price' => $product->sell_price
         ]);
 
 
@@ -397,6 +397,8 @@ class PurchaseProductController extends Controller
                 'profit' => 0,
                 'transfer_status' => 'ignored'
             ]);
+
+            dd($order);
 
             TransferProduct::create([
                 'order_id' => $order->id,
