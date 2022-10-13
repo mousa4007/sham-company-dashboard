@@ -255,8 +255,10 @@ class PurchaseProductController extends Controller
                     if (in_array($product->id, $exceptions_ids)) {
                         $profit = $product->sell_price - $exception->first()->price;
                     }
+
+                    dd('here exceptions');
                 } else {
-                    dd('here not exceptions');
+
                     $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
 
                     $ord = Order::create([
