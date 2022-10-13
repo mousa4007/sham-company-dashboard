@@ -235,7 +235,7 @@ class PurchaseProductController extends Controller
         Sale::create([
             'product' => $product->name,
             'product_id' => $request->product_id,
-            'price' => $product->sell_price
+            'price' => '9'
         ]);
 
 
