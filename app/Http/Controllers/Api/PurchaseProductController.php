@@ -232,15 +232,14 @@ class PurchaseProductController extends Controller
         $product = Product::find($request->product_id);
 
 
-        // Sale::create([
-        //     'product' => $product->name,
-        //     'product_id' => $request->product_id,
-        //     'price' => $product->sell_price
-        // ]);
+        Sale::create([
+            'product' => $product->name,
+            'product_id' => $request->product_id,
+            'price' => $product->sell_price
+        ]);
 
 
         if ($user->hasRole('super-user') || $user->hasRole('user')) {
-
 
             if ($user->discount != null) {
 
@@ -254,9 +253,32 @@ class PurchaseProductController extends Controller
 
                     if (in_array($product->id, $exceptions_ids)) {
                         $profit = $product->sell_price - $exception->first()->price;
+
+
+                    $ord = Order::create([
+                        'app_user_id' => $user->id,
+                        'product_id' => $product->id,
+                        'product_name' => $product->name,
+                        'product' => $request->product_item,
+                        'price' => $product->sell_price,
+                        'is_returned' => false,
+                        'profit' => $profit,
+                    ]);
+
+
+                    Profit::create([
+                        'order_id' => $ord->id,
+                        'app_user_id' => $user->id,
+                        'agent_id' => null,
+                        'product_id' => $product->id,
+                        'profit' => $profit,
+                        'message' => $profit . '$ مربح من شراء منتج ' . $product->name
+                    ]);
+
+                    $user->update(['total_profits' => $user->total_profits + $profit]);
                     }
 
-                 
+                    // dd('here exceptions');
                 }
                  else {
 
@@ -295,12 +317,7 @@ class PurchaseProductController extends Controller
                     'price' => $product->sell_price,
                     'profit' => 0,
                 ]);
-
-
-
             }
-
-
 
             $user->update([
                 'balance' => $user->balance - $product->sell_price,
