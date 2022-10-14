@@ -48,7 +48,7 @@ class PurchaseProductController extends Controller
 
 
         //get product items count
-        $productCount = $product->stockedProduct->where('selled', false)->count();
+        $productCount = $product->stockedProduct->where('selled', false)->where('status','active')->count();
 
         //request quantity
         $quantity = $request->quantity;
@@ -83,13 +83,36 @@ class PurchaseProductController extends Controller
                         if (count(Discount::find($user->discount)->exceptions) > 0) {
 
                             $exception = Discount::find($user->discount)->exceptions;
-
                             // return $exception->first()->price;
                             $exceptions_ids = $exception->pluck('product_id')->toArray();
 
                             if (in_array($order->product_id, $exceptions_ids)) {
+
                                 $profit = $product->sell_price - $exception->first()->price;
 
+
+                            $ord = Order::create([
+                                'app_user_id' => $user->id,
+                                'product_id' => $order->product_id,
+                                'product_name' => $product->name,
+                                'product' => $order->product_item,
+                                'price' => $product->sell_price,
+                                'is_returned' => true,
+                                'profit' => $profit,
+                            ]);
+
+                            Profit::create([
+                                'order_id' => $ord->id,
+                                'app_user_id' => $user->id,
+                                'agent_id' => null,
+                                'product_id' => $order->product_id,
+                                'profit' => $profit,
+                                'message' => $profit . '$ مربح من شراء منتج ' . $product->name
+                            ]);
+
+                            $user->update(['total_profits' => $user->total_profits + $profit]);
+                            }else{
+                                $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
 
                             $ord = Order::create([
                                 'app_user_id' => $user->id,
@@ -114,7 +137,7 @@ class PurchaseProductController extends Controller
                             }
                         } else {
                             $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
-
+                            dd($profit);
                             $ord = Order::create([
                                 'app_user_id' => $user->id,
                                 'product_id' => $order->product_id,
@@ -298,9 +321,32 @@ class PurchaseProductController extends Controller
                     ]);
 
                     $user->update(['total_profits' => $user->total_profits + $profit]);
-                    }
+                    }else{
+                        $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
 
-                    // dd('here exceptions');
+                    $ord = Order::create([
+                        'app_user_id' => $user->id,
+                        'product_id' => $product->id,
+                        'product_name' => $product->name,
+                        'product' => $request->product_item,
+                        'price' => $product->sell_price,
+                        'is_returned' => true,
+                        'profit' => $profit,
+                    ]);
+
+                    Profit::create([
+                        'order_id' => $ord->id,
+                        'app_user_id' => $user->id,
+                        'agent_id' => null,
+                        'product_id' => $product->id,
+                        'profit' => $profit,
+                        'message' => $profit . '$ مربح من شراء منتج ' . $product->name
+                    ]);
+
+                    $user->update(['total_profits' => $user->total_profits + $profit]);
+                }
+
+
                 }
                  else {
 

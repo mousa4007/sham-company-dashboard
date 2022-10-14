@@ -68,6 +68,7 @@ return [
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
+            'permission' => 0775,
         ],
 
         'slack' => [
@@ -76,6 +77,7 @@ return [
             'username' => 'Laravel Log',
             'emoji' => ':boom:',
             'level' => env('LOG_LEVEL', 'critical'),
+            'permission' => 0775,
         ],
 
         'papertrail' => [
