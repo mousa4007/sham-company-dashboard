@@ -14,7 +14,7 @@
                     <div class="row" id="table-striped">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header d-flex justify-content-between">
+                                {{-- <div class="card-header d-flex justify-content-between">
                                     <div class="d-flex align-items-baseline">
                                         <h3 class="card-title me-5"> المنتجات
                                         </h3>
@@ -30,7 +30,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="card-content">
                                     <!-- table striped -->
                                     <div class="table-responsive p-2">

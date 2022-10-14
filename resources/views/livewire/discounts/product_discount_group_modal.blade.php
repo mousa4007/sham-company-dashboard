@@ -13,25 +13,6 @@
                 <div class="row" id="table-striped">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <div class="d-flex align-items-baseline">
-
-                                    <h3 class="card-title me-5"> المنتجات
-                                    </h3>
-                                    <div class="mb-1">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1"><i
-                                                    class="bi bi-search"></i></span>
-                                            <input type="text" class="form-control" aria-label="Recipient's username"
-                                                aria-describedby="button-addon2" >
-                                            <button class="btn btn-outline-secondary" type="button"
-                                                id="button-addon2">بحث</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
                             <div class="card-content">
                                 <!-- table striped -->
                                 <div class="table-responsive p-2">
