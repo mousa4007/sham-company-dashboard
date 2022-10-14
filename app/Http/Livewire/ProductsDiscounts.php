@@ -10,9 +10,8 @@ use Livewire\WithPagination;
 
 class ProductsDiscounts extends Component
 {
-    use  WithPagination;
-
-    protected $paginationTheme = 'bootstrap';
+    use WithPagination;
+    public $paginationTheme = 'bootstrap';
 
     public $products = [];
     public $price;
