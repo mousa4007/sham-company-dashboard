@@ -63,6 +63,7 @@
                                     <th>الرصيد</th>
                                     <th>العملاء</th>
                                     <th>أرصدة العملاء</th>
+                                    <th>الأرباح</th>
                                     <th>الحالة</th>
                                     <th>عمليات</th>
                                 </tr>
@@ -81,6 +82,7 @@
 
                                         <td>{{ count($appUser->agent) }}</td>
                                         <td>{{ $appUser->agent->sum('balance') }}</td>
+                                        <td>{{ $appUser->total_profits }}</td>
                                         <td>{{ $appUser->status == 'active' ? 'مفعل' : 'معطل' }}</td>
                                         <td>
                                             <button type="button"class="btn btn-sm btn-info" data-bs-toggle="modal"
