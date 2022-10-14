@@ -120,25 +120,24 @@ class TransferProducts extends Component
 
     public function update()
     {
-        $data = $this->validate([
-            'name' => 'required|string',
-            // 'price' => 'required',
-            'category_id' => 'required|integer',
-            'image_url' => 'nullable',
-            'description' => 'required',
-            'currency' => 'required'
-        ]);
+        $data = $this->validate();
+
+
 
         $product = Product::find($this->ids);
 
         if ($data['image_url'] == null) {
             $product->update([
                 'name' => $data['name'],
-                // 'price' => $data['price'],
+                // 'image_url' => asset('storage/products/'.$image),
                 'category_id' => $data['category_id'],
-                'description' => $data['description'],
-                'currency' => $data['currency'],
                 'arrangement' => $this->arrangement != '' ? $this->arrangement : 1,
+                'description' => $this->description,
+                'currency' => $this->currency,
+                'is_direct' => false,
+                'is_transfer' => true,
+                'only_number' => $data['dataType'] == 1 ? true : false,
+                'hint_message' => $data['hintMessage']
             ]);
         } else {
 
@@ -156,9 +155,13 @@ class TransferProducts extends Component
                 'image_id' => $image,
                 // 'price' => $data['price'],
                 'category_id' => $data['category_id'],
-                'description' => $data['description'],
-                'currency' => $data['currency'],
-                'arrangement' => !is_null($this->arrangement) ? $this->arrangement : 1,
+                'arrangement' => $this->arrangement != '' ? $this->arrangement : 1,
+                'description' => $this->description,
+                'currency' => $this->currency,
+                'is_direct' => false,
+                'is_transfer' => true,
+                'only_number' => $data['dataType'] == 1 ? true : false,
+                'hint_message' => $data['hintMessage']
 
             ]);
         }

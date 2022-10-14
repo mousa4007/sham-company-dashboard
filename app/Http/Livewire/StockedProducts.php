@@ -150,8 +150,7 @@ class StockedProducts extends Component
 
         $this->emitUp('sectionRefresh');
         $this->class = "show";
-        $this->style = "display: bl
-        ock;";
+        $this->style = "display: block;";
 
         return $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'تم الحذف بنجاح']);
     }
@@ -201,12 +200,19 @@ class StockedProducts extends Component
 
     public function getStockedProductProperty()
     {
-        return StockedProduct::query()
+        $query = StockedProduct::query()
             ->orderBy('created_at', 'desc')
             ->get()
             ->groupBy(function ($item) {
                 return $item->created_at->format('Y-m-d H:i:s');
             })->paginate($this->paginateNumber);
+
+            $query->when($this->from,function($q){
+                return $q->where('created_at','>=',$this->from)
+                ->where('created_at','<=',$this->to);
+            });
+
+            return $query;
     }
 
     public function disable()

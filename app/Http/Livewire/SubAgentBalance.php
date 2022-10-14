@@ -85,7 +85,7 @@ class SubAgentBalance extends Component
     {
         if ($this->from) {
             return AppUser::query()
-                ->where('status', 'active')
+                // ->where('status', 'active')
                 ->whereDate('created_at', '>=', $this->from)
                 ->whereDate('created_at', '<=', $this->to)
                 ->where(function ($q) {
@@ -96,7 +96,7 @@ class SubAgentBalance extends Component
                 ->latest()->get();
         } else {
             return AppUser::query()
-                ->where('status', 'active')
+                // ->where('status', 'active')
                 ->where(function ($q) {
                     $q->where('name', 'like', '%' . $this->searchTerm . '%')
                         ->orWhere('email', 'like', '%' . $this->searchTerm . '%');

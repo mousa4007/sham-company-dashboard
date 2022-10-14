@@ -61,7 +61,7 @@
                                                         <th>المنتج المراد تحويله</th>
                                                         <th> المبلغ </th>
                                                         <th>التاريخ</th>
-                                                        <th>تعديل</th>
+                                                        {{-- <th>تعديل</th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -78,14 +78,14 @@
                                                             <td>{{ $item->address }}</td>
                                                             <td>{{ $item->amount }}</td>
                                                             <td>{{ $item->created_at }}</td>
-                                                            <td>
+                                                            {{-- <td>
                                                                 <button type="button"class="btn btn-sm btn-primary"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#createMessageModal"
                                                                     wire:click='createAcceptMessage({{ $item->id }})'>
                                                                     <i class="bi-check-circle-fill"></i></button>
                                                                 </button>
-                                                            </td>
+                                                            </td> --}}
                                                         </tr>
                                                         <!-- Modal -->
                                                     @empty

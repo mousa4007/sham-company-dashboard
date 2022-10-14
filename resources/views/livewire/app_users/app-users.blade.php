@@ -55,7 +55,7 @@
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr class="table-primary">
-                                    <th><input wire:model='checked' value="" type="checkbox"
+                                    <th><input wire:model.lazy='checked' value="" type="checkbox"
                                             class="form-check-input form-check-secondary"></th>
                                     <th>#</th>
                                     <th>الاسم</th>
@@ -71,7 +71,7 @@
                                 @forelse($appUsers as $appUser)
                                     <tr>
                                         <td><input type="checkbox" class="form-check-input form-check-secondary"
-                                                wire:model='selectedRow' value="{{ $appUser->id }}"></td>
+                                                wire:model.debounce='selectedRow' value="{{ $appUser->id }}"></td>
                                         <td>{{ $appUser->id }}</td>
                                         <td>{{ $appUser->name }}</td>
                                         <td>

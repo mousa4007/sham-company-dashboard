@@ -66,7 +66,7 @@ class PurchaseProductController extends Controller
         } elseif ($user->balance < $product->sell_price * $quantity) {
             return 'credit_low';
         } else {
-            $orders = $product->stockedProduct->where('selled', false)->take($quantity);
+            $orders = $product->stockedProduct->where('selled', false)->where('status','active')->take($quantity);
 
             foreach ($orders as $order) {
 
@@ -89,6 +89,28 @@ class PurchaseProductController extends Controller
 
                             if (in_array($order->product_id, $exceptions_ids)) {
                                 $profit = $product->sell_price - $exception->first()->price;
+
+
+                            $ord = Order::create([
+                                'app_user_id' => $user->id,
+                                'product_id' => $order->product_id,
+                                'product_name' => $product->name,
+                                'product' => $order->product_item,
+                                'price' => $product->sell_price,
+                                'is_returned' => true,
+                                'profit' => $profit,
+                            ]);
+
+                            Profit::create([
+                                'order_id' => $ord->id,
+                                'app_user_id' => $user->id,
+                                'agent_id' => null,
+                                'product_id' => $order->product_id,
+                                'profit' => $profit,
+                                'message' => $profit . '$ مربح من شراء منتج ' . $product->name
+                            ]);
+
+                            $user->update(['total_profits' => $user->total_profits + $profit]);
                             }
                         } else {
                             $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);

@@ -55,7 +55,7 @@
                                                         <th>المنتج المراد تحويله</th>
                                                         <th> المبلغ </th>
                                                         <th>التاريخ</th>
-                                                        <th>تعديل</th>
+                                                        {{-- <th>تعديل</th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -71,7 +71,7 @@
                                                             <td>{{ $item->address }}</td>
                                                             <td>{{ $item->amount }}</td>
                                                             <td>{{ $item->created_at }}</td>
-                                                            <td>
+                                                            {{-- <td>
                                                                 <button type="button"class="btn btn-sm btn-danger"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#createMessageModal"
@@ -79,7 +79,7 @@
                                                                     <i
                                                                         class="bi-x-circle-fill"></i></button></i></button>
                                                                 </button>
-                                                            </td>
+                                                            </td> --}}
                                                         </tr>
                                                         <!-- Modal -->
                                                     @empty

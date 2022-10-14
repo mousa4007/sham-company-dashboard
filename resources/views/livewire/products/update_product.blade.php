@@ -12,7 +12,7 @@
                     <form class="form form-vertical">
                         <div class="form-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group has-icon-left">
                                         <label for="first-name-icon" class="mb-2">الاسم</label>
                                         <div class="position-relative">
