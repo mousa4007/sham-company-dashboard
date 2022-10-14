@@ -19,11 +19,11 @@ class Order extends Model
 
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d-m-Y h:m');
+        return Carbon::parse($value)->tz('Asia/Damascus')->format('d-m-Y h:i');
     }
 
     public function getUpdatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d-m-Y h:m');
+        return Carbon::parse($value)->tz('Asia/Damascus')->format('d-m-Y h:i');
     }
 }
