@@ -41,7 +41,7 @@
                                                 <th>السعر</th>
                                                 @foreach ($discounts as $discount)
                                                     <th rowspan="2">
-                                                        {{ $discount->name }}
+                                                        {{ $discount->name ($discount->percentage) }}
                                                     </th>
                                                 @endforeach
                                             </thead>
