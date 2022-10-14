@@ -5,9 +5,13 @@ namespace App\Http\Livewire;
 use App\Models\Category;
 use App\Models\Discount;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class UpdateProductsDiscount extends Component
 {
+    use WithPagination;
+    public $paginationTheme = 'bootstrap';
+
     public $products = [], $newPercentage, $discountId;
 
     public function render()
@@ -37,4 +41,3 @@ class UpdateProductsDiscount extends Component
         $this->dispatchBrowserEvent('hide-update-modal', ['message' => 'تم التعديل بنجاح']);
     }
 }
-    

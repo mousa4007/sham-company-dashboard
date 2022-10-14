@@ -16,7 +16,6 @@ class ProductsDiscounts extends Component
     public $products = [];
     public $price;
     public $product_id;
-
     public $discount_id;
     public $discountException;
 
