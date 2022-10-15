@@ -137,7 +137,7 @@ class PurchaseProductController extends Controller
                             }
                         } else {
                             $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
-                            dd($profit);
+                            // dd($profit);
                             $ord = Order::create([
                                 'app_user_id' => $user->id,
                                 'product_id' => $order->product_id,
