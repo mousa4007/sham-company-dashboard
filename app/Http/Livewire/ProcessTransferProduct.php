@@ -185,7 +185,7 @@ class ProcessTransferProduct extends Component
 
 
                         Profit::create([
-                            'order_id' => $order->id,
+                            'order_id' => $order->id ,
                             'app_user_id' => $user->id,
                             'agent_id' => null,
                             'product_id' => $order->product_id,
