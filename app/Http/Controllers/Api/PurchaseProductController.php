@@ -266,6 +266,10 @@ class PurchaseProductController extends Controller
         }
     }
 
+
+
+    
+
     public function updateUserBalance(Request $request)
     {
         $request->validate([

@@ -180,6 +180,20 @@ class ProcessTransferProduct extends Component
                             $user->update([
                                 'total_profits' => $user->total_profits + $profit,
                             ]);
+                        }else{
+                            $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
+
+
+                        Profit::create([
+                            'order_id' => $order->id,
+                            'app_user_id' => $user->id,
+                            'agent_id' => null,
+                            'product_id' => $order->product_id,
+                            'profit' => $profit,
+                            'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
+                        ]);
+
+                        $user->update(['total_profits' => $user->total_profits + $profit]);
                         }
                     } else {
                         $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
