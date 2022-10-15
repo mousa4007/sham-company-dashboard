@@ -88,8 +88,7 @@ class PurchaseProductController extends Controller
 
                             if (in_array($order->product_id, $exceptions_ids)) {
 
-                                $profit = $product->sell_price - $exception->first()->price;
-
+                            $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
 
                             $ord = Order::create([
                                 'app_user_id' => $user->id,
@@ -194,7 +193,9 @@ class PurchaseProductController extends Controller
                             $exceptions_ids = $exception->pluck('product_id')->toArray();
 
                             if (in_array($order->product_id, $exceptions_ids)) {
-                                $profit = $product->sell_price - $exception->first()->price;
+                             
+                            $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
+
 
                                 $ord = Order::create([
                                     'app_user_id' => AppUser::where('agent_id', $agent->id)->first()->id,
@@ -268,7 +269,7 @@ class PurchaseProductController extends Controller
 
 
 
-    
+
 
     public function updateUserBalance(Request $request)
     {

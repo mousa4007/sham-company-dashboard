@@ -162,11 +162,17 @@ class ProcessTransferProduct extends Component
 
                         $exception = Discount::find($user->discount)->exceptions;
 
+
                         // return $exception->first()->price;
                         $exceptions_ids = $exception->pluck('product_id')->toArray();
 
                         if (in_array($order->product_id, $exceptions_ids)) {
-                            $profit = $product->sell_price - $exception->first()->price;
+
+
+
+                            $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
+
+                            dd($profit);
 
                             Profit::create([
                                 'order_id' => $order->id,
