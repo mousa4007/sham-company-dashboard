@@ -129,8 +129,6 @@ class PurchaseProductController extends Controller
                     if ($agent->user->discount != null) {
                         if (count(Discount::find($agent->user->discount)->exceptions) > 0) {
 
-
-
                             $exception = Discount::find($agent->user->discount)->exceptions;
 
                             // return $exception->first()->price;
@@ -247,7 +245,6 @@ class PurchaseProductController extends Controller
         $user = $request->user();
         $product = Product::find($request->product_id);
 
-
         Sale::create([
             'product' => $product->name,
             'product_id' => $request->product_id,
@@ -258,7 +255,6 @@ class PurchaseProductController extends Controller
         if ($user->hasRole('super-user') || $user->hasRole('user')) {
 
             if ($user->discount != null) {
-
 
                 if (count(Discount::find($user->discount)->exceptions) > 0) {
 
