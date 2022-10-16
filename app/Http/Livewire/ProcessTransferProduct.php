@@ -226,7 +226,9 @@ class ProcessTransferProduct extends Component
                         $exceptions_ids = $exception->pluck('product_id')->toArray();
 
                         if (in_array($order->product_id, $exceptions_ids)) {
-                            $profit = $product->sell_price - $exception->first()->price;
+                            // $profit = $product->sell_price - $exception->first()->price;
+                            $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
+
 
                             Profit::create([
                                 'order_id' => $order->id,
