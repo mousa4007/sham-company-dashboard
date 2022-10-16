@@ -84,7 +84,7 @@
                                             <div class="text-primary fw-bold d-flex">
                                                 <input disabled class="form-control d-inline text-primary fw-bold"
                                                     type="text" value="{{ $item->address }}"
-                                                    id="myInput.{{ $item->address }}" style="    max-width: 110px;">
+                                                    id="myInput.{{ $item->address }}" style="    max-width: 200px;">
                                                 <button id="btnCopy" class="btn btn-primary btn-sm"
                                                     onclick="copy('myInput.{{ $item->address }}')"><i
                                                         class="bi-clipboard"></i>
