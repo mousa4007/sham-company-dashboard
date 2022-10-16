@@ -241,7 +241,7 @@ class ProcessTransferProduct extends Component
 
                             $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
                         }else{
-                            $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
+                            $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
 
                         Profit::create([
                             'order_id' => $order->id ,
@@ -309,7 +309,6 @@ class ProcessTransferProduct extends Component
             $user = AppUser::find($q->app_user_id);
             $product = Product::find($q->product_id);
             $order = Order::find($q->order_id);
-
 
             $q->update([
                 'status' => 'rejected'

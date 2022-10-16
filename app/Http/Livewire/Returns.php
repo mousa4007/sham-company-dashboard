@@ -99,7 +99,6 @@ class Returns extends Component
 
                 if($user->hasRole('agent')){
                     $agent = Agent::find($user->agent_id);
-
                     $agent->update([
                         'balance' => $agent->balance + $order->price
                     ]);
