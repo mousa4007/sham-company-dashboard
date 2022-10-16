@@ -85,7 +85,7 @@ class ProfitsController extends Controller
         if ($request->profit > $available_profit) {
             return 'greater_than_available_profits';
         }
-        if ($request->profit > $available_profit - 1) {
+        if ($request->profit > $available_profit - 1 ) {
             return 'there_must_be_one_dollar_difference';
         }
         if ($request->profit <= $available_profit - 1) {

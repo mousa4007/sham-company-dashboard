@@ -59,8 +59,8 @@ class ChargeBalanceController extends Controller
                 ]);
 
                 Notification::create([
-                    'title' => 'سحب رصيد',
-                    'message' => 'تم سحب رصيد ' . $request->balance . '$',
+                    'title' => 'شحن رصيد وكيل ',
+                    'message' => 'تم شحن رصيد ' . $agent->name . ' ' .  $request->balance . '$',
                     'app_user_id' => $request->user()->id
                 ]);
 
@@ -75,7 +75,7 @@ class ChargeBalanceController extends Controller
                 SuperUserChargingBalance::create([
                     'app_user_id' => $request->user()->id,
                     'name' => $agent->name,
-                    'message' => 'تم سحب مبلغ من حسابك ' . $request->balance . '$',
+                    'message' => 'تم شحن حساب ' . $agent->name . ' ' .  $request->balance . '$',
                     'balance' => $request->balance,
                     'type' => 'withdraw'
                 ]);

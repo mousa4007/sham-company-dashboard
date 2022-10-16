@@ -168,11 +168,9 @@ class ProcessTransferProduct extends Component
 
                         if (in_array($order->product_id, $exceptions_ids)) {
 
-
-
                             $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
 
-                            dd($profit);
+                           
 
                             Profit::create([
                                 'order_id' => $order->id,
