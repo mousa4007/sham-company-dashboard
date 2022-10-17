@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('transfer_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('app_user_id')->constrained('app_users');
-            $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('app_user_id')->constrained('app_users')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->string('address');
             $table->double('amount');
             $table->bigInteger('order_id');
