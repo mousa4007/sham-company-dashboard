@@ -126,7 +126,9 @@ class PurchaseProductController extends Controller
 
                     $agent = Agent::find($user->agent_id);
 
+                    // dd($agent->user);
                     if ($agent->user->discount != null) {
+                    //    dd(count(Discount::find($agent->user->discount)->exceptions));
                         if (count(Discount::find($agent->user->discount)->exceptions) > 0) {
 
                             $exception = Discount::find($agent->user->discount)->exceptions;
@@ -158,8 +160,32 @@ class PurchaseProductController extends Controller
                                     'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء وكيل منتج ' . $product->name
                                 ]);
                                 $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
+                            }else{
+
+                            $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
+
+                            $ord = Order::create([
+                                'app_user_id' => AppUser::where('agent_id', $agent->id)->first()->id,
+                                'product_id' => $order->product_id,
+                                'product_name' => $product->name,
+                                'product' => $order->product_item,
+                                'price' => $product->sell_price,
+                                'is_returned' => true,
+                                'profit' => $profit,
+                            ]);
+
+                            Profit::create([
+                                'order_id' => $ord->id,
+                                'app_user_id' => $agent->user->id,
+                                'agent_id' => $user->agent_id,
+                                'product_id' => $order->product_id,
+                                'profit' => $profit,
+                                'message' => abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100) . '$ مربح من شراء وكيل منتج ' . $product->name
+                            ]);
+                            $agent->user->update(['total_profits' => $agent->user->total_profits + $profit]);
                             }
                         } else {
+
                             $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
 
                             $ord = Order::create([
@@ -183,6 +209,7 @@ class PurchaseProductController extends Controller
                             $agent->user->update(['total_profits' => $agent->user->total_profits + $profit]);
                         }
                     } else {
+                        //
                         Order::create([
                             'app_user_id' => AppUser::where('agent_id', $agent->id)->first()->id,
                             'product_id' => $order->product_id,
@@ -193,6 +220,7 @@ class PurchaseProductController extends Controller
                             'profit' => 0,
                         ]);
                     }
+
 
                     $user->update([
                         'balance' => $user->balance - $product->sell_price,

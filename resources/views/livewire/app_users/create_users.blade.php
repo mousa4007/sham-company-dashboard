@@ -109,7 +109,7 @@
                                     <h6>تخصيص الأسعار</h6>
                                     <fieldset class="form-group">
                                         <select wire:model='discount' class="form-select" id="basicSelect">
-                                            <option>- إختيار - </option>
+                                            <option value='null'>- إختيار - </option>
                                             @foreach ($discounts as $discount)
                                                 <option value="{{ $discount->id }}">{{ $discount->name }}</option>
                                             @endforeach
