@@ -150,9 +150,9 @@ class TransferProducts extends Component
             ]);
         } else {
 
-            if (File::exists(public_path('storage/products/'.explode('/' ,$this->image_url_preview)[5]))) {
-                File::delete(public_path('storage/products/'.explode('/' ,$this->image_url_preview)[5]));
-            }
+            // if (File::exists(public_path('storage/products/'.explode('/' ,$this->image_url_preview)[5]))) {
+            //     File::delete(public_path('storage/products/'.explode('/' ,$this->image_url_preview)[5]));
+            // }
 
             if($data['image_url']){
                 $img = $data['image_url'];
