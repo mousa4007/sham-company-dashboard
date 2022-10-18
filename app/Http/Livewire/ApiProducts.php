@@ -44,7 +44,7 @@ class ApiProducts extends Component
 
     protected $rules = [
         'name' => 'required|string',
-        'image_url' => 'nullable',
+        'image_url' => 'required',
         'description' => 'required',
         'currency' => 'required',
         'category_id' => 'required|integer',
