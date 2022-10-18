@@ -393,6 +393,7 @@ class PurchaseProductController extends Controller
         if ($user->hasRole('agent')) {
 
             $agent = Agent::find($user->agent_id);
+            dd($agent);
 
             if ($agent->user->discount != null) {
                 if (count(Discount::find($agent->user->discount)->exceptions) > 0) {
