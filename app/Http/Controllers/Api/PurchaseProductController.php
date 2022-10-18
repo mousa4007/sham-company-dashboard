@@ -405,7 +405,6 @@ class PurchaseProductController extends Controller
                         // $profit = $product->sell_price - $exception->first()->price;
                         $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
 
-
                         $ord = Order::create([
                             'app_user_id' => $user->id,
                             'product_id' => $product->id,
@@ -429,7 +428,7 @@ class PurchaseProductController extends Controller
                     }
                 } else {
                     $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
-                    
+
                     $ord = Order::create([
                         'app_user_id' => $user->id,
                         'product_id' => $product->id,
