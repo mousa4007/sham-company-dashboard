@@ -155,7 +155,7 @@
                 }
             },
             series: [{
-                name: ' المبيعات',
+                name: 'المستخدمين الجدد',
                 data: @json($users_count)
             }],
             xaxis: {
