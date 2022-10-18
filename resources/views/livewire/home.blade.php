@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="stats-icon blue">
-                                    <i style="margin-top: 10px" class="bi-cart-check mt-10"></i>
+                                    <i class="custom-statistic-card-icon bi-cart-check"></i>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -55,7 +55,8 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="stats-icon green">
-                                    <i class="custom-statistic-card-icon bi bi-cash"></i>
+
+                                    <i class="custom-statistic-card-icon bi-diagram-3-fill"></i>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -73,12 +74,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="stats-icon blue">
-                                    <i class="iconly-boldProfile"></i>
+                                    <i class=" custom-statistic-card-icon bi-bag-fill"></i>
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <h6 class="text-muted font-semibold">المستخدمين</h6>
-                                <h6 class="font-extrabold mb-0">15500</h6>
+                                <h6 class="text-muted font-semibold">المتنتجات</h6>
+                                <h6 class="font-extrabold mb-0">{{ $products_count }}</h6>
                             </div>
                         </div>
                     </div>
