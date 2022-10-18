@@ -406,7 +406,7 @@ class PurchaseProductController extends Controller
 
                     if (in_array($product->id, $exceptions_ids)) {
                         // $profit = $product->sell_price - $exception->first()->price;
-                     dd('exception');
+                     
 
                         $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
 
