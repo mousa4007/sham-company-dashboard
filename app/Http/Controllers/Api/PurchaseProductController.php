@@ -393,10 +393,13 @@ class PurchaseProductController extends Controller
         if ($user->hasRole('agent')) {
 
             $agent = Agent::find($user->agent_id);
-            dd($agent);
 
             if ($agent->user->discount != null) {
+
                 if (count(Discount::find($agent->user->discount)->exceptions) > 0) {
+
+            dd('exception');
+
 
                     $exception = Discount::find($agent->user->discount)->exceptions;
 
@@ -428,6 +431,9 @@ class PurchaseProductController extends Controller
                         $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
                     }
                 } else {
+
+            dd('no exeption');
+
                     $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
 
                     $ord = Order::create([
@@ -452,6 +458,8 @@ class PurchaseProductController extends Controller
                     $agent->user->update(['total_profits' => $agent->user->total_profits + $profit]);
                 }
             } else {
+            dd('no discount');
+
                 Order::create([
                     'app_user_id' => $user->id,
                     'product_id' => $product->id,
