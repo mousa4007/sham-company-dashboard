@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class ApiProducts extends Component
 {
@@ -83,20 +85,20 @@ class ApiProducts extends Component
         $data = $this->validate();
 
         if($data['image_url']){
-            $image = $data['image_url']->store('/','products');
+            $img = $data['image_url'];
+            $img_name = $img->getClientOriginalName();
+            $img = Image::make($img)->resize(250,150);
+            $img->save('storage/products/' . $img_name, 40);
         }
 
         $apis = WebApiKey::all();
-
 
         if (count($apis) != 0) {
 
         $product = Product::create([
             'name' => $data['name'],
-            // 'image_url' => asset('storage/products/'.$image),
-            'image_url' => 'null',
-
-            'image_id' => 'null',
+            'image_url' => asset('storage/products/'.$img_name),
+            'image_id' => $img_name,
             'category_id' => $data['category_id'],
             'arrangement' => $this->arrangement != '' ? $this->arrangement : 1,
             'description' => $this->description,
@@ -226,18 +228,20 @@ class ApiProducts extends Component
             }
 
             if($data['image_url']){
-                $image = $data['image_url']->store('/','products');
+                $img = $data['image_url'];
+                $img_name = $img->getClientOriginalName();
+                $img = Image::make($img)->resize(250,150);
+                $img->save('storage/products/' . $img_name, 40);
             }
 
             $product->update([
                 'name' => $data['name'],
-                'image_url' => asset('storage/products/'.$image),
-                'image_id' => $image,
+                'image_url' => asset('storage/products/'.$img_name),
+                'image_id' => $img_name,
                 'category_id' => $data['category_id'],
                 'description' => $data['description'],
                 'currency' => $data['currency'],
                 'arrangement' => !is_null($this->arrangement) ? $this->arrangement : 1,
-                'image_url' => asset('storage/products/'.$image),
                 'is_direct' => true,
                 'web_api' => $this->web_api,
                 'country_number' => $this->country_number,

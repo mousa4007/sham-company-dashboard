@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class TransferProducts extends Component
 {
@@ -36,7 +38,7 @@ class TransferProducts extends Component
 
     protected $rules = [
         'name' => 'required|string',
-        'image_url' => 'nullable',
+        'image_url' => 'required',
         'description' => 'required',
         'currency' => 'required',
         'hintMessage' => 'required',
@@ -75,14 +77,16 @@ class TransferProducts extends Component
         $data = $this->validate();
 
         if($data['image_url']){
-            $image = $data['image_url']->store('/','products');
+            $img = $data['image_url'];
+            $img_name = $img->getClientOriginalName();
+            $img = Image::make($img)->resize(250,150);
+            $img->save('storage/products/' . $img_name, 40);
         }
 
         $product = Product::create([
             'name' => $data['name'],
-            // 'image_url' => asset('storage/products/'.$image),
-            'image_url' => 'null',
-            'image_id' => 'null',
+            'image_url' => asset('storage/products/' . $img_name),
+            'image_id' => $img_name,
             'category_id' => $data['category_id'],
             'arrangement' => $this->arrangement != '' ? $this->arrangement : 1,
             'description' => $this->description,
@@ -120,16 +124,21 @@ class TransferProducts extends Component
 
     public function update()
     {
-        $data = $this->validate();
-
-
+        $data = $this->validate( [
+            'name' => 'required|string',
+            'image_url' => 'nullable',
+            'description' => 'required',
+            'currency' => 'required',
+            'hintMessage' => 'required',
+            'dataType' => 'required',
+            'category_id' => 'required|integer',
+        ]);
 
         $product = Product::find($this->ids);
 
         if ($data['image_url'] == null) {
             $product->update([
                 'name' => $data['name'],
-                // 'image_url' => asset('storage/products/'.$image),
                 'category_id' => $data['category_id'],
                 'arrangement' => $this->arrangement != '' ? $this->arrangement : 1,
                 'description' => $this->description,
@@ -146,14 +155,16 @@ class TransferProducts extends Component
             }
 
             if($data['image_url']){
-                $image = $data['image_url']->store('/','products');
+                $img = $data['image_url'];
+                $img_name = $img->getClientOriginalName();
+                $img = Image::make($img)->resize(250,150);
+                $img->save('storage/products/' . $img_name, 40);
             }
 
             $product->update([
                 'name' => $data['name'],
-                'image_url' => asset('storage/products/'.$image),
-                'image_id' => $image,
-                // 'price' => $data['price'],
+                'image_url' => asset('storage/products/'.$img_name),
+                'image_id' => $img_name,
                 'category_id' => $data['category_id'],
                 'arrangement' => $this->arrangement != '' ? $this->arrangement : 1,
                 'description' => $this->description,

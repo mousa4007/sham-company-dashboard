@@ -124,9 +124,10 @@
                                         </label>
                                         <input wire:model='image_url' type="file" id="imageUpload"
                                             accept="image/*" style="display: none">
-                                        @if ($image_url)
-                                            <img src="{{ $image_url->temporaryUrl() }}" width="75"
-                                                class="py-4">
+                                            @if ($image_url)
+                                            <img src="{{ $image_url->temporaryUrl() }}" width="75" class="py-4">
+                                        @else
+                                            <img src="{{ $image_url_preview }}" width="75" class="py-4">
                                         @endif
                                     </div>
                                     @error('image_url')
