@@ -398,8 +398,6 @@ class PurchaseProductController extends Controller
 
                 if (count(Discount::find($agent->user->discount)->exceptions) > 0) {
 
-
-
                     $exception = Discount::find($agent->user->discount)->exceptions;
 
                     $exceptions_ids = $exception->pluck('product_id')->toArray();
@@ -471,6 +469,8 @@ class PurchaseProductController extends Controller
                     'profit' => 0,
                 ]);
             }
+
+            dd('i jump every thing');
             $user->update([
                 'balance' => $user->balance - $product->sell_price,
                 'outgoingBalance' => $user->outgoingBalance + $product->sell_price
