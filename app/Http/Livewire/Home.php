@@ -40,14 +40,14 @@ class Home extends Component
             ->pluck('users');
 
             $this->orders =  DB::table('orders')
-            ->whereDate('created_at', '>=', now()->subDays(60))
+            ->whereDate('created_at', '>=', now()->subWeek())
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as orders'))
             ->groupBy('date')
             ->pluck('date');
 
 
         $this->orders_count =  DB::table('orders')
-            ->whereDate('created_at', '>=', now()->subDays(60))
+            ->whereDate('created_at', '>=', now()->subWeek())
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as orders'))
             ->groupBy('date')
             ->pluck('orders');
