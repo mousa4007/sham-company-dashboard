@@ -27,14 +27,14 @@ class Home extends Component
         $this->products_count = count(Product::all());
 
         $this->users =  DB::table('app_users')
-            ->whereDate('created_at', '>=', now()->subDays(60))
+            ->whereDate('created_at', '>=', now()->subWeek())
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as users'))
             ->groupBy('date')
             ->pluck('date');
 
 
         $this->users_count =  DB::table('app_users')
-            ->whereDate('created_at', '>=', now()->subDays(60))
+            ->whereDate('created_at', '>=', now()->subWeek())
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as users'))
             ->groupBy('date')
             ->pluck('users');
