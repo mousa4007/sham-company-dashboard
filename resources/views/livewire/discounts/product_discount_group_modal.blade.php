@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content modal-dialog-scrollable">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">تخصيص الأسعار لكافة المجموعات
+                <h5 class="modal-title" id="exampleModalLabel">   تخصيص أسعار المنتجات
                 </h5>
                 @include('components.spinner')
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -82,7 +82,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                <button type="button" class="btn btn-warning" wire:click='resetPercentage'>ارجاع النسب الأصلية</button>
+                {{-- <button type="button" class="btn btn-warning" wire:click='resetPercentage'>ارجاع النسب الأصلية</button> --}}
 
             </div>
         </div>

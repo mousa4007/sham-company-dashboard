@@ -210,7 +210,7 @@
                                         class="sidebar-link {{ request()->is('discounts') ? 'text-success' : '' }}">
                                         <i
                                             class="bi bi-cash {{ request()->is('discounts') ? 'text-success' : '' }}"></i>
-                                        <span>مجموعة الأسعار</span>
+                                        <span>مجموعات الأسعار</span>
                                     </a>
                                 </li>
 
@@ -219,17 +219,17 @@
                                         class="sidebar-link {{ request()->is('productsDiscounts') ? 'text-success' : '' }}">
                                         <i
                                             class="bi bi-cash {{ request()->is('productsDiscounts') ? 'text-success' : '' }}"></i>
-                                        <span> تخصيص لكافة المجموعات </span>
+                                        <span> تخصيص أسعار المنتجات </span>
                                     </a>
                                 </li>
-                                <li class="submenu-item  ">
+                                {{-- <li class="submenu-item  ">
                                     <a href="/updateProductsDiscounts"
                                         class="sidebar-link {{ request()->is('updateProductsDiscounts') ? 'text-success' : '' }}">
                                         <i
                                             class="bi bi-cash {{ request()->is('updateProductsDiscounts') ? 'text-success' : '' }}"></i>
                                         <span>إدارة نسب أسعار الأقسام</span>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
 

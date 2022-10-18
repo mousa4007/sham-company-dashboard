@@ -400,13 +400,10 @@ class PurchaseProductController extends Controller
 
                     $exception = Discount::find($agent->user->discount)->exceptions;
 
-
-
                     $exceptions_ids = $exception->pluck('product_id')->toArray();
 
                     if (in_array($product->id, $exceptions_ids)) {
                         // $profit = $product->sell_price - $exception->first()->price;
-
 
                         $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
 
@@ -455,9 +452,6 @@ class PurchaseProductController extends Controller
                     ]);
 
                     $agent->user->update(['total_profits' => $agent->user->total_profits + $profit]);
-
-
-
                 }
             } else {
 

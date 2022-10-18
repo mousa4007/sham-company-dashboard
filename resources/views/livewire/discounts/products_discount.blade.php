@@ -6,7 +6,7 @@
  <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/home">الرئيسية</a></li>
-            <li class="breadcrumb-item active" aria-current="page">تخصيص الأسعار لكافة المجموعات</li>
+            <li class="breadcrumb-item active" aria-current="page">تخصيص أسعار المنتجات</li>
         </ol>
     </nav>
         </div>
@@ -18,7 +18,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="d-flex align-items-baseline">
-                        <h3 class="card-title me-5"> تخصيص الأسعار لكافة المجموعات</h3>
+                        <h3 class="card-title me-5">  تخصيص أسعار المنتجات  </h3>
                     </div>
                 </div>
 
