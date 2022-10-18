@@ -90,7 +90,7 @@
         <div class="row">
 
             <div class="col-md-6 ">
-                <label for="" class="d-block mb-5 chart-label">المبيعات</label>
+                <label for="" class="d-block mb-5 chart-label">المستخدمين الجدد</label>
 
                 <div id="chart" class="">
                 </div>
@@ -99,7 +99,7 @@
 
             <div class="col-md-6">
                 <label for="" class="d-block mb-5 chart-label">
-                    المستخدمين الجدد
+                    المبيعات
                 </label>
                 <div id="chart1">
                 </div>
