@@ -80,7 +80,7 @@ class TransferProducts extends Component
             $img = $data['image_url'];
             $img_name = $img->getClientOriginalName();
             $img = Image::make($img)->resize(250,150);
-            $img->save('storage/products/' . $img_name, 40);
+            $img->save('storage/products/' . $img_name, 25);
         }
 
         $product = Product::create([
@@ -158,7 +158,7 @@ class TransferProducts extends Component
                 $img = $data['image_url'];
                 $img_name = $img->getClientOriginalName();
                 $img = Image::make($img)->resize(250,150);
-                $img->save('storage/products/' . $img_name, 40);
+                $img->save('storage/products/' . $img_name, 25);
             }
 
             $product->update([
