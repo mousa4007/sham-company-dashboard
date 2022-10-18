@@ -433,7 +433,6 @@ class PurchaseProductController extends Controller
                     }
                 } else {
 
-
                     $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
 
                     $ord = Order::create([
@@ -457,11 +456,10 @@ class PurchaseProductController extends Controller
 
                     $agent->user->update(['total_profits' => $agent->user->total_profits + $profit]);
 
-            dd('create order with no exception');
+
 
                 }
             } else {
-            dd('no discount');
 
                 Order::create([
                     'app_user_id' => $user->id,
@@ -474,7 +472,6 @@ class PurchaseProductController extends Controller
                 ]);
             }
 
-            dd('i jump every thing');
             $user->update([
                 'balance' => $user->balance - $product->sell_price,
                 'outgoingBalance' => $user->outgoingBalance + $product->sell_price
