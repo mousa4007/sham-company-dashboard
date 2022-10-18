@@ -406,7 +406,7 @@ class PurchaseProductController extends Controller
 
                     if (in_array($product->id, $exceptions_ids)) {
                         // $profit = $product->sell_price - $exception->first()->price;
-                     
+
 
                         $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
 
@@ -433,7 +433,6 @@ class PurchaseProductController extends Controller
                     }
                 } else {
 
-            dd('no exeption');
 
                     $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
 
@@ -457,6 +456,9 @@ class PurchaseProductController extends Controller
                     ]);
 
                     $agent->user->update(['total_profits' => $agent->user->total_profits + $profit]);
+
+            dd('create order with no exception');
+
                 }
             } else {
             dd('no discount');
