@@ -398,6 +398,8 @@ class PurchaseProductController extends Controller
 
                 if (count(Discount::find($agent->user->discount)->exceptions) > 0) {
 
+                    dd('have discount');
+
                     $exception = Discount::find($agent->user->discount)->exceptions;
 
                     $exceptions_ids = $exception->pluck('product_id')->toArray();
