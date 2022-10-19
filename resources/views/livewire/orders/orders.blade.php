@@ -84,6 +84,7 @@
                                 <th>القسم</th>
                                 <th>اسم المنتج</th>
                                 <th>السعر</th>
+                                <th>مربح الوكيل</th>
                                 <th>التاريخ</th>
                             </thead>
                             <tbody>
@@ -95,7 +96,7 @@
                                         <td>{{ \App\Models\Product::find($order->product_id)->category->name != null ? \App\Models\Product::find($order->product_id)->category->name  :$order->product_id }}</td>
                                         <td>{{ $order->product_name }}</td>
                                         <td>{{ $order->price }}</td>
-
+                                        <td>{{ $order->profit }}</td>
                                         <td>{{ $order->created_at }}</td>
                                     </tr>
                                 @empty
