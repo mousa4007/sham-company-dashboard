@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'user']);
-    Route::get('Categories', [ApiController::class, 'categories']);
+    Route::get('categories', [ApiController::class, 'categories']);
     Route::get('products/{id}', [ApiController::class, 'products']);
     Route::post('productCount', [ApiController::class, 'productCount']);
     Route::post('purchaseProduct', [PurchaseProductController::class, 'purchaseProduct']);
