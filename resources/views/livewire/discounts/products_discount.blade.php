@@ -3,7 +3,7 @@
 
     <div class="card">
         <div class="card-content">
- <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/home">الرئيسية</a></li>
             <li class="breadcrumb-item active" aria-current="page">تخصيص أسعار المنتجات</li>
@@ -63,9 +63,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-
 </div>
