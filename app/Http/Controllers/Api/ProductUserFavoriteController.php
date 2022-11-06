@@ -22,7 +22,9 @@ class ProductUserFavoriteController extends Controller
 
     public function getFavorites(Request $request)
     {
+        if($request->user()->status == 'active'){
         return $request->user()->userProductFavorite;
+        }
         // return $request->user()->fovorite;
 
     }
