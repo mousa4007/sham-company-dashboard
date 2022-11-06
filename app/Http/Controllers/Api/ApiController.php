@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
-    public function categories()
+    public function categories(Request $request)
     {
+        if($request->user->status  != 'disabled'){
         $category = DB::table('categories')->where('status','active')->orderBy('arrangement','asc')->get();
 
         return $category;
+    }
     }
 
     public function products(Request $request)
