@@ -26,11 +26,14 @@ class FavoriteController extends Controller
     public function getFavorite(Request $request)
     {
 
-        $favorite = $request->user()->fovorite->pluck('favorite_id');
+        if($request->user()->status == 'active'){
+            $favorite = $request->user()->fovorite->pluck('favorite_id');
 
-        $products = Product::whereIn('id', $favorite)->get();
+            $products = Product::whereIn('id', $favorite)->get();
 
-        return $products;
+            return $products;
+        }
+
     }
 
 
