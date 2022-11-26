@@ -23,6 +23,7 @@ class Orders extends Component
         $ids,
         $category_id,
         $searchTerm,
+        $userIdSearchTerm,
         $description,
         $currency,
         $arrangement,
@@ -82,6 +83,10 @@ class Orders extends Component
 
         $query->when($this->searchTerm,function($q){
             return $q->where('id',$this->searchTerm);
+        });
+
+        $query->when($this->userIdSearchTerm,function($q){
+            return $q->where('app_user_id',$this->searchTerm);
         });
 
 

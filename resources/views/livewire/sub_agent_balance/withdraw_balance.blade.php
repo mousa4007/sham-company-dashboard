@@ -31,7 +31,7 @@
                                     <div class="position-relative">
                                         <input wire:model.debounce.300ms='outgoingBalance' type="number"
                                             class="form-control @error('balance') is-invalid @enderror"
-                                            placeholder="الرصيد الحالي {{ $current_balance }}" required>
+                                            placeholder="الرصيد الحالي {{ $current_balance  }} " required>
                                         <div class="form-control-icon">
                                             <i class="bi bi-cash"></i>
                                         </div>
