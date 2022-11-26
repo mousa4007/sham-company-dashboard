@@ -86,7 +86,7 @@ class Orders extends Component
         });
 
         $query->when($this->userIdSearchTerm,function($q){
-            return $q->where('app_user_id',$this->searchTerm);
+            return $q->where('app_user_id',$this->userIdSearchTerm);
         });
 
 
