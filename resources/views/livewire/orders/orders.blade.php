@@ -53,7 +53,7 @@
                         <div class="input-group ">
                             <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
                             <input type="text" class="form-control" aria-label="Recipient's username"
-                                aria-describedby="button-addon2" wire:model='$userIdSearchTerm' placeholder="رقم الطلب">
+                                aria-describedby="button-addon2" wire:model='userIdSearchTerm' placeholder="رقم الطلب">
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">بحث</button>
                         </div>
                     </div>
