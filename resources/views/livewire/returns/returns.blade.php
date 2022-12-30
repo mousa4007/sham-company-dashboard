@@ -77,6 +77,10 @@
                 <div class=" d-inline-flex card-header justify-content-between">
                     <div class=" d-inline-flex align-items-baseline">
                         <h3 class="card-title me-5"> المرتجعات </h3>
+                        <div wire:loading>
+                            <img src="assets/vendors/svg-loaders/grid.svg" class="mx-4" style="width: 1.6rem"
+                                alt="grid">
+                        </div>
                         <div class=" d-inline-flex mb-1">
                             {{-- <div class="d-flex align-items-center">
                                 <h6 class="px-2">الحالة</h6>
@@ -143,10 +147,7 @@
 
                             </thead>
                             <tbody>
-                                <div wire:loading>
-                                    <img src="assets/vendors/svg-loaders/grid.svg" class="mx-4" style="width: 1.6rem"
-                                        alt="grid">
-                                </div>
+                              
 
                                 {{-- @dump($processingStatus) --}}
                                 @forelse ($returns as $return)
