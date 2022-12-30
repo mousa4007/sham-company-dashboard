@@ -101,7 +101,7 @@
                                     </td>
                                     <td>
                                         <span class="badge bg-danger">
-                                            {{ count($sale->products->return->where('status', 'accepted')) }}
+                                            {{ count($sale->products->return->where('status', 'accepted')->where('created_at','>=',$from)->where('created_at','<=',$to)) }}
                                         </span>
                                     </td>
                                     <td>
