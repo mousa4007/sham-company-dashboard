@@ -87,7 +87,10 @@
                     <div class="table-responsive p-2">
                         <table class="table mb-0">
                             <thead>
-
+                                <th>
+                                    <input wire:model="checked" type="checkbox"
+                                        class="form-check-input form-check-primary">
+                                </th>
                                 <th>#</th>
                                 <th>المستخدم</th>
                                 <th>القسم</th>
@@ -100,6 +103,10 @@
                                 @forelse ($orders as $order)
                                     <tr>
                                         {{-- @dump(\App\Models\Category::all()); --}}
+                                        <td>
+                                            <input wire:model="selectedRows" value="{{ $order->id }}" type="checkbox"
+                                                class="form-check-input form-check-primary">
+                                        </td>
                                         <td>{{ $order->id }}</td>
                                         <td>{{ \App\Models\AppUser::find($order->app_user_id)  != null ? \App\Models\AppUser::find($order->app_user_id)->name : $order->app_user_id }}</td>
                                         <td>{{ \App\Models\Product::find($order->product_id)->category->name != null ? \App\Models\Product::find($order->product_id)->category->name  :$order->product_id }}</td>
