@@ -70,7 +70,7 @@
 
     @include('livewire.returns.delete_returns')
 
-    <div class="row" id="table-striped">
+    <div class="row" id="table-striped" wire:loading>
         <div class="col-12">
             <div class="card p-2">
                 <div class=" d-inline-flex card-header justify-content-between">
