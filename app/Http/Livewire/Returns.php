@@ -168,30 +168,29 @@ class Returns extends Component
 
     public function getReturnsProperty()
     {
-
         $query = ModelsReturns::query();
 
-        // $query->when($this->processingStatus, function ($q) {
-        //     return $q->where('status', $this->processingStatus);
-        // });
+        $query->when($this->processingStatus, function ($q) {
+            return $q->where('status', $this->processingStatus);
+        });
 
-        // $query->when($this->from, function ($q) {
-        //     return $q->whereDate('created_at', '>=', $this->from)
-        //         ->whereDate('created_at', '<=', $this->to);
-        // });
+        $query->when($this->from, function ($q) {
+            return $q->whereDate('created_at', '>=', $this->from)
+                ->whereDate('created_at', '<=', $this->to);
+        });
 
-        // $query->when($this->searchTerm, function ($q) {
-        //     return $q->where('return', 'like', '%' . $this->searchTerm . '%')
-        //         ->orWhere('id', 'like', '%' . $this->searchTerm . '%');
-        // });
+        $query->when($this->searchTerm, function ($q) {
+            return $q->where('return', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('id', 'like', '%' . $this->searchTerm . '%');
+        });
 
-        // $query->when($this->search_product_id, function ($q) {
-        //     return $q->where('product_id', $this->search_product_id);
-        // });
+        $query->when($this->search_product_id, function ($q) {
+            return $q->where('product_id', $this->search_product_id);
+        });
 
-        // $query->when($this->app_user_id, function ($q) {
-        //     return $q->where('app_user_id', $this->app_user_id);
-        // });
+        $query->when($this->app_user_id, function ($q) {
+            return $q->where('app_user_id', $this->app_user_id);
+        });
 
         return $query->latest()->paginate($this->paginateNumber);
     }
