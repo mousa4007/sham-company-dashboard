@@ -127,8 +127,8 @@ class SalesExport implements
     public function map($sale): array
     {
         return [
-            $sale->id,
             $sale->products->name,
+            Product::find( $sale->products->id)->category->name,
             $sale->sum_price,
             $sale->count_sell
         ];
@@ -137,8 +137,8 @@ class SalesExport implements
     public function headings(): array
     {
         return [
-            'الرقم',
             'المنتج',
+            'القسم',
             'المقبوضات',
             'المبيعات'
         ];
