@@ -120,7 +120,7 @@ class SalesExport implements
         });
 
         return $query->groupBy('product_id')
-        ->orderby('product_id','desc')
+        ->orderby('product_id','asc')
             ->selectRaw('*, sum(price) as sum_price')
             ->selectRaw('count(*) as count_sell ');
     }
