@@ -69,8 +69,12 @@
     </div>
 
     @include('livewire.returns.delete_returns')
+    <div wire:loading wire:target='delete'>
+        <img src="assets/vendors/svg-loaders/grid.svg" class="mx-4" style="width: 1.6rem"
+            alt="grid">
+    </div>
 
-    <div class="row" id="table-striped" wire:loading>
+    <div class="row" id="table-striped">
         <div class="col-12">
             <div class="card p-2">
                 <div class=" d-inline-flex card-header justify-content-between">
