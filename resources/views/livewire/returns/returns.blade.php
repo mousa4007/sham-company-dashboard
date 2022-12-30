@@ -69,10 +69,7 @@
     </div>
 
     @include('livewire.returns.delete_returns')
-    <div wire:loading wire:target='delete'>
-        <img src="assets/vendors/svg-loaders/grid.svg" class="mx-4" style="width: 1.6rem"
-            alt="grid">
-    </div>
+
 
     <div class="row" id="table-striped">
         <div class="col-12">
@@ -146,7 +143,10 @@
 
                             </thead>
                             <tbody>
-                                @dump($selectedRows)
+                                <div wire:loading>
+                                    <img src="assets/vendors/svg-loaders/grid.svg" class="mx-4" style="width: 1.6rem"
+                                        alt="grid">
+                                </div>
 
                                 {{-- @dump($processingStatus) --}}
                                 @forelse ($returns as $return)
