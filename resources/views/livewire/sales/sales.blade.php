@@ -101,15 +101,12 @@
                                     </td>
                                     <td>
                                         <span class="badge bg-danger">
-
-                                            
-
                                             {{ count($sale->products->return->where('status', 'accepted')) }}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="badge bg-danger">
-                                            {{ count($sale->products->return->where('status', 'accepted'))*$sale->price
+                                            {{ count($sale->products->return->where('status', 'accepted')->where('created_at','>=',$from)->where('created_at','<=',$to))*$sale->price
                                             }}
                                         </span>
                                     </td>
