@@ -79,6 +79,7 @@
                             <tbody>
                                 @forelse ($sales as $sale)
                                 <tr>
+                                    @dump($selectedRows)
                                     <td><input wire:model.lazy='selectedRows' value="{{ $sale->id }}" type="checkbox"
                                             class="form-check-input">
                                     </td>
