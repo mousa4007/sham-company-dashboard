@@ -187,14 +187,13 @@ class Returns extends Component
 
         $query->when($this->search_product_id, function ($q) {
             return $q->where('product_id', $this->search_product_id);
-            
         });
 
         $query->when($this->app_user_id, function ($q) {
             return $q->where('app_user_id', $this->app_user_id);
         });
 
-        return $query->paginate($this->paginateNumber);
+        return $query->latest()->paginate($this->paginateNumber);
     }
 
     public function destroy()
