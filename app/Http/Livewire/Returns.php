@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Exports\ReturnsExport;
 use App\Models\Agent;
 use App\Models\AppUser;
-use App\Models\Discount;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Product;
@@ -31,7 +30,7 @@ class Returns extends Component
         $app_user_id,
         $search_product_id,
         $returnId,
-        $checked,
+        $checked = false,
         $selectedRows = [],
         $paginateNumber,
         $from,
@@ -131,8 +130,6 @@ class Returns extends Component
     }
 
 
-
-
     public function reject()
     {
         ModelsReturns::whereIn('id', $this->selectedRows)->each(
@@ -162,7 +159,6 @@ class Returns extends Component
 
     public function updatedChecked($value)
     {
-
         if ($value) {
             $this->selectedRows = $this->returns->pluck('id');
         } else {
@@ -211,6 +207,5 @@ class Returns extends Component
     public function export()
     {
         return (new ReturnsExport($this->selectedRows))->download('المرتجعات.xls');
-        // return Excel::download(new ReturnsExport, 'المرتجعات.xlsx');
     }
 }
