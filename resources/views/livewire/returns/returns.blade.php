@@ -28,7 +28,6 @@
                     </div>
                     <span>&nbsp;|</span>
 
-
                     <div class="d-inline-flex align-items-center">
                         <h6 class="px-2"> 🤵🏻‍♂️</h6>
                         <fieldset class="form-group paginate-select" style="width: 75px;">
@@ -143,11 +142,13 @@
 
                             </thead>
                             <tbody>
+                                @dump($selectedRows)
+
                                 {{-- @dump($processingStatus) --}}
                                 @forelse ($returns as $return)
                                 <tr>
                                     <td>
-                                        <input wire:model="selectedRows" value="{{ $return->id }}" type="checkbox"
+                                        <input wire:model.lazy="selectedRows" value="{{ $return->id }}" type="checkbox"
                                             class="form-check-input form-check-primary">
                                     </td>
                                     <td>{{ $return->id }}</td>
