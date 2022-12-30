@@ -193,7 +193,7 @@ class Returns extends Component
             return $q->where('app_user_id', $this->app_user_id);
         });
 
-        return $query->latest()->paginate($this->paginateNumber);
+        return $query->paginate($this->paginateNumber);
     }
 
     public function destroy()

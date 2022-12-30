@@ -153,7 +153,7 @@
                                 @forelse ($returns as $return)
                                 <tr>
                                     <td>
-                                        <input wire:model.lazy="selectedRows" value="{{ $return->id }}" type="checkbox"
+                                        <input wire:model="selectedRows" value="{{ $return->id }}" type="checkbox"
                                             class="form-check-input form-check-primary">
                                     </td>
                                     <td>{{ $return->id }}</td>
