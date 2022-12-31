@@ -58,14 +58,11 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery
             return $q->where('app_user_id',$this->userIdSearchTerm);
         });
 
-
-        // return $query->latest()->paginate($this->paginateNumber);
-
         return $query->groupBy('product_id')
         ->orderby('product_id','asc')
             ->selectRaw('*, sum(price) as sum_price')
-            ->selectRaw('count(*) as count_sell ');
-        
+            ->selectRaw('count(*) as count_sell ');      
+          
     }
 
     public function map($order):array

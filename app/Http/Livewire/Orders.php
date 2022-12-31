@@ -58,8 +58,16 @@ class Orders extends Component
         $this->users =    AppUser::all();
     }
 
+    public function updatedChecked($value)
+    {
+        if ($value) {
+            $this->selectedRows = $this->orders->pluck('id');
+        } else {
+            $this->reset(['checked', 'selectedRows']);
+        }
+    }
+
     public function getOrdersProperty(){
-        // return Order::latest()->paginate($this->paginateNumber);
 
         $query = Order::query();
 
@@ -90,7 +98,6 @@ class Orders extends Component
         $query->when($this->userIdSearchTerm,function($q){
             return $q->where('app_user_id',$this->userIdSearchTerm);
         });
-
 
         return $query->latest()->paginate($this->paginateNumber);
     }
