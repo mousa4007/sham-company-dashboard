@@ -8,21 +8,24 @@
                     </li>
                 </ol>
             </nav>
-            <div class="d-flex m-3">
-                <table class="table table-bordered m-1 bg-secondary">
-                    <thead>
-                        <th class="text-white">مجموع الرصيد</th>
-                        <td class="text-white">{{number_format(\App\Models\AppUser::whereRoleIs('super-user')->sum('balance'),2)}} $</td>
 
-                    </thead>
-                </table>
-                <table class="table table-bordered m-1 bg-secondary">
-                    <thead>
-                        <th class="text-white"> المرابيح المتوفرة </th>
-                        <td class="text-white">{{number_format(\App\Models\AppUser::whereRoleIs('super-user')->sum('total_profits')- \App\Models\AppUser::whereRoleIs('super-user')->sum('whithdrawn_profits'),2)}} $</td>
-                    </thead>
-                </table>
-               </div>
+            <table class="table table-bordered m-1 bg-secondary">
+                <thead>
+                    <th class="text-white">مجموع الرصيد</th>
+                    <td class="text-white">
+                        {{ number_format(\App\Models\AppUser::whereRoleIs('super-user')->sum('balance'), 2) }} $</td>
+
+                </thead>
+            </table>
+            <table class="table table-bordered m-1 bg-secondary">
+                <thead>
+                    <th class="text-white"> المرابيح المتوفرة </th>
+                    <td class="text-white">
+                        {{ number_format(\App\Models\AppUser::whereRoleIs('super-user')->sum('total_profits') - \App\Models\AppUser::whereRoleIs('super-user')->sum('whithdrawn_profits'), 2) }}
+                        $</td>
+                </thead>
+            </table>
+
         </div>
     </div>
 
@@ -63,7 +66,7 @@
                 </div>
                 @include('livewire.app_users.delete_users')
                 @include('livewire.app_users.update_users')
-                
+
                 <div class="card-content">
                     <!-- table striped -->
                     <div class="table-responsive p-2">
@@ -109,7 +112,7 @@
                                         </td>
                                     </tr>
                                 @empty
-                                  @include('components.not-found')
+                                    @include('components.not-found')
                                 @endforelse
                             </tbody>
                             {{-- @dump($selectedRow) --}}
