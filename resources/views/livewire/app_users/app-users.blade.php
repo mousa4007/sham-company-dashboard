@@ -8,6 +8,21 @@
                     </li>
                 </ol>
             </nav>
+            <div class="d-flex m-3">
+                <table class="table table-bordered m-1 bg-secondary">
+                    <thead>
+                        <th class="text-white">مجموع الرصيد</th>
+                        <td class="text-white">{{number_format($appUsers->sum('balance'),2)}} $</td>
+
+                    </thead>
+                </table>
+                <table class="table table-bordered m-1 bg-secondary">
+                    <thead>
+                        <th class="text-white"> المرابيح المتوفرة </th>
+                        <td class="text-white">{{number_format($appUsers->sum('total_profits')-$appUsers->sum('whithdrawn_profits'),2)}} $</td>
+                    </thead>
+                </table>
+               </div>
         </div>
     </div>
 
@@ -48,7 +63,7 @@
                 </div>
                 @include('livewire.app_users.delete_users')
                 @include('livewire.app_users.update_users')
-
+                
                 <div class="card-content">
                     <!-- table striped -->
                     <div class="table-responsive p-2">
