@@ -83,10 +83,10 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize
             'المنتج',
             'القسم',
             'المقبوضات',
-            'المبيعات' . '=SUM(D:D)',
+            'المبيعات' . ' =SUM(D:D)',
             'مربح الوكلاء',
             'مجموع المربح'. ' =SUM(E:E) '
-        ]
+        ];
     }
 
 }
