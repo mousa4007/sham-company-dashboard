@@ -101,26 +101,24 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize,
     public function map($order):array
     {
         return [
-            Product::find($order->product_id)->name,
             Product::find($order->product_id)->category->name,
+            Product::find($order->product_id)->name,
             $order->sum_price,
             $order->count_sell,
+            0,
             $order->sum_profit,
-            '=SUM(E:E)',
-            '=SUM(D:D)'
         ];
     }
 
     public function headings():array
     {   
         return [
-            'المنتج',
             'القسم',
-            'المقبوضات',
-            'المبيعات',
+            'المنتج',
+            'عدد المباع',
+            'مبلغ المباع',
+            'مبلغ الشراء',
             'مربح الوكلاء',
-            'مجموع مربح الوكلاء',
-            'مجموع المبيعات',
         ];
     }
 
