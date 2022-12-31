@@ -52,10 +52,12 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize,
 
         return [
             // Style the first row as bold text.
-            'A1'    => ['font' => ['bold' => true]],
+            'A1'    => ['font' => ['bold' => true,'size' => 55]],
             'B1'    => ['font' => ['bold' => true]],
             'C1'    => ['font' => ['bold' => true]],
             'D1'    => ['font' => ['bold' => true]],
+            'E1'    => ['font' => ['bold' => true]],
+            'F1'    => ['font' => ['bold' => true]],
 
         ];
     }
