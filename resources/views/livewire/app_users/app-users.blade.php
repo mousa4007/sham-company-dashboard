@@ -1,6 +1,6 @@
 <div>
-    <div class="card d-flex">
-        <div class="card-content">
+    <div class="card">
+        <div class="card-content d-flex">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/home">الرئيسية</a></li>
@@ -12,14 +12,14 @@
                 <table class="table table-bordered m-1 bg-secondary">
                     <thead>
                         <th class="text-white">مجموع الرصيد</th>
-                        <td class="text-white">{{number_format($appUsers->sum('balance'),2)}} $</td>
+                        <td class="text-white">{{number_format(\App\Models\AppUser::whereRoleIs('super-user')->sum('balance'),2)}} $</td>
 
                     </thead>
                 </table>
                 <table class="table table-bordered m-1 bg-secondary">
                     <thead>
                         <th class="text-white"> المرابيح المتوفرة </th>
-                        <td class="text-white">{{number_format(\App\Models\AppUser::sum('total_profits'),2)}} $</td>
+                        <td class="text-white">{{number_format(\App\Models\AppUser::whereRoleIs('super-user')->sum('total_profits')- \App\Models\AppUser::whereRoleIs('super-user')->sum('whithdrawn_profits'),2)}} $</td>
                     </thead>
                 </table>
                </div>
