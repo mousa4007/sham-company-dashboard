@@ -19,7 +19,7 @@
                 <table class="table table-bordered m-1 bg-secondary">
                     <thead>
                         <th class="text-white"> المرابيح المتوفرة </th>
-                        <td class="text-white">{{number_format($appUsers->sum('total_profits'),2)}} $</td>
+                        <td class="text-white">{{number_format(\App\Models\AppUser::sum('total_profits'),2)}} $</td>
                     </thead>
                 </table>
                </div>
