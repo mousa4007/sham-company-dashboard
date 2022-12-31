@@ -1,7 +1,7 @@
 <div>
     <div class="card">
-        <div class="card-content d-flex">
-            <nav aria-label="breadcrumb">
+        <div class="card-content d-flex align-items-center">
+            <nav aria-label="breadcrumb" style="width: 200px">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/home">الرئيسية</a></li>
                     <li class="breadcrumb-item active" aria-current="page">الوكلاء
@@ -125,5 +125,4 @@
             </div>
         </div>
     </div>
-
 </div>
