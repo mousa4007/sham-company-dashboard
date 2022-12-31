@@ -61,23 +61,18 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery
         return $query->groupBy('product_id')
         ->orderby('product_id','asc')
             ->selectRaw('*, sum(price) as sum_price')
-            ->selectRaw('count(*) as count_sell ');      
-          
+            ->selectRaw('count(*) as count_sell ');              
     }
 
     public function map($order):array
     {
         return [
-            $order->sum_price,
-            $order->count_sell,
-            $order->count_sell,
-            $order->count_sell,
-            $order->count_sell,
+            $order
         ];
     }
 
     public function headings():array
-    {
+    {   
         return [
             'المنتج',
             'القسم',
