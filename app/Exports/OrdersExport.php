@@ -63,6 +63,7 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize
         return $query->groupBy('product_id')
         ->orderby('product_id','asc')
             ->selectRaw('*, sum(price) as sum_price')
+            ->selectRaw('*, sum(price) as sum_profit')
             ->selectRaw('count(*) as count_sell ');              
     }
 
@@ -73,6 +74,7 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize
             Product::find($order->product_id)->category->name,
             $order->sum_price,
             $order->count_sell,
+            $order->sum_profit,
         ];
     }
 
@@ -83,7 +85,7 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize
             'القسم',
             'المقبوضات',
             'المبيعات',
-            'المرابيح'
+            'مربح الوكلاء'
         ];
     }
 
