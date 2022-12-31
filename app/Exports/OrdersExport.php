@@ -62,8 +62,7 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize
 
         return $query->groupBy('product_id')
         ->orderby('product_id','asc')
-            ->selectRaw('*, sum(price) as sum_price')
-            ->selectRaw('*, sum(profit) as sum_profit')
+            ->selectRaw('*, sum(price) as sum_price,sum(profit) as sum_profit')
             ->selectRaw('count(*) as count_sell ');              
     }
 
