@@ -102,7 +102,9 @@
                                 <th>التاريخ</th>
                             </thead>
                             <tbody>
+                               
                                 @forelse ($orders as $order)
+                                {{$order->price->sum()}}
                                     <tr>
                                         {{-- @dump(\App\Models\Category::all()); --}}
                                         <td>
