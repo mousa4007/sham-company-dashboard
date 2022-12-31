@@ -74,7 +74,7 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize
             $order->sum_price,
             $order->count_sell,
             $order->sum_profit,
-            '=SUM(F:F)',
+            '=SUM(E:E)',
             '=SUM(D:D)'
         ];
     }
