@@ -88,14 +88,14 @@
                     <table class="table table-bordered m-1 bg-secondary">
                         <thead>
                             <th class="text-white">مجموع السعر</th>
-                            <td class="text-white">{{$orders_in_last_day->sum('price')}}</td>
+                            <td class="text-white">{{$orders_in_last_day->sum('price')}} $</td>
 
                         </thead>
                     </table>
                     <table class="table table-bordered m-1 bg-secondary">
                         <thead>
                             <th class="text-white">مجموع مربح الوكيل</th>
-                            <td class="text-white">{{$orders_in_last_day->sum('profit')}}</td>
+                            <td class="text-white">{{$orders_in_last_day->sum('profit')}} $</td>
                         </thead>
                     </table>
                    </div>
