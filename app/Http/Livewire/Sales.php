@@ -48,7 +48,7 @@ class Sales extends Component
         $this->from = Carbon::today();
         $this->paginateNumber = 10;
         $this->products = Product::all();
-        $this->categories = Category::all();
+        $this->categories =    Category::all();
     }
 
     public function updatedChecked($value)
@@ -74,7 +74,9 @@ class Sales extends Component
         });
 
         $query->when($this->category_id, function ($q) {
-
+            // $categprories = Category::all();
+            // return $q->where('product_id', $this->product_id);
+            
             $product = Product::where('category_id', $this->category_id)->pluck('id');
 
             return $q->whereIn('product_id', $product);
@@ -86,11 +88,12 @@ class Sales extends Component
             ->selectRaw('count(*) as count_sell ')
             ->paginate($this->paginateNumber);
 
+        // return $this->customized_sale;
     }
     public function export()
     {
         return (new SalesExport($this->from, $this->to,$this->product_id,$this->category_id))
 
-        ->download();
+        ->download('sales.xls');
     }
 }

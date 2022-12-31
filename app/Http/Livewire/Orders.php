@@ -7,6 +7,7 @@ use App\Models\AppUser;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -56,6 +57,8 @@ class Orders extends Component
         $this->products = Product::all();
         $this->categories =    Category::all();
         $this->users =    AppUser::all();
+        $this->from = Carbon::today();
+        $this->to = Carbon::today();
     }
 
     public function updatedChecked($value)

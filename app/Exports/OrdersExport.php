@@ -7,10 +7,11 @@ use App\Models\Order;
 use App\Models\Product;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class OrdersExport implements WithHeadings,WithMapping,FromQuery
+class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize
 {
     use Exportable;
 
