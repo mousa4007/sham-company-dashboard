@@ -10,8 +10,10 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize
+class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize,WithStyles
 {
     use Exportable;
 
@@ -26,6 +28,22 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize
         $this->app_user_id = $app_user_id;
         $this->searchTerm = $searchTerm;
         $this->userIdSearchTerm = $userIdSearchTerm;
+    }
+
+    
+
+    public function styles(Worksheet $sheet)
+    {
+        // $sheet->getStyle('B2')->getFont()->setBold(true)->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN));
+
+        return [
+            // Style the first row as bold text.
+            'A1'    => ['font' => ['bold' => true]],
+            'B1'    => ['font' => ['bold' => true]],
+            'C1'    => ['font' => ['bold' => true]],
+            'D1'    => ['font' => ['bold' => true]],
+
+        ];
     }
 
     public function query()
