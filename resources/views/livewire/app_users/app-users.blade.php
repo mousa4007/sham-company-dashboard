@@ -1,5 +1,5 @@
 <div>
-    <div class="card">
+    <div class="card d-flex">
         <div class="card-content">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
