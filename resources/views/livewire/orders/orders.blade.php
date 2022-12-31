@@ -104,7 +104,7 @@
                             <tbody>
                                
                                 @forelse ($orders as $order)
-                                {{$order->price->sum()}}
+                                {{$orders->sum('price')}}
                                     <tr>
                                         {{-- @dump(\App\Models\Category::all()); --}}
                                         <td>
