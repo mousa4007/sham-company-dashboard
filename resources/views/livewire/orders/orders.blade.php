@@ -84,26 +84,21 @@
 
 
                 <div class="card-content">
-                    <table class="table mb-0">
+                   <div class="d-flex m-3">
+                    <table class="table table-bordered m-1 bg-secondary">
                         <thead>
-                            <th>مجموع السعر</th>
+                            <th class="text-white">مجموع السعر</th>
+                            <td class="text-white">{{$orders_in_last_day->sum('price')}}</td>
+
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{$orders_in_last_day->sum('price')}}</td>
-                            </tr>
-                        </tbody>
                     </table>
-                    <table class="table mb-0">
+                    <table class="table table-bordered m-1 bg-secondary">
                         <thead>
-                            <th>مجموع مربح الوكيل</th>
+                            <th class="text-white">مجموع مربح الوكيل</th>
+                            <td class="text-white">{{$orders_in_last_day->sum('profit')}}</td>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{$orders_in_last_day->sum('profit')}}</td>
-                            </tr>
-                        </tbody>
                     </table>
+                   </div>
                     <!-- table striped -->
                     <div class="table-responsive p-2">
                         <table class="table mb-0">
