@@ -162,13 +162,22 @@ class ProcessTransferProduct extends Component
 
                         $exception = Discount::find($user->discount)->exceptions;
 
-
                         // return $exception->first()->price;
                         $exceptions_ids = $exception->pluck('product_id')->toArray();
 
                         if (in_array($order->product_id, $exceptions_ids)) {
 
                             $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
+                            
+                            Order::create([
+                                'app_user_id' =>  $user->id,
+                                'product_id' => $order->product_id,
+                                'product_name' => $product->name,
+                                'product' => $order->product_item,
+                                'price' => $product->sell_price,
+                                'is_returned' => true,
+                                'profit' => $profit,
+                            ]);
 
                             Profit::create([
                                 'order_id' => $order->id,
@@ -351,4 +360,5 @@ class ProcessTransferProduct extends Component
             $this->dispatchBrowserEvent('hide-delete-modal', ['message' => ' تم رفض عملية التحويل وإرجاع المبلغ إلى المستخدم']);
         });
     }
+
 }
