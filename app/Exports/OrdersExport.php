@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\Product;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -61,13 +62,18 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery
         return $query->groupBy('product_id')
         ->orderby('product_id','asc')
             ->selectRaw('*, sum(price) as sum_price')
-            ->selectRaw('count(*) as count_sell ');              
+            ->selectRaw('*, sum(profit) as sum_profit')
+            ->selectRaw('count(*) as  count_sell');                      
     }
 
     public function map($order):array
     {
         return [
-            $order
+            Product::find($order->product_id)->name,
+            Product::find($order->product_id)->category->name,
+            $order->sum_price,
+            $order->count_sell,
+            $order->sum_profit,
         ];
     }
 
@@ -78,7 +84,7 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery
             'القسم',
             'المقبوضات',
             'المبيعات',
-            'المرابيح'
+            'مرابيح الوكلاء'
         ];
     }
 
