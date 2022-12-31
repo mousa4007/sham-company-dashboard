@@ -169,15 +169,6 @@ class ProcessTransferProduct extends Component
 
                             $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
                             
-                            Order::create([
-                                'app_user_id' =>  $user->id,
-                                'product_id' => $order->product_id,
-                                'product_name' => $product->name,
-                                'product' => $order->product_item,
-                                'price' => $product->sell_price,
-                                'is_returned' => true,
-                                'profit' => $profit,
-                            ]);
 
                             Profit::create([
                                 'order_id' => $order->id,
