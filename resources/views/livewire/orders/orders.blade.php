@@ -80,11 +80,30 @@
                         <a href="#" class="btn btn-success btn-sm btn-excel" wire:click='export'><i
                             class="bi-file-earmark-spreadsheet-fill"></i></a>
                     </div>
-
                 </div>
 
 
                 <div class="card-content">
+                    <table class="table mb-0">
+                        <thead>
+                            <th>مجموع السعر</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{$orders_in_last_day->sum('price')}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table mb-0">
+                        <thead>
+                            <th>مجموع مربح الوكيل</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{$orders_in_last_day->sum('profit')}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <!-- table striped -->
                     <div class="table-responsive p-2">
                         <table class="table mb-0">
@@ -102,7 +121,6 @@
                                 <th>التاريخ</th>
                             </thead>
                             <tbody>
-                                {{$orders_in_last_day->sum('price')}}
                                 
                                 @forelse ($orders as $order)
                                     <tr>
