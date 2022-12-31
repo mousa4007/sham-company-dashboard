@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\OrdersExport;
 use App\Models\AppUser;
 use App\Models\Category;
 use App\Models\Order;
@@ -11,7 +12,6 @@ use Livewire\WithPagination;
 
 class Orders extends Component
 {
-
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
@@ -38,6 +38,7 @@ class Orders extends Component
         $users,
         $products;
 
+
     public function render()
     {
         return view('livewire.orders.orders',[
@@ -47,6 +48,7 @@ class Orders extends Component
             'users' => $this->users,
         ]);
     }
+
     public function mount()
     {
 
@@ -93,6 +95,11 @@ class Orders extends Component
         return $query->latest()->paginate($this->paginateNumber);
     }
 
+    public function export()
+    {
+        return (new OrdersExport($this->from,$this->to, $this->product_id,$this->category_id,$this->app_user_id,$this->searchTerm,$this->userIdSearchTerm))
+        ->download('orders.xls');
+    }
 
 
 }

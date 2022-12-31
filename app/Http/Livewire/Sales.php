@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Exports\ReturnsExport;
 use App\Exports\SalesExport;
 use App\Models\Category;
 use App\Models\Product;
@@ -93,11 +92,8 @@ class Sales extends Component
     }
     public function export()
     {
-        // return (new SalesExport($this->selectedRows))->download('المرتجعات.xls');
-        // return Excel::download(new ReturnsExport, 'المرتجعات.xlsx');
-
         return (new SalesExport($this->from, $this->to,$this->product_id,$this->category_id))
 
-        ->download('asdf.xls');
+        ->download();
     }
 }

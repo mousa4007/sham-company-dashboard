@@ -40,13 +40,6 @@ class SalesExport implements
             'C1'    => ['font' => ['bold' => true]],
             'D1'    => ['font' => ['bold' => true]],
 
-            // Styling a specific cell by coordinate.
-            // 'B2' => ['font' => ['italic' => true]],
-
-            // Styling an entire column.
-            // 'C'  => ['font' => ['size' => 16]],
-
-           
         ];
     }
 
@@ -73,20 +66,6 @@ class SalesExport implements
         ];
     }
 
-    // public function styles(Worksheet $sheet)
-    // {
-    //     return [
-    //         // Style the first row as bold text.
-    //         1    => ['font' => ['bold' => true]],
-
-    //         // Styling a specific cell by coordinate.
-    //         'B2' => ['font' => ['italic' => true]],
-
-    //         // Styling an entire column.
-    //         'C'  => ['font' => ['size' => 16]],
-    //     ];
-    // }
-
     public function registerEvents(): array
     {
         return [
@@ -100,8 +79,6 @@ class SalesExport implements
 
     public function query()
     {
-
-
         $query = Sale::query();
 
         $query->when($this->from, function ($q) {

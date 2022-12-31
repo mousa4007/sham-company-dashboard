@@ -68,7 +68,9 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="d-flex align-items-baseline">
+                        
                         <h3 class="card-title me-5"> الطلبات</h3>
+                     
                         <div class="mb-1">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
@@ -77,6 +79,8 @@
                                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">بحث</button>
                             </div>
                         </div>
+                        <a href="#" class="btn btn-success btn-sm btn-excel" wire:click='export'><i
+                            class="bi-file-earmark-spreadsheet-fill"></i> </a>
                     </div>
 
                 </div>
