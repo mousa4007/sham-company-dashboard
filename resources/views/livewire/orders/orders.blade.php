@@ -102,7 +102,7 @@
                                 <th>التاريخ</th>
                             </thead>
                             <tbody>
-                                {{$orders->sum('price')}}
+                                {{$orders_in_last_day->sum('price')}}
                                 
                                 @forelse ($orders as $order)
                                     <tr>

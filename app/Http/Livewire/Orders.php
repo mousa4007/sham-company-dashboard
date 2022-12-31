@@ -47,6 +47,8 @@ class Orders extends Component
             'products' =>$this->products,
             'categories' => $this->categories,
             'users' => $this->users,
+            'orders_in_last_day' => Order::where('created_at','>=',$this->from)
+            ->where('created_at','<=',$this->to)
         ]);
     }
 
