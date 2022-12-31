@@ -71,7 +71,8 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize
         return [
             Product::find($order->product_id)->name,
             Product::find($order->product_id)->category->name,
-            
+            $order->sum_price,
+            $order->count_sell,
         ];
     }
 
