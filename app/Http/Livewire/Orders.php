@@ -58,7 +58,7 @@ class Orders extends Component
         $this->categories =    Category::all();
         $this->users =    AppUser::all();
         $this->from = Carbon::today();
-        $this->to = Carbon::today();
+        $this->to = Carbon::tomorrow();
     }
 
     public function updatedChecked($value)
