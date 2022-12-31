@@ -8,12 +8,14 @@ use App\Models\Product;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize,WithStyles
+class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize,WithStyles,WithEvents
 {
     use Exportable;
 
@@ -28,6 +30,18 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery,ShouldAutoSize,
         $this->app_user_id = $app_user_id;
         $this->searchTerm = $searchTerm;
         $this->userIdSearchTerm = $userIdSearchTerm;
+    }
+
+       /**
+     * @return array
+     */
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->setRightToLeft(true);
+            },
+        ];
     }
 
     
