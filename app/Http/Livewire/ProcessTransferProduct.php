@@ -179,6 +179,10 @@ class ProcessTransferProduct extends Component
                                 'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
                             ]);
 
+                            $order->update([
+                                'profit' => $profit,
+                            ]);
+
                             $user->update([
                                 'total_profits' => $user->total_profits + $profit,
                             ]);
@@ -195,6 +199,11 @@ class ProcessTransferProduct extends Component
                         ]);
 
                         $user->update(['total_profits' => $user->total_profits + $profit]);
+
+                        $order->update([
+                            'profit' => $profit,
+                        ]);
+
                         }
                     } else {
                         $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
@@ -208,6 +217,10 @@ class ProcessTransferProduct extends Component
                             'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
                         ]);
                         $user->update(['total_profits' => $user->total_profits + $profit]);
+
+                        $order->update([
+                            'profit' => $profit,
+                        ]);
                     }
                 }
             }
@@ -240,6 +253,11 @@ class ProcessTransferProduct extends Component
                             ]);
 
                             $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
+
+                            $order->update([
+                                'profit' => $profit,
+                            ]);
+
                         }else{
                             $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
 
@@ -254,6 +272,10 @@ class ProcessTransferProduct extends Component
 
                         $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
 
+                        $order->update([
+                            'profit' => $profit,
+                        ]);
+
                         }
                     } else {
                         $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
@@ -267,6 +289,10 @@ class ProcessTransferProduct extends Component
                             'message' => abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100) . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
                         ]);
                         $agent->user->update(['total_profits' => $agent->user->total_profits + $profit]);
+
+                        $order->update([
+                            'profit' => $profit,
+                        ]);
                     }
                 }
             }
@@ -310,12 +336,15 @@ class ProcessTransferProduct extends Component
             $product = Product::find($q->product_id);
             $order = Order::find($q->order_id);
 
+
             $q->update([
                 'status' => 'rejected'
             ]);
 
             $order->update([
                 'transfer_status' => 'rejected',
+                'price' => 0,
+                'profit' => 0
             ]);
 
             $user->update([
