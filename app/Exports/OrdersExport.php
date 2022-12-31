@@ -62,9 +62,7 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery
         return $query->groupBy('product_id')
         ->orderby('product_id','asc')
             ->selectRaw('*, sum(price) as sum_price')
-            ->selectRaw('*, sum(price) as sum_price')
-            // ->selectRaw('*, sum(profit) as sum_profit')
-            ->selectRaw('count(*) as count_sell');                      
+            ->selectRaw('count(*) as count_sell ');              
     }
 
     public function map($order):array
@@ -72,10 +70,7 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery
         return [
             Product::find($order->product_id)->name,
             Product::find($order->product_id)->category->name,
-            $order->sum_price,
-            $order->count_sell,
-            $order->count_sell,
-           
+            
         ];
     }
 
@@ -86,7 +81,7 @@ class OrdersExport implements WithHeadings,WithMapping,FromQuery
             'القسم',
             'المقبوضات',
             'المبيعات',
-            'مرابيح الوكلاء'
+            'المرابيح'
         ];
     }
 
