@@ -267,7 +267,8 @@ class PurchaseProductController extends Controller
     {
         $request->validate([
             'product_id' => 'required',
-            'product_item' => 'required'
+            'product_item' => 'required',
+            'rubble_price' => 'nullable'
         ]);
 
         $user = $request->user();
@@ -305,6 +306,7 @@ class PurchaseProductController extends Controller
                         'price' => $product->sell_price,
                         'is_returned' => false,
                         'profit' => $profit,
+                        'rubble_price' => $request->rubble_price == null ? '0' : $request->rubble_price
                     ]);
 
 
@@ -329,6 +331,7 @@ class PurchaseProductController extends Controller
                         'price' => $product->sell_price,
                         'is_returned' => true,
                         'profit' => $profit,
+                        'rubble_price' => $request->rubble_price == null ? '0' : $request->rubble_price
                     ]);
 
                     Profit::create([
@@ -357,6 +360,7 @@ class PurchaseProductController extends Controller
                         'price' => $product->sell_price,
                         'is_returned' => false,
                         'profit' => $profit,
+                        'rubble_price' => $request->rubble_price == null ? '0' : $request->rubble_price
                     ]);
 
 
@@ -381,6 +385,7 @@ class PurchaseProductController extends Controller
                     'product' => $request->product_item,
                     'price' => $product->sell_price,
                     'profit' => 0,
+                    'rubble_price' => $request->rubble_price == null ? '0' : $request->rubble_price
                 ]);
             }
 
@@ -415,6 +420,7 @@ class PurchaseProductController extends Controller
                             'price' => $product->sell_price,
                             'is_returned' => false,
                             'profit' => $profit,
+                            'rubble_price' => $request->rubble_price == null ? '0' : $request->rubble_price
                         ]);
 
                         Profit::create([
@@ -440,6 +446,7 @@ class PurchaseProductController extends Controller
                         'price' => $product->sell_price,
                         'is_returned' => false,
                         'profit' => $profit,
+                        'rubble_price' => $request->rubble_price == null ? '0' : $request->rubble_price
                     ]);
 
                     Profit::create([
@@ -463,6 +470,7 @@ class PurchaseProductController extends Controller
                     'price' => $product->sell_price,
                     'is_returned' => false,
                     'profit' => 0,
+                    'rubble_price' => $request->rubble_price == null ? '0' : $request->rubble_price
                 ]);
             }
 
