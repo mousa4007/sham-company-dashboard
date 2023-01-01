@@ -341,12 +341,7 @@ class ProcessTransferProduct extends Component
                 'status' => 'rejected'
             ]);
 
-            $order->update([
-                'transfer_status' => 'rejected',
-                'price' => 0,
-                'profit' => 0
-            ]);
-
+         
             $user->update([
                 'balance' => $user->balance + $order->price,
                 'outgoingBalance' => $user->outgoingBalance - $order->price,
@@ -360,11 +355,6 @@ class ProcessTransferProduct extends Component
                 ]);
             }
 
-            $q->update([
-                'status' => 'rejected',
-            ]);
-
-
             Notification::create([
                 'title' => 'رفض عملية تحويل',
                 'app_user_id' => $user->id,
@@ -373,6 +363,12 @@ class ProcessTransferProduct extends Component
 
             $user->notificationsCount->update([
                 'notifications_count' =>  $user->notifications_count + 1
+            ]);
+
+            $order->update([
+                'transfer_status' => 'rejected',
+                'price' => 0,
+                'profit' => 0
             ]);
 
             $this->reset(['checked', 'selectedRows']);
