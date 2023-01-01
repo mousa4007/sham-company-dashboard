@@ -113,6 +113,7 @@
                                 <th>اسم المنتج</th>
                                 <th>السعر</th>
                                 <th>مربح الوكيل</th>
+                                <th>سعر روبل</th>
                                 <th>التاريخ</th>
                             </thead>
                             <tbody>
@@ -130,6 +131,7 @@
                                         <td>{{ $order->product_name }}</td>
                                         <td>{{ $order->price }}</td>
                                         <td>{{ $order->profit }}</td>
+                                        <td>{{ $order->rubble_price }}</td>
                                         <td>{{ $order->created_at }}</td>
                                     </tr>
                                 @empty
