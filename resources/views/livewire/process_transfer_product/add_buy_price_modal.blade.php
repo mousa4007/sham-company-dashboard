@@ -29,9 +29,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
                             class="bi-x-circle-fill"></i></button>
                     <button type="button" class="btn btn-success"
-                        @if ($is_accept) wire:click='acceptTransfer'
-                        @else
-                        wire:click='rejectTransfer' @endif><i
+                        wire:click='acceptTransfer'><i
                             class="bi-check-circle-fill"></i></button>
                 </div>
             </div>
