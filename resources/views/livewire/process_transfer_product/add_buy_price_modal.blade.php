@@ -29,7 +29,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
                             class="bi-x-circle-fill"></i></button>
                     <button type="button" class="btn btn-success"
-                        wire:click='acceptTransfer'><i
+                        wire:click='acceptTransferSingle()'><i
                             class="bi-check-circle-fill"></i></button>
                 </div>
             </div>
