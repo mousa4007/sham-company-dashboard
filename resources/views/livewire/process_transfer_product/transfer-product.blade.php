@@ -35,6 +35,7 @@
     @include('livewire.process_transfer_product.accepted_transfer_product')
     @include('livewire.process_transfer_product.rejected_transfer_product')
     @include('livewire.process_transfer_product.create_message_modal')
+    @include('livewire.process_transfer_product.add_buy_price_model.blade.php')
 
     <div class="row" id="table-striped">
         <div class="col-12">
@@ -95,10 +96,9 @@
                                         <td>{{ $item->created_at }}</td>
                                         <td>
                                             <button type="button"class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#createMessageModal"
+                                            data-bs-target="#addBuyPriceModal"
                                             wire:click='createAcceptMessage({{ $item->id }})'>
                                             <i class="bi-check-lg"></i>
-
                                         </button>
                                         </td>
                                         
