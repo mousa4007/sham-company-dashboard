@@ -331,7 +331,20 @@ class ProcessTransferProduct extends Component
     public function acceptTransferSingle()
     {
 
-        $this->dispatchBrowserEvent('hide-create-modal', ['message' => ' تم الموافقة على عملية التحويل']);
+        $q =  TransferProduct::find($this->transfer_id);
+
+        $user = AppUser::find($q->app_user_id);
+        $product = Product::find($q->product_id);
+        $order = Order::find($q->order_id);
+
+        dd($user->notificationsCount);
+
+        $user->notificationsCount->update([
+            'notifications_count' =>  $user->notifications_count + 1
+        ]);
+
+
+       
 
     
     }
