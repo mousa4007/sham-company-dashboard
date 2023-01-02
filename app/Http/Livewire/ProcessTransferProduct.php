@@ -334,8 +334,6 @@ class ProcessTransferProduct extends Component
 
         $q =  TransferProduct::find($this->transfer_id);
 
-        dd($q);
-
         $user = AppUser::find($q->app_user_id);
         $product = Product::find($q->product_id);
         $order = Order::find($q->order_id);
