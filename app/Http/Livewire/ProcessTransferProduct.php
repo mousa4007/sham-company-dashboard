@@ -331,22 +331,187 @@ class ProcessTransferProduct extends Component
     public function acceptTransferSingle()
     {
 
+
         $q =  TransferProduct::find($this->transfer_id);
 
         $user = AppUser::find($q->app_user_id);
         $product = Product::find($q->product_id);
         $order = Order::find($q->order_id);
 
-        dd($user->notificationsCount);
+        if ($user->hasRole('super-user') || $user->hasRole('user')) {
+            if ($user->discount != null) {
+                if (count(Discount::find($user->discount)->exceptions) > 0) {
+
+                    $exception = Discount::find($user->discount)->exceptions;
+
+
+                    // return $exception->first()->price;
+                    $exceptions_ids = $exception->pluck('product_id')->toArray();
+
+                    if (in_array($order->product_id, $exceptions_ids)) {
+
+                        $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
+
+                        Profit::create([
+                            'order_id' => $order->id,
+                            'app_user_id' => $user->id,
+                            'agent_id' => null,
+                            'product_id' => $order->product_id,
+                            'profit' => $profit,
+                            'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
+                        ]);
+
+                        $order->update([
+                            'profit' => $profit,
+                            'rubble_price' => $this->buy_price
+                        ]);
+
+                        $user->update([
+                            'total_profits' => $user->total_profits + $profit,
+                        ]);
+                    }else{
+                        $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
+
+                    Profit::create([
+                        'order_id' => $order->id ,
+                        'app_user_id' => $user->id,
+                        'agent_id' => null,
+                        'product_id' => $order->product_id,
+                        'profit' => $profit,
+                        'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
+                    ]);
+
+                    $user->update(['total_profits' => $user->total_profits + $profit]);
+
+                    $order->update([
+                        'profit' => $profit,
+                        'rubble_price' => $this->buy_price
+                    ]);
+
+                    }
+                } else {
+                    $profit = abs($product->sell_price * Discount::find($user->discount)->percentage / 100);
+
+                    Profit::create([
+                        'order_id' => $order->id,
+                        'app_user_id' => $user->id,
+                        'agent_id' => null,
+                        'product_id' => $order->product_id,
+                        'profit' => $profit,
+                        'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
+                    ]);
+                    $user->update(['total_profits' => $user->total_profits + $profit]);
+
+                    $order->update([
+                        'profit' => $profit,
+                        'rubble_price' => $this->buy_price
+                    ]);
+                }
+            }
+        }
+
+
+        if ($user->hasRole('agent')) {
+
+            $agent = Agent::find($user->agent_id);
+
+            if ($agent->user->discount != null) {
+                if (count(Discount::find($agent->user->discount)->exceptions) > 0) {
+
+                    $exception = Discount::find($agent->user->discount)->exceptions;
+
+                    // return $exception->first()->price;
+                    $exceptions_ids = $exception->pluck('product_id')->toArray();
+
+                    if (in_array($order->product_id, $exceptions_ids)) {
+                        // $profit = $product->sell_price - $exception->first()->price;
+                        $profit = $product->sell_price - $exception->where('product_id',$product->id)->first()->price;
+
+
+                        Profit::create([
+                            'order_id' => $order->id,
+                            'app_user_id' => $agent->user->id,
+                            'agent_id' => $user->agent_id,
+                            'product_id' => $order->product_id,
+                            'profit' => $profit,
+                            'message' => $product->sell_price - $exception->first()->price . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
+                        ]);
+
+                        $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
+
+                        $order->update([
+                            'profit' => $profit,
+                            'rubble_price' => $this->buy_price
+                        ]);
+
+                    }else{
+                        $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
+
+                    Profit::create([
+                        'order_id' => $order->id ,
+                        'app_user_id' => $user->id,
+                        'agent_id' => null,
+                        'product_id' => $order->product_id,
+                        'profit' => $profit,
+                        'message' => $profit . '$ مربح من شراء منتج ' . Product::find($order->product_id)->name
+                    ]);
+
+                    $agent->user->update(['total_profits' =>  $agent->user->total_profits + $profit]);
+
+                    $order->update([
+                        'profit' => $profit,
+                        'rubble_price' => $this->buy_price
+                    ]);
+
+                    }
+                } else {
+                    $profit = abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100);
+
+                    Profit::create([
+                        'order_id' => $order->id,
+                        'app_user_id' => $agent->user->id,
+                        'agent_id' => $user->agent_id,
+                        'product_id' => $order->product_id,
+                        'profit' => $profit,
+                        'message' => abs($product->sell_price * Discount::find($agent->user->discount)->percentage / 100) . '$ مربح من شراء وكيل منتج ' . Product::find($order->product_id)->name
+                    ]);
+                    $agent->user->update(['total_profits' => $agent->user->total_profits + $profit]);
+
+                    $order->update([
+                        'profit' => $profit,
+                        'rubble_price' => $this->buy_price
+                    ]);
+                }
+            }
+        }
+
+        $q->update([
+            'status' => 'accepted'
+        ]);
+
+        $order->update([
+            'transfer_status' => 'accepted',
+        ]);
+
+        Sale::create([
+            'product' => $product->name,
+            'product_id' => $product->id,
+            'price'=> $product->sell_price
+        ]);
+
+        Notification::create([
+            'title' => 'موافقة على عملية تحويل',
+            'app_user_id' => $user->id,
+            'message' => $this->message
+
+        ]);
+
+        $this->dispatchBrowserEvent('hide-create-modal', ['message' => ' تم الموافقة على عملية التحويل']);
 
         $user->notificationsCount->update([
             'notifications_count' =>  $user->notifications_count + 1
         ]);
 
-
-       
-
-    
     }
 
     public function rejectTransfer()
