@@ -510,8 +510,6 @@ class ProcessTransferProduct extends Component
             'notifications_count' =>  $user->notifications_count + 1
         ]);
 
-        $this->reset(['checked', 'selectedRows']);
-
         $this->dispatchBrowserEvent('hide-create-modal', ['message' => ' تم الموافقة على عملية التحويل']);
     }
 
