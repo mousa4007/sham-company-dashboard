@@ -67,7 +67,7 @@
                                     <th>المنتج المراد تحويله</th>
                                     <th> المبلغ </th>
                                     <th>التاريخ</th>
-                                    {{-- <th>معالجة</th> --}}
+                                    <th>معالجة</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,6 +93,15 @@
                                         </td>
                                         <td>{{ $item->amount }}</td>
                                         <td>{{ $item->created_at }}</td>
+                                        <td>
+                                            <button type="button"class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#createMessageModal"
+                                            wire:click='createAcceptMessage({{ $item->id }})'>
+                                            <i class="bi-check-lg"></i>
+
+                                        </button>
+                                        </td>
+                                        
                                         {{-- <td>
                                             <button type="button"class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#createMessageModal"
