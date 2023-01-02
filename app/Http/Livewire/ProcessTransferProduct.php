@@ -27,7 +27,6 @@ class ProcessTransferProduct extends Component
         $selectedRows = [],
         $from,
         $to,
-        $buy_price,
         $created_at,
         $paginateNumber = 10,
         $app_user_id, $product_id,
