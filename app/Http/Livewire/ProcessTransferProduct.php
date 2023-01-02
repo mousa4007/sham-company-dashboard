@@ -334,8 +334,6 @@ class ProcessTransferProduct extends Component
 
         $q =  TransferProduct::find($this->transfer_id);
 
-        dd($this->buy_price);
-
         $user = AppUser::find($q->app_user_id);
         $product = Product::find($q->product_id);
         $order = Order::find($q->order_id);
@@ -365,6 +363,7 @@ class ProcessTransferProduct extends Component
 
                         $order->update([
                             'profit' => $profit,
+                            'rubble_price' => $this->buy_price
                         ]);
 
                         $user->update([
@@ -386,6 +385,7 @@ class ProcessTransferProduct extends Component
 
                     $order->update([
                         'profit' => $profit,
+                        'rubble_price' => $this->buy_price
                     ]);
 
                     }
@@ -404,6 +404,7 @@ class ProcessTransferProduct extends Component
 
                     $order->update([
                         'profit' => $profit,
+                        'rubble_price' => $this->buy_price
                     ]);
                 }
             }
@@ -440,6 +441,7 @@ class ProcessTransferProduct extends Component
 
                         $order->update([
                             'profit' => $profit,
+                            'rubble_price' => $this->buy_price
                         ]);
 
                     }else{
@@ -458,6 +460,7 @@ class ProcessTransferProduct extends Component
 
                     $order->update([
                         'profit' => $profit,
+                        'rubble_price' => $this->buy_price
                     ]);
 
                     }
@@ -476,6 +479,7 @@ class ProcessTransferProduct extends Component
 
                     $order->update([
                         'profit' => $profit,
+                        'rubble_price' => $this->buy_price
                     ]);
                 }
             }
