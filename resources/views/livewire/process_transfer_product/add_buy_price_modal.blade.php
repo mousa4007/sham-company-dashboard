@@ -11,9 +11,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="card">
+                        <div class="card">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1" class="form-label">سعر الشراء</label>
+                                <input wire:model="buy_price" class="form-control" id="exampleFormControlTextarea1" rows="5">     
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1" class="form-label">سعر الشراء</label>
-                            <input wire:model="message" class="form-control" id="exampleFormControlTextarea1" rows="5">     
+                            <label for="exampleFormControlTextarea1" class="form-label">الرسالة </label>
+                            <textarea wire:model="message" class="form-control" id="exampleFormControlTextarea1" rows="5">  
+                            </textarea>   
                         </div>
                     </div>
                     

@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Agent;
 use App\Models\AppUser;
 use App\Models\Discount;
-use App\Models\Message;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Product;
@@ -28,6 +27,7 @@ class ProcessTransferProduct extends Component
         $selectedRows = [],
         $from,
         $to,
+        $buy_price,
         $created_at,
         $paginateNumber = 10,
         $app_user_id, $product_id,
