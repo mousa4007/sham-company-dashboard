@@ -35,7 +35,7 @@
     @include('livewire.process_transfer_product.accepted_transfer_product')
     @include('livewire.process_transfer_product.rejected_transfer_product')
     @include('livewire.process_transfer_product.create_message_modal')
-    @include('livewire.process_transfer_product.add_buy_price_model.blade.php')
+    @include('livewire.process_transfer_product.add_buy_price_modal')
 
     <div class="row" id="table-striped">
         <div class="col-12">
