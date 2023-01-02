@@ -347,7 +347,7 @@
             $('#createTransferProudctModal').modal('hide');
             $('#createMessageModal').modal('hide');
             $('#createAdModal').modal('hide');
-
+            $('#addBuyPriceModal').modal('hide');
 
             toastr.options = {
                 "closeButton": true,
