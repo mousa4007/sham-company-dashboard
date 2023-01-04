@@ -5,7 +5,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/home">الرئيسية</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">الإعلانات</li>
+                        <li class="breadcrumb-item active" aria-current="page">شريط الإعلانات</li>
                     </ol>
                 </nav>
             </div>
@@ -16,9 +16,9 @@
                 <div class="card">
                     <div class="buttons m-3">
                         <a href="#" class="btn btn-primary btn-sm m-0 mx-1" wire:click.prevent='resetData'
-                            data-bs-toggle="modal" data-bs-target="#createAdModal">إضافة</a>
+                            data-bs-toggle="modal" data-bs-target="#createAdBarModal">إضافة</a>
                         <a href="#" class="btn btn-danger btn-sm m-0 mx-1" data-bs-toggle="modal"
-                            data-bs-target="#deleteAdModal">حذف</a>
+                            data-bs-target="#deleteAdBarModal">حذف</a>
                         <a href="#" class="btn btn-success btn-sm m-0 mx-1" wire:click='activate'>تفعيل</a>
                         <a href="#" class="btn btn-secondary btn-sm m-0 mx-1" wire:click='disable'>تعطيل</a>
                         <span class="mx-3">|</span>
@@ -51,12 +51,9 @@
                     <div class="card-header d-flex justify-content-between">
                         <div class="d-flex align-items-baseline">
                             <h3 class="card-title me-5"> الإعلانات</h3>
-
                         </div>
-                        @include('livewire.ads.create_ad')
                     </div>
-                    @include('livewire.ads.delete_ad')
-                    @include('livewire.ads.update_ad')
+
 
                     <div class="card-content">
                         <!-- table striped -->
@@ -65,24 +62,22 @@
                                 <thead>
                                     <th><input wire:model='checked' type="checkbox" class="form-check-input"></th>
                                     <th>#</th>
-                                    <th>الوصف</th>
+                                    <th>الشريط</th>
                                     <th>الحالة</th>
-                                    <th>الصورة</th>
-                                    <th>عمليات</th>
+                                    <th>تعديل</th>
                                 </thead>
                                 <tbody>
-                                    @forelse ($ads as $ad)
+                                    @forelse ($ad_bars as $ad_bar)
                                         <tr>
-                                            <td><input wire:model='selectedRows' value="{{ $ad->id }}"
+                                            <td><input wire:model='selectedRows' value="{{ $ad_bar->id }}"
                                                     type="checkbox" class="form-check-input"></td>
-                                            <td>{{ $ad->id }}</td>
-                                            <td>{{ $ad->description }}</td>
-                                            <td>{{ $ad->status == 'active' ? 'مفعل' : 'معطل' }}</td>
-                                            <td><img src="{{ $ad->image_url }}" width="35" alt=""></td>
+                                            <td>{{ $ad_bar->id }}</td>
+                                            <td>{{ $ad_bar->adbar }}</td>
+                                            <td>{{ $ad_bar->status == 'active' ? 'مفعل' : 'معطل' }}</td>
                                             <td>
                                                 <button type="button"class="btn btn-sm btn-info" data-bs-toggle="modal"
-                                                    data-bs-target="#updateAdModal"
-                                                    wire:click='edit({{ $ad->id }})'>
+                                                    data-bs-target="#updateAdBarModal"
+                                                    wire:click='edit({{ $ad_bar->id }})'>
                                                     <i class="bi-pencil-square"></i>
                                                 </button>
                                             </td>
@@ -93,7 +88,7 @@
                                 </tbody>
                             </table>
                             <div class="my-3">
-                                {{ $ads->links() }}
+                                {{ $ad_bars->links() }}
                             </div>
                         </div>
                     </div>
@@ -101,4 +96,10 @@
             </div>
         </div>
     </div>
+
+    @include('livewire.AdBars.create_adbars')
+    @include('livewire.AdBars.update_adbars')
+    @include('livewire.AdBars.delete_adbars')
 </div>
+
+

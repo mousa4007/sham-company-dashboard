@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdBarController;
 use App\Http\Controllers\Api\AdController;
 use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\ApiController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Api\ProductUserFavoriteController;
 use App\Http\Controllers\Api\ProfitsController;
 use App\Http\Controllers\Api\PurchaseProductController;
 use App\Http\Controllers\Api\ReturnsController;
+use App\Models\AdBar;
 use App\Models\AppUser;
 use App\Models\DiscountException;
 use Illuminate\Http\Request;
@@ -55,7 +57,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::post('returns', [ReturnsController::class, 'createReturns']);
     Route::apiResource('agent', AgentController::class);
     Route::get('agentUserId', [AgentController::class,'agentUserId']);
-
     Route::get('messages', [MessageController::class, 'messages']);
     Route::get('getMessagesCount', [MessageController::class, 'getMessagesCount']);
     Route::post('updateWatched', [MessageController::class, 'updateWatched']);
@@ -147,3 +148,5 @@ Route::get(
 Route::get('orders', function () {
     return auth()->user()->orders;
 })->middleware('auth:sanctum');
+
+

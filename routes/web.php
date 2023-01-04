@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Livewire\AdBars;
 use App\Http\Livewire\Ads;
 use App\Http\Livewire\Agents;
 use App\Http\Livewire\AppUsers;
@@ -56,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/orders', Orders::class);
     Route::get('/ads', Ads::class);
     Route::get('/returns', Returns::class);
+    Route::get('/ad-bars', AdBars::class);
     Route::get('/messages', Messages::class);
     Route::get('/stock', Stock::class);
     Route::get('/logout', [LogoutController::class, 'logout']);
@@ -70,3 +72,4 @@ Route::get('prod', function () {
 
     return $prod;
 });
+

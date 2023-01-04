@@ -260,6 +260,13 @@
                                 <span>الرسائل</span>
                         </a>
                         </li>
+
+                        <li class="sidebar-item {{ request()->is('ad-bars') ? 'active' : '' }}">
+                            <a href="/ad-bars" class='sidebar-link '>
+                                <i class="bi-distribute-vertical"></i>
+                                <span>شريط الإعلانات</span>
+                        </a>
+                        </li>
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -348,6 +355,8 @@
             $('#createMessageModal').modal('hide');
             $('#createAdModal').modal('hide');
             $('#addBuyPriceModal').modal('hide');
+            $('#createAdBarModal').modal('hide');
+
 
             toastr.options = {
                 "closeButton": true,
@@ -378,6 +387,7 @@
             $('#updateAdModal').modal('hide');
             $('#editProfileModal').modal('hide');
             $('#updateAgentModal').modal('hide');
+            $('#updateAdBarModal').modal('hide');
 
             toastr.options = {
                 "closeButton": true,
@@ -402,6 +412,8 @@
             $('#deleteTransferProudctModal').modal('hide');
             $('#showStockedProductModal').modal('hide');
             $('#deleteAdModal').modal('hide');
+            $('#deleteAdBarModal').modal('hide');
+
 
             toastr.options = {
                 "closeButton": true,
