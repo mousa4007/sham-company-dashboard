@@ -330,14 +330,17 @@ class ProcessTransferProduct extends Component
 
     public function acceptTransferSingle()
     {
-
+        $this->validate([
+            'buy_price'=>'required'
+        ]);
 
         $q =  TransferProduct::find($this->transfer_id);
+
 
         $user = AppUser::find($q->app_user_id);
         $product = Product::find($q->product_id);
         $order = Order::find($q->order_id);
-
+        
         if ($user->hasRole('super-user') || $user->hasRole('user')) {
             if ($user->discount != null) {
                 if (count(Discount::find($user->discount)->exceptions) > 0) {
