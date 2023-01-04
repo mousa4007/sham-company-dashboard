@@ -10,7 +10,7 @@ class AdBarController extends Controller
 {
     public function adBars()
     {
-        $adbars = AdBar::where('status','active')->get();
+        $adbars = AdBar::where('status','active');
 
         return $adbars->pluck('adbar');
     }
