@@ -69,7 +69,7 @@
                                             <option value="2">تركي</option>
                                         </select>
                                     </fieldset>
-                         
+
                                     @error('currency')
                                         <span class="text-danger d-block mt-2">{{ $message }}</span>
                                     @enderror
@@ -127,6 +127,8 @@
                                             <option value="sms-activate">أكتيفيت sms-activate </option>
                                             <option value="vak-sms">ڤاك vak-sms </option>
                                             <option value="2ndLine">سكند لاين 2ndLine </option>
+                                            <option value="actiwator"> أكتيواتور  actiwator  </option>
+                                            <option value="5sim">  فايف سيم  5sim</option>
                                         </select>
                                     </fieldset>
                                     @error('web_api')
