@@ -49,7 +49,7 @@ class ApiProducts extends Component
         'currency' => 'required',
         'category_id' => 'required|integer',
         'service_code' => 'required',
-        'country_number' => 'required|integer',
+        'country_number' => 'required',
         'web_api' => 'required',
     ];
 
