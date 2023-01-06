@@ -116,6 +116,7 @@
                                             <option value="2ndLine">سكند لاين 2ndLine </option>
                                             <option value="actiwator"> أكتيواتور  actiwator  </option>
                                             <option value="5sim">  فايف سيم  5sim</option>
+                                            <option value="onlineSim">  أونلاين سيم onlineSim</option>
                                         </select>
                                     </fieldset>
                                     @error('web_api')
