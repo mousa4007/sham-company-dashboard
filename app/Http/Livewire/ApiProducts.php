@@ -151,10 +151,15 @@ class ApiProducts extends Component
             $this->smsActivateApi = $apis->first()->smsActivate_api_key;
             $this->vakSmsApi = $apis->first()->vakSms_api_key;
             $this->secondLineApi = $apis->first()->secondLine_api_key;
+            $this->fiveSimApi = $apis->first()->fiveSim_api_key;
+            $this->onlineSimApi = $apis->first()->onlineSms_api_key;
+            // $this-> = $apis->first()->secondLine_api_key;
         } else {
             $this->smsActivateApi = '';
             $this->vakSmsApi = '';
             $this->secondLineApi = '';
+            $this->onlineSimApi = '';
+            $this->fiveSimApi = '';
         }
     }
 
