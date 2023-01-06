@@ -89,7 +89,7 @@
                                         <div class="form-group has-icon-left">
                                             <label for="first-name-icon" class="mb-2"> أونلاين سيم</label>
                                             <div class="position-relative">
-                                                <input wire:model='onlineSimKey' type="text"
+                                                <input wire:model='onlineSimApi' type="text"
                                                     class="form-control @error('name') is-invalid @enderror"
                                                     placeholder="المفتاح" id="first-name-icon" required>
                                                 <div class="form-control-icon">
