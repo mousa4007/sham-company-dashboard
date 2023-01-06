@@ -72,7 +72,24 @@
                                         <div class="form-group has-icon-left">
                                             <label for="first-name-icon" class="mb-2"> فايف سيم 5 sim</label>
                                             <div class="position-relative">
-                                                <input wire:model='fiveSimApi' type="text"
+                                                <input wire:model='fiveSimKey' type="text"
+                                                    class="form-control @error('name') is-invalid @enderror"
+                                                    placeholder="المفتاح" id="first-name-icon" required>
+                                                <div class="form-control-icon">
+                                                    <i class="bi-gear-wide-connected"></i>
+                                                </div>
+                                            </div>
+                                            @error('name')
+                                                <span class="text-danger d-block mt-2">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon" class="mb-2"> أونلاين سيم</label>
+                                            <div class="position-relative">
+                                                <input wire:model='onlineSimKey' type="text"
                                                     class="form-control @error('name') is-invalid @enderror"
                                                     placeholder="المفتاح" id="first-name-icon" required>
                                                 <div class="form-control-icon">

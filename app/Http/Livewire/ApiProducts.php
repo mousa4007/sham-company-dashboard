@@ -32,6 +32,7 @@ class ApiProducts extends Component
         $service_code,
         $web_api,
         $smsActivateApi,
+        $onlineSimApi,
         $vakSmsApi,
         $fiveSimApi,
         $secondLineApi,
@@ -168,6 +169,7 @@ class ApiProducts extends Component
                 'vakSms_api_key' => $this->vakSmsApi,
                 'secondLine_api_key' => $this->secondLineApi,
                 'fiveSim_api_key' => $this->fiveSimApi,
+                'onlineSms_api_key' => $this->onlineSimApi,
             ]);
         }
 
