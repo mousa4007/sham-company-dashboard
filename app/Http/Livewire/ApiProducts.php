@@ -36,6 +36,7 @@ class ApiProducts extends Component
         $vakSmsApi,
         $fiveSimApi,
         $secondLineApi,
+        $aktiwatorApi,
         $arrangement,
         $from,
         $to,
@@ -153,64 +154,58 @@ class ApiProducts extends Component
             $this->secondLineApi = $apis->first()->secondLine_api_key;
             $this->fiveSimApi = $apis->first()->fiveSim_api_key;
             $this->onlineSimApi = $apis->first()->onlineSms_api_key;
-            // $this-> = $apis->first()->secondLine_api_key;
+            $this->aktiwatorApi = $apis->first()->aktiwator_api_key;
         } else {
             $this->smsActivateApi = '';
             $this->vakSmsApi = '';
             $this->secondLineApi = '';
             $this->onlineSimApi = '';
             $this->fiveSimApi = '';
+            $this->aktiwatorApi = '';
         }
     }
 
     public function updateApiKey()
     {
+        $this->dispatchBrowserEvent('hide-update-modal', ['message' => 'تم التعديل بنجاح']);
+        $apis = WebApiKey::all();
 
-        $products = Product::where('is_direct', 1)->get();
-
-        foreach ($products as $product) {
-            $product->update([
+        if ($apis->first() == null) {
+            WebApiKey::create([
                 'smsActivate_api_key' => $this->smsActivateApi,
                 'vakSms_api_key' => $this->vakSmsApi,
                 'secondLine_api_key' => $this->secondLineApi,
                 'fiveSim_api_key' => $this->fiveSimApi,
                 'onlineSms_api_key' => $this->onlineSimApi,
+                'aktiwator_api_key' => $this->aktiwatorApi,
             ]);
+
+            $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم الإضافة بنجاح']);
+        } else {
+            WebApiKey::query()->update([
+                'smsActivate_api_key' => $this->smsActivateApi,
+                'vakSms_api_key' => $this->vakSmsApi,
+                'secondLine_api_key' => $this->secondLineApi,
+                'fiveSim_api_key' => $this->fiveSimApi,
+                'onlineSms_api_key' => $this->onlineSimApi,
+                'aktiwator_api_key' => $this->aktiwatorApi,
+            ]);
+
+            $products = Product::where('is_direct', 1)->get();
+
+            foreach ($products as $product) {
+                $product->update([
+                    'smsActivate_api_key' => $this->smsActivateApi,
+                    'vakSms_api_key' => $this->vakSmsApi,
+                    'secondLine_api_key' => $this->secondLineApi,
+                    'fiveSim_api_key' => $this->fiveSimApi,
+                    'onlineSms_api_key' => $this->onlineSimApi,
+                    'aktiwator_api_key' => $this->aktiwatorApi,
+                ]);
+            }
+
+            $this->dispatchBrowserEvent('hide-update-modal', ['message' => 'تم التعديل بنجاح']);
         }
-
-        $this->dispatchBrowserEvent('hide-update-modal', ['message' => 'تم التعديل بنجاح']);
-        // $apis = WebApiKey::all();
-
-        // if ($apis->first() == null) {
-        //     WebApiKey::create([
-        //         'smsActivate_api_key' => $this->smsActivateApi,
-        //         'vakSms_api_key' => $this->vakSmsApi,
-        //         'secondLine_api_key' => $this->secondLineApi,
-        //         'fiveSim_api_key' => $this->fiveSimApi,
-        //     ]);
-
-        //     $this->dispatchBrowserEvent('hide-create-modal', ['message' => 'تم الإضافة بنجاح']);
-        // } else {
-        //     WebApiKey::query()->update([
-        //         'smsActivate_api_key' => $this->smsActivateApi,
-        //         'vakSms_api_key' => $this->vakSmsApi,
-        //         'secondLine_api_key' => $this->secondLineApi,
-        //         'fiveSim_api_key' => $this->fiveSimApi,
-        //     ]);
-
-        //     $products = Product::where('is_direct', 1)->get();
-
-        //     foreach ($products as $product) {
-        //         $product->update([
-        //             'smsActivate_api_key' => $this->smsActivateApi,
-        //             'vakSms_api_key' => $this->vakSmsApi,
-        //             'secondLine_api_key' => $this->secondLineApi,
-        //             'fiveSim_api_key' => $this->fiveSimApi,
-        //         ]);
-        //     }
-
-        //     $this->dispatchBrowserEvent('hide-update-modal', ['message' => 'تم التعديل بنجاح']);
-        // }
     }
 
     public function update()
