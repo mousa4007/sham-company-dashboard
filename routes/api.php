@@ -70,6 +70,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('getNotificationsCount',[NotificationController::class,'getNotificationsCount']);
     Route::post('updateNotificationsCount',[NotificationController::class,'updateNotificationsCount']);
     Route::get('ads',[AdController::class,'ads']);
+    Route::get('unreaded-message',[MessageController::class,'getUnreadedMessage']);
     Route::get('super-user-profits-in-day',[ProfitsController::class,'superUserProfitsInDay']);
     Route::get('super-user-profits-in-week',[ProfitsController::class,'superUserProfitsInWeek']);
     Route::get('super-user-profits-in-month',[ProfitsController::class,'superUserProfitsInMonth']);

@@ -13,6 +13,7 @@ class MessageController extends Controller
         return $request->user()->messages;
     }
 
+
     public function updateWatched(Request $request)
     {
         $request->validate(
@@ -31,6 +32,10 @@ class MessageController extends Controller
     public function getMessagesCount(Request $request){
 
         return count($request->user()->messages->where('watched',false));
+    }
 
+    public function getUnreadedMessage(Request $request)
+    {
+        return $request->user()->messages->where('watched',false);
     }
 }
