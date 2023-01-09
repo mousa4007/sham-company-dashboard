@@ -31,7 +31,11 @@ return new class extends Migration
             $table->integer('agent_id')->nullable();
             $table->timestamps();
         });
-    }
+    }    /**
+    * Run the migrations.
+    *
+    * @return void
+    */
 
     /**
      * Reverse the migrations.
