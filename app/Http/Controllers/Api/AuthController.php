@@ -79,5 +79,7 @@ class AuthController extends Controller
         $request->user()->update([
             'fcmToken'=> $request->fcm_token
         ]);
+
+        return 'fcm_update_successfully';
     }
 }

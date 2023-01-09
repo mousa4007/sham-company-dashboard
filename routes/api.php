@@ -154,7 +154,8 @@ Route::get('orders', function () {
 
 
 Route::get('ads', function () {
-    $adbars = AdBar::where('status','active')->get();
-
-    return $adbars->pluck('adbar');
+    phpinfo();
 });
+
+
+

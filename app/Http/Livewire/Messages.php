@@ -116,7 +116,7 @@ class Messages extends Component
                     'app_user_id'=>$user->id,
                 ]);
 
-            $SERVER_API_KEY = 'AAAAEBic3Dk:APA91bFQrDq1MlwA-NuBRDl5QxPnWi3SCJfovvmI4WljNw_HmQt2X26VmQ5SEtlCwYrkYBvIqsYA5AKJmwjSF07hCCTNbRvVWXq_pK077VqwCqVaDZOiJwB-iDnPKAl5DV_7lH8-ZB-d';
+            $SERVER_API_KEY = 'AAAAQN0Zyos:APA91bGqasEAoN91dFRkQddMYO0kTWuvYqz7QKezNt_BlT-rzy8UFXBb4yiTcHH0Jx3JqFzb5-SqXKs_R6WHl38mmme7m0vlffhdr6jYGTXRpsZZMLU2r2NmQrcEnUdYeOhDRWhen-oy';
 
             $data = [
                 "registration_ids" => [$user->fcmToken],
