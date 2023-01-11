@@ -24,7 +24,6 @@ use App\Http\Livewire\SuperUserBalance;
 use App\Http\Livewire\TransferProducts;
 use App\Http\Livewire\UpdateProductsDiscount;
 use App\Http\Livewire\UsersDiscounts;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 

@@ -153,9 +153,7 @@ Route::get('orders', function () {
 })->middleware('auth:sanctum');
 
 
-Route::get('ads', function () {
-    phpinfo();
-});
+
 
 
 
